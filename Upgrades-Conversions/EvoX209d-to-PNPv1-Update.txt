@@ -1,0 +1,23 @@
+1 - Backup entire EvoXtreme209d database selecting: 'Drop Table If Exist'
+
+2 - Move your current EvoXtreme209d site to another folder (Example: /old_site)
+
+3 - Install Platinum Nuke Pro as per normal installation instructions.
+
+4 - Import the tables you backedup earlier from EvoXtreme209d to your new database (This is why we asked for you to select 'Drop Table If Exist'. Some table names are the same but have different settings which will be converted in the next step.)
+
+5 - Import EvoX209d-to-PNPv1.sql' on your NEW database.
+
+6a - Go to /includes/ folder and rename functions_post.php to functions_post_orig.php Then rename functions_post_evox.php to functions_post.php
+
+6b - Go to /modules/Private_Messages/ folder and rename index.php to index_orig.php Then rename index_evox.php to index.php
+
+7 - Unzip and upload the files in EvoXtreme209d-to-PNPv1-files-fix.zip to your site over-writing the original files.
+
+8 - Test your site!
+
+-Enjoy Platinum Nuke Pro!
+
+NOTE 1: We used a stock EvoXtreme209d and a stock PlatinumNukePro database to create this conversion.
+
+NOTE 2: Your database may be different from the stock EvoXtreme209d database we used to create this conversion depending on what other additions you may have made to your site. You may need to alter it to better suit your needs.
