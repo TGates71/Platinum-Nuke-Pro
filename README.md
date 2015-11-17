@@ -1,4 +1,4 @@
-***No longer in active development***
+***PNPv1***
 
 Platinum Nuke Pro is highly modified Content Management System (CMS) with lots of new features, mods and other enhancements that takes you far beyond the basic Platinum version.
 
