@@ -1,0 +1,4 @@
+[27-Oct-2009 21:29:53] PHP Warning:  include_once(includes/smtp.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory in /home/assault/public_html/platinumnukepro.com/includes/emailer.php on line 195
+[27-Oct-2009 21:29:53] PHP Warning:  include_once(includes/smtp.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory in /home/assault/public_html/platinumnukepro.com/includes/emailer.php on line 195
+[27-Oct-2009 21:29:53] PHP Warning:  include_once() [<a href='function.include'>function.include</a>]: Failed opening 'includes/smtp.php' for inclusion (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/assault/public_html/platinumnukepro.com/includes/emailer.php on line 195
+[27-Oct-2009 21:29:53] PHP Fatal error:  Call to undefined function  smtpmail() in /home/assault/public_html/platinumnukepro.com/includes/emailer.php on line 198

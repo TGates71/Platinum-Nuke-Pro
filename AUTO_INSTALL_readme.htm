@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Platinum Nuke Pro Installation</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<STYLE TYPE="text/css">
+body {
+margin: 0;
+background-color: #D0D8CD;
+scrollbar-base-color: #C9D1C6;
+color: #000000;
+}
+A:link {
+text-decoration: underline;
+color: #696A97;
+}
+A:hover {
+text-decoration: underline;
+color: #CC3300;
+}
+A:active {
+text-decoration: none;
+color: #CC3300;
+}
+A:visited {
+text-decoration: underline;
+color: #696A67;
+}
+p, li, dt, dd {
+font-family: "Arial", sans-serif;
+font-size: 10pt;
+text-align: left;
+color: #000000;
+}
+pre {
+color: #000000;
+}
+h1 {
+font-family: "Arial", sans-serif;
+font-size: 15pt;
+text-align: center;
+color: #4A735A;
+}
+h2 {
+font-family: "Arial", sans-serif;
+font-size: 13pt;
+text-align: left;
+color: #4A735A;
+}
+h3 {
+font-family: "Arial", sans-serif;
+font-size: 11pt;
+text-align: left;
+color: #000000;
+}
+.tleft {
+margin-left: 6px;
+font-family: "Tahoma", sans-serif;
+font-size: 8pt;
+text-align: left;
+}
+.tright {
+margin-right: 6px;
+font-family: "Tahoma", sans-serif;
+font-size: 8pt;
+text-align: right;
+}
+hr {
+height: 1px;
+border: 1px solid #4A735A;
+}
+.tmain {
+background-color: #EFF2EB;
+border: 1px solid #4A735A;
+border-collapse: collapse;
+}
+.tdark {
+background-color: #E8EBE4;
+border: 1px solid #4A735A;
+border-collapse: collapse;
+}
+</STYLE>
+</HEAD>
+
+<BODY><A NAME="top"></A>
+<DIV ALIGN="center">
+<TABLE CLASS="tmain" WIDTH="90%" CELLPADDING="4" CELLSPACING="0">
+<TR>
+<TD CLASS="tdark">
+<H1><font face="Copperplate Gothic Bold" color="#008000">Platinum Nuke Pro v1
+Installer<br>
+</font><!--<font color="#0000FF" size="3" face="Data">(This package can also update your default installs of 76b5 and 76v501 to 76v502 to Pro v1)</font>--></H1>
+</TD>
+</TR>
+<TR>
+<TD CLASS="tmain">
+<TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+<TR>
+<TD WIDTH="20"></TD>
+<TD><p align="center" style="text-align: center"><font color="#FF0000">&nbsp;</font><strong><font size="4" face="Copperplate Gothic Bold" color="#000080">PLATINUM NUKE Pro v1 INSTALLATION GUIDE</font></strong></p>
+<h2>Automatic installation:</h2>
+<p>&nbsp;<strong>1.</strong> Go into your hosting control panel - Use MYSQL or phpmyadmin, depending on how your server is setup and create a database.</p>
+<p>&nbsp;<strong>2.</strong> Create a database user and password and assign it to the database you just created. Remember that information.</p>
+<p>&nbsp;<strong>3.</strong> Upload everything inside the 'public_html' folder to your hosting space where you would like to install Platinum Nuke Pro.</p>
+<p>&nbsp;<strong>4.</strong> The installer is designed to run automatically once you go to your site URL like: http://www.yourdomain.com</a></p>
+<p>&nbsp;<strong>5.</strong> Answer all the questions the installer asks.&nbsp; DO NOT RENAME THE ADMIN FILE AT THIS TIME.&nbsp; Leave it as admin.php for now.&nbsp; You can rename it once the installation is done if you want. (Adds a little more security if you rename it.)&nbsp;&nbsp; 
+If you choose to, rename the admin.php file then change the $admin_file setting to the new name in the config.php file.&nbsp; You must also change the admin.php file name in the robots.txt 
+file to the new name.</p>
+<p>&nbsp;<strong>6.</strong> Once the installer has completed your must then delete the install folder. (The installer should automatically remove this folder, but double check anyways.) Then you can log in to your site as user and/or admin and start customizing.</p>
+<p>&nbsp;<strong>7.</strong> If for some reason the automatic installer does not work for you, you will need to do a manual install:</p>
+<h2>Manual installation:</h2>
+<p>&nbsp;<strong>1m.</strong> Enter the new database information (from steps 1 & 2 above) into the config.php file that is now on your server. (It will be located in the site's root folder.) in the section that looks like this:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;$dbhost = &quot;localhost&quot;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;$dbuname = &quot;database_user_name&quot;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;$dbpass = &quot;database_user_pass&quot;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;$dbname = &quot;database_name&quot;;</p>
+<p>Once you have edited the config.php file and uploaded to your hosting space, go to your phpMyAdmin or whatever you use to do database work and import the file 'PNPv1_MAIN.sql' into the database you made earlier. (This will install the database tables Platinum Nuke Pro requires to run.)</p>
+<p>&nbsp;<strong>2m.</strong> Go to your site url (http://www.yourdomain.com) and follow the instructions in the middle of the page under the Platinum Nuke Pro logo.</p>
+<p>&nbsp;<strong>3m.</strong> IMPORTANT: Make sure the install folder has been deleted from your hosting space.</p>
+<p style="text-align: center">Thats it.&nbsp; Please go through everything you can and search for bugs no matter how small</p>
+<p style="text-align: center">We need to know about it so we can fix them. (Http://www.platinumnukepro.com/)</p>
+<p style="text-align: center">Thanks</p>
+<p style="text-align: center">Plainum Nuke Pro Team</p>
+<TD WIDTH="20"></TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+<TR>
+<TD CLASS="tdark">&nbsp;
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</BODY>
+</HTML>
