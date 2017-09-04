@@ -22,7 +22,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -63,21 +63,19 @@ if ($confV['Version_Num'] >= '7.6') {
 } else {
 	$sbURL = '';
 }
-//function LinkAdmin() {
-//	Global $admin_file;
-//	if ($admin_file == '') { $admin_file = 'admin'; }
-//	OpenTable();
-//	echo "<center><a href=\"".$admin_file.".php\"><span class=\"title\">"._ADMINMENU."</span></a></center>";
-//	CloseTable();
-//	echo "<br />";
-//}
+function LinkAdmin() {
+	Global $admin_file;
+	if ($admin_file == '') { $admin_file = 'admin'; }
+	OpenTable();
+	echo "<center><a href=\"".$admin_file.".php\"><span class=\"title\">"._ADMINMENU."</span></a></center>";
+	CloseTable();
+	echo "<br />";
+}
 // Start 'Menu' code
 function ShoutBoxAdminMenu($ShoutMenuOptionActive) {
 	global $prefix, $db, $admin_file;
 	OpenTable();
-	if ($admin_file == '') { $admin_file = 'admin'; }
-		echo "<center><a href=\"".$admin_file.".php\"><span class=\"title\">["._ADMINMENU."]</span></a></center>";
-	echo "<br /><div align=\"center\" class=\"title\"><a href=\"".$admin_file.".php?op=shout&Submit=manageShouts\">["._SHOUTADMIN."]</a></div><br />";
+	echo "<br /><div align=\"center\" class=\"title\">"._SHOUTADMIN."</div><br />";
 	$ThemeSel = get_theme();
 	$sql = "select * from ".$prefix."_shoutbox_themes WHERE themeName='$ThemeSel'";
 	$result = $db->sql_query($sql);
@@ -144,7 +142,7 @@ function ShoutBoxAdminMenu($ShoutMenuOptionActive) {
 function manageShouts($page, $pruned) {
 	global $prefix, $db, $admin, $admin_file, $sbURL, $user, $cookie;
 	include_once("header.php");
-	//LinkAdmin();
+	LinkAdmin();
 	$ShoutMenuOptionActive = 1;
 	ShoutBoxAdminMenu($ShoutMenuOptionActive);
 	OpenTable();
@@ -358,17 +356,13 @@ function manageShouts($page, $pruned) {
 	OpenTable();
 	echo "<p align=\"center\" class=\"title\">OurScripts.net needs your support!</p>";
 	echo "<p align=\"center\" class=\"content\">Open Source software costs money and time to develop.</p>";
-	echo "<p align=\"center\" class=\"content\">(paypal link commented out - www.ourscripts.net no longer exists)</p>";
-	/*
 	echo "<form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\">
 	<input type=\"hidden\" name=\"cmd\" value=\"_xclick\" />
 	<input type=\"hidden\" name=\"business\" value=\"donate@ourscripts.net\" />
 	<input type=\"hidden\" name=\"item_name\" value=\"Donation to OurScripts.net\" />
 	<input type=\"hidden\" name=\"no_shipping\" value=\"1\" />
 	<input type=\"hidden\" name=\"cn\" value=\"Comments\" /><p align=\"center\">
-	<input type=\"image\" src=\"modules/Shout_Box/images/paypal.gif\" name=\"submit\" title=\"Please donate. Thank you!\" /></p></form>
-	*/
-	echo "<p align=\"center\" class=\"content\">Our community appreciates your monitary support!</p><p align=\"center\" class=\"content\">Released under the <a target=\"_blank\" href=\"".$sbURL."http://www.gnu.org\">GNU/GPL license</a> and distributed by <a target=\"_blank\" href=\"".$sbURL."http://www.ourscripts.net\">OurScripts.net</a>.<br />Copyright &copy; 2002-2005 by SuiteSoft Solutions. All rights reserved.</p>";
+	<input type=\"image\" src=\"modules/Shout_Box/images/paypal.gif\" name=\"submit\" title=\"Please donate. Thank you!\" /></p></form><p align=\"center\" class=\"content\">Our community appreciates your monitary support!</p><p align=\"center\" class=\"content\">Released under the <a target=\"_blank\" href=\"".$sbURL."http://www.gnu.org\">GNU/GPL license</a> and distributed by <a target=\"_blank\" href=\"".$sbURL."http://www.ourscripts.net\">OurScripts.net</a>.<br />Copyright &copy; 2002-2005 by SuiteSoft Solutions. All rights reserved.</p>";
 	CloseTable();
 	// END OF COPYRIGHT.
 	include_once("footer.php");
@@ -440,7 +434,7 @@ function stickySubmit($stickyShout, $stickyUsername, $stickySlot, $page) {
 function ShoutEdit($shoutID, $page, $ShoutError) {
 	global $prefix, $db, $admin_file;
 	include_once("header.php");
-	//LinkAdmin();
+	LinkAdmin();
 	$ShoutMenuOptionActive = 1;
 	ShoutBoxAdminMenu($ShoutMenuOptionActive);
 	OpenTable();
@@ -683,7 +677,7 @@ function adminDropCount($aCount, $page) {
 function ShoutBoxLayout() {
 	global $prefix, $db, $admin_file, $sbURL;
 	include_once("header.php");
-	//LinkAdmin();
+	LinkAdmin();
 	$sql = "select * from ".$prefix."_shoutbox_conf";
 	$result = $db->sql_query($sql);
 	$conf = $db->sql_fetchrow($result);
@@ -762,6 +756,41 @@ function ShoutBoxLayout() {
 	echo "<tr style=\"background-color: $rowColor[menuColor2];\" onmouseover=\"this.style.backgroundColor='$rowColor[menuColor1]';\" onmouseout=\"this.style.backgroundColor='$rowColor[menuColor2]';\"><td valign=\"middle\">"._SAVEABOVESET.":</td><td valign=\"middle\"><input type=\"hidden\" name=\"Submit\" value=\"ShoutBoxLayoutSet\" /><input type=\"submit\" name=\"button\" value=\""._SAVESETS."\" /></td></tr></table></form>";
 	CloseTable();
 	echo "<br />";
+	// VERSION CHECK
+	OpenTable();
+	$sql = "select * from ".$prefix."_shoutbox_version";
+	$result = $db->sql_query($sql);
+	$row = $db->sql_fetchrow($result);
+	// Checks for new version only once a day
+	// (id, version, datechecked, versionreported) VALUES (1,'7.5',0,0);
+	$today = date("j");
+	if ($today != $row['datechecked']) {
+		// write new date in sql (keep this above the check in case the check fails).
+		$sql = "UPDATE ".$prefix."_shoutbox_version set datechecked='$today' where id=1";
+		$db->sql_query($sql);
+		$v = @file("http://www.ourscripts.net/versions/ShoutBox.php");
+		$v = implode($v);
+		preg_match('/<version>(.*)<\/version>/Uims', $v, $currentV);
+		$v = $currentV[1];
+		// write found version in sql
+		$sql = "UPDATE ".$prefix."_shoutbox_version set versionreported='$v' where id=1";
+		$db->sql_query($sql);
+	} else {
+		$v = $row['versionreported'];
+	}
+	echo "<p align=\"center\" class=\"content\"><strong>"._SB_VERSION." $row[version]</strong></p>";
+	if ($v > $row['version']) {
+		echo "<p align=\"center\" class=\"content\">"._SB_NEW_VERSION_RELEASED."</p>";
+		echo "<p align=\"center\" class=\"content\">"._SB_YOUR_VERSION." $row[version]</p>";
+		echo "<p align=\"center\" class=\"content\">"._SB_NEWEST_VERSION." $v</p>";
+		echo "<center><form action=\"".$sbURL."http://www.ourscripts.net\" method=\"post\" style=\"margin-bottom: 0px;\"><input type=\"submit\" name=\"button\" value=\""._SB_DOWNLOAD_NOW."\" /></form></center>";
+	} elseif (($v != '') AND ($v <= $row['version'])) {
+		echo "<p align=\"center\" class=\"content\">"._SB_SHOUTBOX_IS_UPTODATE."</p>";
+	} else {
+		echo "<p align=\"center\" class=\"content\">"._SB_YOUR_VERSION." $row[version]</p>";
+		echo "<center><form action=\"".$sbURL."http://www.ourscripts.net\" method=\"post\" style=\"margin-bottom: 0px;\"><input type=\"submit\" name=\"button\" value=\""._SB_CHECK_FOR_NEW."\" /></form></center>";
+	}
+	CloseTable();
 	include_once("footer.php");
 	exit;
 }
@@ -800,7 +829,7 @@ function ShoutBoxAdminMonitor() {
 	if (is_dir($filename) != TRUE) { $SBhealthCount = 2; }
 	$filename = 'modules/Shout_Box/copyright.php';
 	if (file_exists($filename) != TRUE) { $SBhealthCount = 2; }
-	$filename = 'includes/javascript/shoutbox.js';
+	$filename = 'shoutbox.js';
 	if (file_exists($filename) != TRUE) { $SBhealthCount = 2; }
 	$filename = 'modules/Shout_Box/index.php';
 	if (file_exists($filename) != TRUE) { $SBhealthCount = 2; }
@@ -873,7 +902,7 @@ function ShoutBoxAdminMonitor() {
 function shoutHealth($SBhealthCount) {
 	global $prefix, $db, $admin_file;
 	include_once("header.php");
-	//LinkAdmin();
+	LinkAdmin();
 	$ShoutMenuOptionActive = 2;
 	ShoutBoxAdminMenu($ShoutMenuOptionActive);
 	OpenTable();
@@ -899,7 +928,7 @@ function shoutHealth($SBhealthCount) {
 	// Level 2 checks (Critical)
 	$filename = 'modules/Shout_Box';
 	if (is_dir($filename) != TRUE) { echo "<p class=\"content\"><strong>Missing critical directory:</strong> $filename&nbsp;&nbsp;<strong>Recommendation:</strong> This directory contains the Shout Box module files. Without it, half of the Shout Box is unavailable for use by the people on your website. Create this directory using cpanel, FTP, or other method.</p>"; }
-	$filename = 'includes/javascript/shoutbox.js';
+	$filename = 'shoutbox.js';
 	if (file_exists($filename) != TRUE) { echo "<p class=\"content\"><strong>Missing critical file:</strong> $filename&nbsp;&nbsp;<strong>Recommendation:</strong> This file contains the Shout Box JavaScript code. It is critical to the operation of this Shout Box. You can obtain this file from the Shout Box installation zip file. Then install it into your PHP-Nuke root folder where mainfile.php is.</p>"; }
 	$filename = 'modules/Shout_Box/copyright.php';
 	if (file_exists($filename) != TRUE) { echo "<p class=\"content\"><strong>Missing critical file:</strong> $filename&nbsp;&nbsp;<strong>Recommendation:</strong> This file contains the Shout Box copyright information. It is both legally required and critical to the success of this Shout Box and OurScripts.net. You can obtain this file from the Shout Box installation zip file.</p>"; }
@@ -982,7 +1011,7 @@ function shoutHealth($SBhealthCount) {
 function ShoutBoxThemeing() {
 	global $prefix, $db, $admin_file, $sbURL;
 	include_once("header.php");
-	//LinkAdmin();
+	LinkAdmin();
 	$ThemeSel = get_theme();
 	$sql = "select * from ".$prefix."_shoutbox_themes WHERE themeName='$ThemeSel'";
 	$result = $db->sql_query($sql);
@@ -1135,7 +1164,7 @@ function themeImageSubmit($themeImageValues, $totalThemes) {
 function ShoutBoxPermissions() {
 	global $prefix, $db, $admin_file;
 	include_once("header.php");
-	//LinkAdmin();
+	LinkAdmin();
 	$sql = "select * from ".$prefix."_shoutbox_conf";
 	$result = $db->sql_query($sql);
 	$conf = $db->sql_fetchrow($result);
@@ -1217,7 +1246,7 @@ function allowanonoption($anonoption) {
 function manageemoticons() {
 	global $prefix, $db, $admin_file;
 	include_once("header.php");
-	//LinkAdmin();
+	LinkAdmin();
 	$ShoutMenuOptionActive = 5;
 	ShoutBoxAdminMenu($ShoutMenuOptionActive);
 	//Emoticons Here
@@ -1285,7 +1314,7 @@ function emoticonremove($emoticonremove) {
 function managecensor() {
 	global $prefix, $db, $admin_file;
 	include_once("header.php");
-	//LinkAdmin();
+	LinkAdmin();
 	$sql = "select * from ".$prefix."_shoutbox_conf";
 	$result = $db->sql_query($sql);
 	$conf = $db->sql_fetchrow($result);
@@ -1368,7 +1397,7 @@ function censorremove($censorremove) {
 function ShoutBoxBans() {
 	global $prefix, $db, $admin_file;
 	include_once("header.php");
-	//LinkAdmin();
+	LinkAdmin();
 	$ThemeSel = get_theme();
 	$sql = "select * from ".$prefix."_shoutbox_themes WHERE themeName='$ThemeSel'";
 	$result = $db->sql_query($sql);

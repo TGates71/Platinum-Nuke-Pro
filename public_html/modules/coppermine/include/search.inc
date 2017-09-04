@@ -87,7 +87,7 @@ if (/*defined('USE_MYSQL_SEARCH') &&*/ $query_all) {
     }
 } elseif ($search_string != '') {
     $split_search = array();
-    $split_search = preg_split('# #', clean_words($search_string, $mb_charset));
+    $split_search = split(' ', clean_words($search_string, $mb_charset));
     $current_match_type = 'and';
     $pic_set = '';
     for($i = 0; $i < count($split_search); $i++) {

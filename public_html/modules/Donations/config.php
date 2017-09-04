@@ -19,25 +19,26 @@
 /* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  */
 /* USA                                                                  */
 /************************************************************************/
-include_once(dirname(__FILE__).'../../../config.php');
-global $ipnppd, $dbhost, $dbname, $dbuname, $dbpass;
+
+//$paypalUrl = "https://www.paypal.com/cgi-bin/webscr";
+$paypalUrl = "https://www.sandbox.paypal.com";  //no trailing slash
+
+global $db, $prefix, $dbhost, $dbname, $dbuname, $dbpass;
+
+// used for IPN validation check
+if (!isset($db))
+{
+	include("../../../config.php");
+	include("../../../db/db.php");
+}
 
 $board_config = array();
 
-$ipnppd = mysql_pconnect($dbhost, $dbuname, $dbpass);
-if( $ipnppd )
-{
-	mysql_select_db($dbname, $ipnppd);
-	$query_cfg = "SELECT * FROM config WHERE subtype = ''";
-	$cfgset = mysql_query($query_cfg, $ipnppd);
+	$query_cfg = "SELECT * FROM ".$prefix."_don_config WHERE subtype = ''";
+	$cfgset = $db->sql_query($query_cfg) or die(mysqli_error($db));
 
-	while ( $cfgset && $row = mysql_fetch_assoc($cfgset))
+	while ( $cfgset && $row = $db->sql_fetchrow($cfgset))
 	{
 			$tr_config[$row['name']] = $row['value'];
 	}
-} else
-{
-	echo "<br><br>NukeTreasury FATAL ERROR: Unable to connect to SQL database.  Please check your settings in modules/Donations/config.php<br><br>";
-}
-
 ?>

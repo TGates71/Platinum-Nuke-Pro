@@ -199,6 +199,43 @@ var itv = setInterval(countdownTimer, 1000);
 	if ($ya_config['usesignature'] >= '1') echo '<tr><td><label for="ya_realname">' . _SIGNATURE . ':<br />' . _NOHTML . '</label></td><td><textarea cols="50" rows="5" name="user_sig"></textarea><br />' . _255CHARMAX . '</td></tr>';
 	if ($ya_config['useextrainfo'] >= '1') echo '<tr><td><label for="ya_realname">' . _EXTRAINFO . ':<br />' . _NOHTML . '</label></td><td><textarea cols="50" rows="5" name="bio"></textarea><br />' . _CANKNOWABOUT . '</td></tr>';
 }
+/*****[BEGIN]******************************************
+ [ Mod:     coRpSE Nuke Honeypot					  ]
+ ******************************************************/
+echo "<tr><td bgcolor='$bgcolor1' colspan='2' width='100%'><p align=\"center\" id=\"countdown-1\"><strong>Antibot wait</strong>, please don't click \"Continue\" for 15 second(s)</p>
+<script type=\"text/javascript\">
+    var countdown = document.getElementById('countdown-1'),
+    passed    = 0,
+    seconds   = 15;
+ 
+function countdownTimer() {
+        // If the total amount of time passed matches or is greater than the amount of time
+        // we expect to stay idle for then we can probably assume the person using the form
+        // is a human not a stupid BOT
+        if (passed >= seconds) {
+                countdown.innerHTML = '<strong>All done! You can click \"Continue\" at any time!</strong>';
+ 
+                // Clear the countdown interval
+                clearInterval(itv);
+                return;
+        }
+ 
+        var wait = seconds - passed,
+            wait = (wait < 10) ? ('0' + wait) : wait;
+ 
+        // Update the total number of seconds remaining until the countdown is done
+        countdown.innerHTML = '<strong>Antibot wait</strong>, please don\'t click \"Continue\" for ' + wait + ' second(s)';
+ 
+        // Increment the total amount of time passed
+        passed++;
+}
+ 
+// Start the countdown timer
+var itv = setInterval(countdownTimer, 1000);
+</script></td></tr>";
+/*****[END]********************************************
+ [ Mod:     coRpSE Nuke Honeypot           			  ]
+ ******************************************************/
 echo '<input type="hidden" name="op" value="new_confirm" />';
 echo '<tr><td><p align="center"><input type="submit" value="' . _YA_CONTINUE . '" /></p></td></tr></table>';
 echo '</fieldset></form>';

@@ -52,7 +52,7 @@ function Index($id_ads) {
 		echo "}\n";
 		echo "//-->\n";
 		echo "</script>\n";
-		MenuNukeC30(1);
+		MenuNukeC(1);
 		echo "<br />";
 		OpenTable();
 		echo "<center><font class=\"title\">"._NUKECEDITPOSTED."</font></center><br />";
@@ -275,7 +275,7 @@ $ErrorUkuranImage = 1;
 
 	if ($ErrorUkuranImage || $errorTitle || $errorCdesc || $errorPrice || $erroremailanony || $errorEmail || $errorImageSize || $errorImageDimension || $errorImageType) {
 		include_once("header.php");
-		MenuNukeC30(1);
+		MenuNukeC(1);
 		echo "<br />";
 		OpenTable();
 		echo "<center><font class=\"title\">"._NUKECUPDATEERROR."</font></center><br />";
@@ -353,7 +353,7 @@ $j="";
 			if (($type == "jpeg") || ($type == "jpg") || ($type == "pjpeg")) {
 				$type= "jpeg";
 			}
-			if (($type == "x-png") || ($type == "png")) {
+			if ($type == "x-png") {
 				$type = "png";
 			}
 			$filename = $UploadPath.$id_ads_chng.".".$type;
@@ -450,7 +450,7 @@ global $setemptyimg,$fileupload_chng,$fileupload_chng_name,$fileupload_chng_type
 
 } else {
 	include_once("header.php");
-	MenuNukeC30(1);
+	MenuNukeC(1);
 	echo "<br />";
 	OpenTable();
 	echo "<center><font class=\"title\">"._NUKECYOURADSBOX."</font></center><br />\n";

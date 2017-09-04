@@ -30,7 +30,7 @@ if ( !defined('BLOCK_FILE') ) {
 }
 global $prefix, $db;
 
-include_once("modules/Donations/config.inc.php");
+include_once("modules/Donations/config.php");
 
 	$swingd = $tr_config[swing_day];
 	if(!($swingd > 0 AND $swingd < 32))

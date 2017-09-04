@@ -219,8 +219,8 @@ $sqlFolder = 'ip2c/';
             if ($cont) continue;
             if (empty($line)||strlen($line)==0) continue;
             $cnt++;
-            $rc = @mysql_query($line);
-            if (!$rc AND !in_array(mysql_errno(),$byPassSqlErrors))  {rnInstallErr(4,$value,$lineNumberInFile,$line); die();}
+            $rc = mysqli_query($db, $line);
+            if (!$rc AND !in_array(mysqli_errno(),$byPassSqlErrors))  {rnInstallErr(4,$value,$lineNumberInFile,$line); die();}
         }
         $totalCnt+=$cnt;
     }

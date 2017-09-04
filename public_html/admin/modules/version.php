@@ -39,32 +39,13 @@ if (!defined('FXSLIDE'))
 include_once(NUKE_BASE_DIR.'header.php');
 global $Version_Num;
 	
-	// check if file exists
-	$ch = curl_init("http://www.platinumnukepro.com/platinum_version.txt");
-	curl_setopt($ch, CURLOPT_NOBODY, true);
-	curl_exec($ch);
-	$retcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-	curl_close($ch);
-	// get version if if exists
-	if ($retcode == "200")
-	{
-    	$verchck = file_get_contents('http://www.platinumnukepro.com/platinum_version.txt', FILE_USE_INCLUDE_PATH);
-		$error = "";
-	} else {
-		$verchck = "Unkown";
-		$error = "Can not get version information from server.";
-	}
+    $verchck = eval(@file_get_contents('http://www.platinumnukepro.com/platinum_version.txt'));
 	$Version_Num = strtoupper($Version_Num);
-	$Platinumversion = strtoupper($verchck);
+	$Platinumversion = strtoupper($Platinumversion);
     OpenTable();
         echo '<div align="center">';
         echo "<strong><big><span class=\"title\">"._VER_TITLE."</span><big></strong><br />";
-        echo "<br />";
-		if ($error != "")
-		{
-		echo '<font style="size: 2;color: red;font-weight: bold;">'.$error.'</font><br>';
-		}
+        echo"<br />";
         echo '<font style="size: 2;color: orange;font-weight: bold;">'._NG_CURRENTVER.'</font><font size="2"> '.$Platinumversion.'</font><br />';
         echo "<font style=\"size: 2;color: orange;font-weight: bold;\">"._NG_YOURVER." </font><font size=\"2\"> ".$Version_Num."</font><br />";
         if ($Platinumversion == $Version_Num){ 

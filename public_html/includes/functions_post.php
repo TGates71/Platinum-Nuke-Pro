@@ -8,7 +8,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -32,10 +32,10 @@ if (!defined('IN_PHPBB'))
 {
 	die('Hacking attempt');
 }
-$html_entities_match = array('#&(?!(\#[0-9]+;))#', '#<#', '#>#', '#"#', '#\'#');
-$html_entities_replace = array('&amp;', '&lt;', '&gt;', '&quot;', '&#39;');
-$unhtml_specialchars_match = array('#&gt;#', '#&lt;#', '#&quot;#', '#&amp;#', '&#39;');
-$unhtml_specialchars_replace = array('>', '<', '"', '&', '\'');
+$html_entities_match = array('#&(?!(\#[0-9]+;))#', '#<#', '#>#', '#"#');
+$html_entities_replace = array('&amp;', '&lt;', '&gt;', '&quot;');
+$unhtml_specialchars_match = array('#&gt;#', '#&lt;#', '#&quot;#', '#&amp;#');
+$unhtml_specialchars_replace = array('>', '<', '"', '&');
 //
 // This function will prepare a posted message for
 // entry into the database.
@@ -265,6 +265,10 @@ function submit_post($mode, &$post_data, &$message, &$meta, &$forum_id, &$topic_
 				$db->sql_freeresult($result);
 			}
 		}
+/************* Quote fix ***************/
+$post_subject = addslashes($post_subject);
+$post_message = addslashes($post_message);
+/************* Quote fix ***************/
 /*****************************************************/
 /* Forum - Double Post Control v.1.1.0           END */
 /*****************************************************/
@@ -276,9 +280,6 @@ function submit_post($mode, &$post_data, &$message, &$meta, &$forum_id, &$topic_
         if ($mode == 'newtopic' || ($mode == 'editpost' && $post_data['first_post']))
         {
                 $topic_vote = (!empty($poll_title) && count($poll_options) >= 2) ? 1 : 0;
-/******topic title single quote fix******/
-$post_subject = addslashes($post_subject);
-/******topic title single quote fix******/
 /*****************************quick title edition************************/
 		$attribute = ($attribute_id > -1) ? implode(',', array($attribute_id, $userdata['user_id'], time())) : '';
 /*****************************quick title edition************************/
@@ -317,9 +318,6 @@ if ($mode == 'newtopic')
 /*****************************************************/
 /* Forum - Log Actions v.1.1.6                   END */
 /*****************************************************/
-/******topic title single quote fix******/
-$post_subject = addslashes($post_subject);
-/******topic title single quote fix******/
         $edited_sql = ($mode == 'editpost' && !$post_data['last_post'] && $post_data['poster_post']) ? ", post_edit_time = $current_time, post_edit_count = post_edit_count + 1 " : "";
         $sql = ($mode != "editpost") ? "INSERT INTO " . POSTS_TABLE . " (topic_id, forum_id, poster_id, post_username, post_time, poster_ip, enable_bbcode, enable_html, enable_smilies, enable_sig) VALUES ('$topic_id', '$forum_id', " . $userdata['user_id'] . ", '$post_username', '$current_time', '$user_ip', '$bbcode_on', '$html_on', '$smilies_on', '$attach_sig')" : "UPDATE " . POSTS_TABLE . " SET post_username = '$post_username', enable_bbcode = '$bbcode_on', enable_html = '$html_on', enable_smilies = '$smilies_on', enable_sig = '$attach_sig'" . $edited_sql . " WHERE post_id = '$post_id'";
         if (!$db->sql_query($sql, BEGIN_TRANSACTION))

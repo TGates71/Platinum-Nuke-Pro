@@ -5,7 +5,7 @@
 * Version:    1.0
 * Author:     Tom Gates aka sgtmudd http://platinumnukepro.com
 * Contact:    sgtmudd@platinumnukepro.com
-* Copyright:  Copyright © 2013 by PlatinumNukePro.com
+* Copyright:  Copyright © 2017 by PlatinumNukePro.com
 * License:    GNU/GPL (see provided LICENSE.txt file)
 ******************************************************************************/
 

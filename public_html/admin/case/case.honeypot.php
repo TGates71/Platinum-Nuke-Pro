@@ -3,7 +3,7 @@
 /* Nuke HoneyPot - Antibot Script                                       */
 /* ==============================                                       */
 /*                                                                      */
-/* Copyright (c) 2013 coRpSE			                                */
+/* Copyright (c) 2017 coRpSE			                                */
 /* http://www.headshotdomain.net                                        */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */

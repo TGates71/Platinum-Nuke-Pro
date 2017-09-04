@@ -8,7 +8,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -31,7 +31,7 @@
 define('ADMIN_FILE', true);
 require_once("mainfile.php");
 if(isset($aid)) {
-  if($aid AND (!isset($admin) OR empty($admin)) AND $op!='login') {
+  if($aid AND (!isset($admin) OR empty($admin)) AND $op != 'login') {
     unset($aid);
     unset($admin);
     die('Access Denied');
@@ -46,7 +46,7 @@ function create_first($name, $url, $email, $pwd, $user_new) {
 		$the_adm = "God";
 		$email = validate_mail($email);
 /* F */
-		$db->sql_query("INSERT INTO ".$prefix."_authors (aid, name, url, email, pwd, counter, radminsuper, admlanguage, radminblocker) VALUES ('$name', '$the_adm', '$url', '$email', '$pwd', '0', '1', '', '')");
+		$db->sql_query("INSERT INTO ".$prefix."_authors (aid, name, url, email, pwd, counter, radminsuper, admlanguage, radminblocker) VALUES ('$name', '$the_adm', '$url', '$email', '$pwd', '0', '1', '', '0')");
 /* F */
 		if ($user_new == 1) {
 		    $user_regdate = date("M d, Y");
@@ -103,7 +103,7 @@ if ((isset($aid)) && (isset($pwd)) && (isset($op)) && ($op == "login")) {
 	Header("Location: ".$admin_file.".php");
 	die();
     }
-    if(!empty($aid) AND !empty($pwd)) {
+    if(!empty($aid) && !empty($pwd)) {
 	$pwd = md5($pwd);
         $result = $db->sql_query("SELECT pwd, admlanguage FROM ".$prefix."_authors WHERE aid='$aid'");
 	$row = $db->sql_fetchrow($result);
@@ -149,7 +149,7 @@ if(isset($admin) && !empty($admin)) {
 }
 
 if(!isset($op)) { $op = "adminMain"; }
-if(isset($op) AND($op=="mod_authors" OR $op=="modifyadmin" OR $op=="UpdateAuthor" OR $op=="AddAuthor" OR $op=="deladmin2" OR $op=="deladmin" OR $op=="assignstories" OR $op=="deladminconf") AND ($row2['name'] != "God")) {
+if(isset($op) AND ($op == "mod_authors" OR $op == "modifyadmin" OR $op == "UpdateAuthor" OR $op == "AddAuthor" OR $op == "deladmin2" OR $op == "deladmin" OR $op == "assignstories" OR $op == "deladminconf") AND ($row2['name'] != "God")) {
   die("Illegal Operation");
 }
 $pagetitle = "- "._ADMINMENU."";
@@ -167,9 +167,9 @@ function login() {
     echo '<form action="'.$admin_file.'.php" method="post">'
         .'<table border="0">'
 		.'<tr><td>'._ADMINID.'</td>'
-		.'<td><input type="text" NAME="aid" SIZE="20" MAXLENGTH="25" /></td></tr>'
+		.'<td><input type="text" name="aid" size="20" maxlength="25" /></td></tr>'
 		.'<tr><td>'._PASSWORD.'</td>'
-		.'<td><input type="password" name="pwd" SIZE="20" MAXLENGTH="40" /></td></tr>';
+		.'<td><input type="password" name="pwd" size="20" maxlength="40" /></td></tr>';
 /*****[BEGIN]******************************************
  [ Base:    GFX Code                           v1.0.0 ]
  ******************************************************/
@@ -178,7 +178,7 @@ function login() {
  [ Base:    GFX Code                           v1.0.0 ]
  ******************************************************/
 		echo '<tr><td><input type="hidden" name="op" value="login" />'
-		.'<input type="submit" VALUE="'._LOGIN.'" />'
+		.'<input type="submit" value="'._LOGIN.'" />'
 		.'</td></tr></table>'
 		.'</form>';
     CloseTable();
@@ -371,8 +371,8 @@ function adminMain() {
 				$count = 1;
 		    }
 		    $time = str_replace(" ", "@", $time);
-		    if (($radminarticle==1) OR ($radminsuper==1)) {
-				if (($radminarticle==1) AND ($aid == $said) OR ($radminsuper==1)) {
+		    if (($radminarticle == 1) OR ($radminsuper == 1)) {
+				if (($radminarticle == 1) AND ($aid == $said) OR ($radminsuper == 1)) {
 	    			echo "<tr><td nowrap>&nbsp;(<a href=\"".$admin_file.".php?op=autoEdit&amp;anid=$anid\">"._EDIT."</a>-<a href=\"".$admin_file.".php?op=autoDelete&amp;anid=$anid\">"._DELETE."</a>)&nbsp;</td><td width=\"100%\">&nbsp;$title&nbsp;</td><td align=\"center\">&nbsp;$alanguage&nbsp;</td><td nowrap>&nbsp;$time&nbsp;</td></tr>"; /* Multilingual Code : added column to display language */
 				} else {
 			    	echo "<tr><td>&nbsp;("._NOFUNCTIONS.")&nbsp;</td><td width=\"100%\">&nbsp;$title&nbsp;</td><td align=\"center\">&nbsp;$alanguage&nbsp;</td><td nowrap>&nbsp;$time&nbsp;</td></tr>"; /* Multilingual Code : added column to display language */
@@ -407,7 +407,7 @@ function adminMain() {
 		    ."</td><td align=\"center\">$alanguage"
 		    ."</td><td align=\"right\">$topicname";
 		if ($radminarticle == 1 OR $radminsuper == 1) {
-		    if (($radminarticle==1) AND ($aid == $said) OR ($radminsuper==1)) {
+		    if (($radminarticle == 1) AND ($aid == $said) OR ($radminsuper == 1)) {
 				echo "</td><td align=\"right\" nowrap>(<a href=\"".$admin_file.".php?op=EditStory&amp;sid=$sid\">"._EDIT."</a>-<a href=\"".$admin_file.".php?op=RemoveStory&amp;sid=$sid\">"._DELETE."</a>)"
 			    	."</td></tr>";
 		    } else {
@@ -419,7 +419,7 @@ function adminMain() {
 		}
     }
     echo "</table>";
-    if (($radminarticle==1) OR ($radminsuper==1)) {
+    if (($radminarticle == 1) OR ($radminsuper == 1)) {
 	echo "<center>"
 	    ."<form action=\"".$admin_file.".php\" method=\"post\">"
 	    .""._STORYID.": <input type=\"text\" NAME=\"sid\" SIZE=\"10\">"

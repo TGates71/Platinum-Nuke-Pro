@@ -38,20 +38,20 @@ global $prefix, $db, $admin_file;
 $aid = substr("$aid", 0,25);
 $row = $db->sql_fetchrow($db->sql_query("SELECT radminsuper FROM " . $prefix . "_authors WHERE aid='$aid'"));
 if ($row['radminsuper'] == 1) {
-$NukeC30AddonName = "NukeC30";
+$NukeCAddonName = "NukeC30";
 
 //define('NO_EDITOR', true);	# WYSIWYG editor is disabled. Anh Tran 03-31-06
 
-include_once("modules/".$NukeC30AddonName."/functions.php");
-include_once("modules/".$NukeC30AddonName."/language/lang-".$currentlang.".php");
+include_once("modules/".$NukeCAddonName."/functions.php");
+include_once("modules/".$NukeCAddonName."/language/lang-".$currentlang.".php");
 
 function NukeC30() {
 	global $nukecprefix,$db,$PerPage;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
-	FileNukeC30headerAdmin();
+	NukeCAdminMenu();
+	FileNukeCheaderAdmin();
 	echo "<center>
 			<form action=\"admin.php?op=NukeC30EditAds\" method=\"post\">
 			Enter Ads ID to edit/delete  : 
@@ -63,7 +63,7 @@ function NukeC30() {
 	include_once("footer.php");
 }
 
-function  NukeC30AdminWaiting($howmany) {
+function  NukeCAdminWaiting($howmany) {
 	global $nukecprefix,$db;
 	if (($howmany == "") || (!isset($howmany))) {
 		header("Location:admin.php?op=NukeC30");
@@ -76,8 +76,8 @@ function  NukeC30AdminWaiting($howmany) {
 		$end = $PerPage*($howmany+1);
 		//GraphicAdmin();
 		OpenTable();
-		NukeC30AdminMenu();
-		FileNukeC30headerAdmin();
+		NukeCAdminMenu();
+		FileNukeCheaderAdmin();
 		echo "<center><strong>";
 		$sqlwaiting = "select id_ads,title,language,dateposted from ".$nukecprefix."_ads_ads where active=0";
 		$res = $db->sql_query($sqlwaiting);
@@ -136,8 +136,8 @@ function  NukeC30AdminWaiting($howmany) {
 	}
 }
 
-function NukeC30EditWaiting($idWait){
-	global $module_name,$nukecprefix,$db,$multilingual,$currentlang,$MemberorNot,$NukeC30AddonName;
+function NukeCEditWaiting($idWait){
+	global $module_name,$nukecprefix,$db,$multilingual,$currentlang,$MemberorNot,$NukeCAddonName;
 	global $cookie,$user,$UploadImage,$anonymous,$DurationAds,$PriceField,$UploadImage,$TitleLength;
 	global $adsbgcolor1,$adsbgcolor2,$adsbgcolor3,$adsbgcolor4,$adsbgcolor5;
 	global $AdsTitleLength, $AdsContentLength;
@@ -158,8 +158,8 @@ function NukeC30EditWaiting($idWait){
 
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
-	FileNukeC30headerAdmin();
+	NukeCAdminMenu();
+	FileNukeCheaderAdmin();
 	$resultinfo = $db->sql_query("select * from $nukecprefix"."_ads_ads where id_ads='".$idWait."'");
 
 	$adsinfo = $db->sql_fetchrow($resultinfo);
@@ -284,15 +284,15 @@ if ($multilingual) {
 	include_once("footer.php");
 }
 
-function NukeC30PostWaiting($id_ads_chng,$submitteruid_chng,$title_chng,$cdesc_chng,$catgforprocess_chng,$price_chng,$website_chng,$email_chng,$city_chng,$state_chng,$country_chng,$setemptyimg,$fileupload_chng,$fileupload_chng_name,$fileupload_chng_type,$fileupload_chng_size,$adslanguage_chng,$postfor_chng,$AdsCurr_chng) {
-	global $nukecprefix,$db,$NukeC30AddonName, $module_name, $multilingual, $currentlang;
+function NukeCPostWaiting($id_ads_chng,$submitteruid_chng,$title_chng,$cdesc_chng,$catgforprocess_chng,$price_chng,$website_chng,$email_chng,$city_chng,$state_chng,$country_chng,$setemptyimg,$fileupload_chng,$fileupload_chng_name,$fileupload_chng_type,$fileupload_chng_size,$adslanguage_chng,$postfor_chng,$AdsCurr_chng) {
+	global $nukecprefix,$db,$NukeCAddonName, $module_name, $multilingual, $currentlang;
 	global $AdsTitleLength, $AdsContentLength, $MemberRequired, $PostInMainCatg, $cookie, $user, $UploadImg,$Waiting;
 	global $anonymous;
 	global $UploadPath,$cookie,$user,$DescLength,$UploadImage, $MaxImgSize, $MaxImgHeight, $MaxImgWidth,$MaxAllowedAds;
 
 
 
-//	include_once("modules/".$NukeC30AddonName."/config.php");
+//	include_once("modules/".$NukeCAddonName."/config.php");
 
 	if ((!$title_chng) || ($title_chng == "") || (strlen($title_chng) > $AdsTitleLength)) $errorTitle = 1;
 	if ((!$cdesc_chng) || ($cdesc_chng == "") || (strlen($cdesc_chng) > $AdsContentLength)) $errorCdesc = 1;
@@ -325,7 +325,7 @@ function NukeC30PostWaiting($id_ads_chng,$submitteruid_chng,$title_chng,$cdesc_c
 	if ($errorTitle || $errorCdesc || $errorPrice || $erroremailanony || $errorEmail || $errorImageSize || $errorImageDimension || $errorImageType) {
 		include_once("header.php");
 		//GraphicAdmin();
-		NukeC30AdminMenu();
+		NukeCAdminMenu();
 		echo "<br />";
 		OpenTable();
 		echo "<center><font class=\"title\">"._NUKECUPDATEERROR."</font></center><br />";
@@ -419,7 +419,7 @@ function NukeC30PostWaiting($id_ads_chng,$submitteruid_chng,$title_chng,$cdesc_c
 	}
 }
 
-function NukeC30DeleteWaiting($id_ads_chng,$confirm=0) {
+function NukeCDeleteWaiting($id_ads_chng,$confirm=0) {
 	global $nukecprefix,$db;
 	if ($confirm == 1) {
 		$res = $db->sql_query("delete from $nukecprefix"."_ads_ads where id_ads='$id_ads_chng' and active=0");
@@ -430,7 +430,7 @@ function NukeC30DeleteWaiting($id_ads_chng,$confirm=0) {
 	} else {
 		include_once("header.php");
 		//GraphicAdmin();
-		NukeC30AdminMenu();
+		NukeCAdminMenu();
 		echo "<br />";
 		OpenTable();
 		echo "<center>\n"
@@ -452,12 +452,12 @@ function NukeC30DeleteWaiting($id_ads_chng,$confirm=0) {
 	}
 }
 
-function NukeC30DeleteAds($xid_ads,$confirm="") {
-	global $NukeC30AddonName;
+function NukeCDeleteAds($xid_ads,$confirm="") {
+	global $NukeCAddonName;
 	if ($confirm != 1) {
 		include_once("header.php");
 		//GraphicAdmin();
-		NukeC30AdminMenu();
+		NukeCAdminMenu();
 		echo "<br />";
 		OpenTable();
 		echo "<center><font class=\"title\">"._NUKECDELETECONFIRM."</font>\n"
@@ -475,8 +475,8 @@ function NukeC30DeleteAds($xid_ads,$confirm="") {
 	}
 }
 
-function NukeC30EditAds($xid_ads) {
-	global $module_name,$nukecprefix,$db,$multilingual,$currentlang,$MemberorNot,$NukeC30AddonName;
+function NukeCEditAds($xid_ads) {
+	global $module_name,$nukecprefix,$db,$multilingual,$currentlang,$MemberorNot,$NukeCAddonName;
 	global $cookie,$user,$UploadImage,$anonymous,$DurationAds,$PriceField,$UploadImage,$TitleLength;
 	global $adsbgcolor1,$adsbgcolor2,$adsbgcolor3,$adsbgcolor4,$adsbgcolor5;
 	global $AdsTitleLength, $AdsContentLength;
@@ -497,8 +497,8 @@ function NukeC30EditAds($xid_ads) {
 
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
-	FileNukeC30headerAdmin();
+	NukeCAdminMenu();
+	FileNukeCheaderAdmin();
 	$resultMakeSure = $db->sql_query("select * from ".$nukecprefix."_ads_ads where id_ads='".$xid_ads."'");
 
 	if ($db->sql_numrows($resultMakeSure) > 0) {
@@ -627,13 +627,13 @@ if ($multilingual) {
 	include_once("footer.php");
 }
 
-function NukeC30DoEditAds($id_ads_chng,$submitteruid_chng,$title_chng,$cdesc_chng,$catgforprocess_chng,$price_chng,$website_chng,$email_chng,$city_chng,$state_chng,$country_chng,$setemptyimg,$fileupload_chng,$fileupload_chng_name,$fileupload_chng_type,$fileupload_chng_size,$adslanguage_chng,$action,$postfor_chng,$AdsCurr_chng){
+function NukeCDoEditAds($id_ads_chng,$submitteruid_chng,$title_chng,$cdesc_chng,$catgforprocess_chng,$price_chng,$website_chng,$email_chng,$city_chng,$state_chng,$country_chng,$setemptyimg,$fileupload_chng,$fileupload_chng_name,$fileupload_chng_type,$fileupload_chng_size,$adslanguage_chng,$action,$postfor_chng,$AdsCurr_chng){
 	if ($action == 1) {
 		header("Location:admin.php?op=NukeC30DeleteAds&id_ads=$id_ads_chng");
 	} else {
-		global $nukecprefix,$db,$multilingual,$currentlang,$MemberorNot,$NukeC30AddonName;
+		global $nukecprefix,$db,$multilingual,$currentlang,$MemberorNot,$NukeCAddonName;
 		global $cookie,$user,$UploadImage,$anonymous,$DescLength,$DurationAds,$PriceField,$UploadImage,$TitleLength,$UploadImageSize,$UploadImagewidth,$UploadImageHeight,$UploadImageType;
-		include_once("modules/".$NukeC30AddonName."/config.php");
+		include_once("modules/".$NukeCAddonName."/config.php");
 		if ((!$title_chng) || ($title_chng == "") || (strlen($title_chng) > $TitleLength)) $errorTitle = 1;
 		if ((!$cdesc_chng) || ($cdesc_chng == "") || (strlen($cdesc_chng) > $DescLength)) $errorCdesc = 1;
 		if ($email_chng != ""){
@@ -659,7 +659,7 @@ function NukeC30DoEditAds($id_ads_chng,$submitteruid_chng,$title_chng,$cdesc_chn
 		}
 		if ($errorTitle || $errorCdesc || $errorPrice || $erroremailanony || $errorEmail || $errorImageSize || $errorImageDimension || $errorImageType) {
 			include_once("header.php");
-			MenuNukeC30(1);
+			MenuNukeC(1);
 			echo "<br />";
 			OpenTable();
 			echo "<center><font class=\"title\">"._NUKECUPDATEERROR."</font></center><br />";
@@ -758,13 +758,13 @@ $ads_content = FixQuotes(filter_text($cdesc_chng));	//original line above, ANH T
 	}
 }
 
-function NukeC30DeleteComment($commentid) {
+function NukeCDeleteComment($commentid) {
 	global $nukecprefix,$db;
 	$db->sql_query("delete from $nukecprefix"."_ads_comments where no_comment='$commentid'");
 	header("Location:admin.php?op=NukeC30AdminDone&msgid=CommentDeleted");
 }
 
-function FileNukeC30headerAdmin() {
+function FileNukeCheaderAdmin() {
 	global $nukecprefix,$db, $PerPage, $msg_id,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	echo "<br />";
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\">\n"
@@ -814,18 +814,18 @@ function FileNukeC30headerAdmin() {
 switch($op) {
    
 	case "NukeC30": NukeC30();break;	
-	case "NukeC30AdminReport": NukeC30AdminReport();break;
-	case "NukeC30AdminWaiting": NukeC30AdminWaiting($howmuch);break;
-	case "NukeC30EditWaiting":NukeC30EditWaiting($idWait);break;
-	case "NukeC30PostWaiting":NukeC30PostWaiting($id_ads_chng,$submitteruid_chng,$title_chng,$cdesc_chng,$catgforprocess_chng,$price_chng,$website_chng,$email_chng,$city_chng,$state_chng,$country_chng,$setemptyimg,$fileupload_chng,$fileupload_chng_name,$fileupload_chng_type,$fileupload_chng_size,$adslanguage_chng,$postfor_chng,$AdsCurr_chng);break;
-	case "NukeC30DeleteComment" : NukeC30DeleteComment($commentid);break;
-	case "NukeC30DeleteWaiting":NukeC30DeleteWaiting($id_ads_chng,$confirm);break;
-	case "NukeC30AdminAds": NukeC30AdminAds();break;
-	case "NukeC30ViewStats": NukeC30ViewStats();break;
-	case "NukeC30AdminDone": NukeC30AdminDone($msgid);break;
-	case "NukeC30DeleteAds":NukeC30DeleteAds($id_ads,$confirm);break;	
-	case "NukeC30EditAds":NukeC30EditAds($id_ads);break;
-	case "NukeC30DoEditAds" : NukeC30DoEditAds($id_ads_chng,$submitteruid_chng,$title_chng,$cdesc_chng,$catgforprocess_chng,$price_chng,$website_chng,$email_chng,$city_chng,$state_chng,$country_chng,$setemptyimg,$fileupload_chng,$fileupload_chng_name,$fileupload_chng_type,$fileupload_chng_size,$adslanguage_chng,$action,$postfor_chng,$AdsCurr_chng);break;
+	case "NukeC30AdminReport": NukeCAdminReport();break;
+	case "NukeC30AdminWaiting": NukeCAdminWaiting($howmuch);break;
+	case "NukeC30EditWaiting":NukeCEditWaiting($idWait);break;
+	case "NukeC30PostWaiting":NukeCPostWaiting($id_ads_chng,$submitteruid_chng,$title_chng,$cdesc_chng,$catgforprocess_chng,$price_chng,$website_chng,$email_chng,$city_chng,$state_chng,$country_chng,$setemptyimg,$fileupload_chng,$fileupload_chng_name,$fileupload_chng_type,$fileupload_chng_size,$adslanguage_chng,$postfor_chng,$AdsCurr_chng);break;
+	case "NukeC30DeleteComment" : NukeCDeleteComment($commentid);break;
+	case "NukeC30DeleteWaiting":NukeCDeleteWaiting($id_ads_chng,$confirm);break;
+	case "NukeC30AdminAds": NukeCAdminAds();break;
+	case "NukeC30ViewStats": NukeCViewStats();break;
+	case "NukeC30AdminDone": NukeCAdminDone($msgid);break;
+	case "NukeC30DeleteAds":NukeCDeleteAds($id_ads,$confirm);break;	
+	case "NukeC30EditAds":NukeCEditAds($id_ads);break;
+	case "NukeC30DoEditAds" : NukeCDoEditAds($id_ads_chng,$submitteruid_chng,$title_chng,$cdesc_chng,$catgforprocess_chng,$price_chng,$website_chng,$email_chng,$city_chng,$state_chng,$country_chng,$setemptyimg,$fileupload_chng,$fileupload_chng_name,$fileupload_chng_type,$fileupload_chng_size,$adslanguage_chng,$action,$postfor_chng,$AdsCurr_chng);break;
 }
 
 } else {

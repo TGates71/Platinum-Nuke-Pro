@@ -48,19 +48,19 @@ $row = $db->sql_fetchrow($db->sql_query("SELECT radminsuper FROM " . $prefix . "
 
 if ($row['radminsuper'] == 1) {
 
-$NukeC30AddonName = "NukeC30";
-include_once("modules/".$NukeC30AddonName."/functions.php");
-include_once("modules/".$NukeC30AddonName."/language/lang-".$currentlang.".php");
+$NukeCAddonName = "NukeC30";
+include_once("modules/".$NukeCAddonName."/functions.php");
+include_once("modules/".$NukeCAddonName."/language/lang-".$currentlang.".php");
 
-function NukeC30Doc(){ /* Start Function NukeC30Setting */
+function NukeCDoc(){ /* Start Function NukeCSetting */
 	global $nukecprefix,$db;
-	global $NukeC30AddonName, $ModuleTitle, $AdsTitleLength, $AdsContentLength, $Waiting, $PerPage, $UseImgCatg, $PostInMainCatg, $MemberRequired, $AdsComment, $PopAds, $UploadImg, $MaxImgSize, $MaxImgHeight, $MaxImgWidth, $ThumbToHeight, $ThumbToWidth, $ThumbHeight, $ThumbWidth, $UploadPath, $CatgPath, $MaxAllowedAds, $adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
+	global $NukeCAddonName, $ModuleTitle, $AdsTitleLength, $AdsContentLength, $Waiting, $PerPage, $UseImgCatg, $PostInMainCatg, $MemberRequired, $AdsComment, $PopAds, $UploadImg, $MaxImgSize, $MaxImgHeight, $MaxImgWidth, $ThumbToHeight, $ThumbToWidth, $ThumbHeight, $ThumbWidth, $UploadPath, $CatgPath, $MaxAllowedAds, $adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	$admintitle = _NUKECADMINTITLE." - "._NUKECSETTING;
 	include_once("header.php");
 	
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"$adsbgcolor3\">";
 	echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\">";
@@ -173,12 +173,12 @@ echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\"
 	echo "</td></tr></table>";
 	CloseTable();
 	include_once("footer.php");
-}/* END Function NukeC30Setting */
+}/* END Function NukeCSetting */
 
 
 
 switch($op) {
-	case "NukeC30Doc": NukeC30Doc();break;
+	case "NukeC30Doc": NukeCDoc();break;
 }
 
 } else {

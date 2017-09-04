@@ -37,7 +37,7 @@ function Index() {
         global $nukecprefix, $ModuleTitle, $db,$module_name,$multilingual,$currentlang,$MemberRequired,$PerPage,$UseImgCatg;
         include_once("header.php");
         $NowUnixTime = GetUnixTimeNow();
-        MenuNukeC30(0);
+        MenuNukeC(0);
 $count = "";
         echo "<br />";
 
@@ -184,7 +184,7 @@ function ViewDetail($id_ads) {
         global $cookie,$nukecprefix,$db,$module_name,$AdsComment,$username,$AnonyComment,$user,$anonymous,$admin,$EditPostedAds,$adsinfo;
         global $Date_Format_code;
         include_once("header.php");
-        MenuNukeC30(1);
+        MenuNukeC(1);
         echo "<br />";
         OpenTable();
         $NowUnixTime = GetUnixTimeNow();
@@ -272,7 +272,7 @@ function SubmitComment($xid_ads,$commentby,$commsubject,$commentdesc) {
         global $nukecprefix,$db,$module_name;
         if (($commsubject == "") || ($commentdesc == "")) {
                 include_once("header.php");
-                MenuNukeC30(1);
+                MenuNukeC(1);
                 echo "<br />";
                 OpenTable();
                 echo "<center><font class=\"title\">"._NUKECPOSTCOMMENTERROR."</font>";
@@ -295,7 +295,7 @@ function SubmitComment($xid_ads,$commentby,$commsubject,$commentdesc) {
 function ViewCatg() {
         global $UseImgCatg,$page,$id_catg,$days,$module_name,$nukecprefix,$db,$currentlang,$PerPage,$multilingual;
         include_once("header.php");
-        MenuNukeC30(1);
+        MenuNukeC(1);
         echo "<br />";
         $NowUnixTime = GetUnixTimeNow();
 
@@ -306,7 +306,7 @@ function ViewCatg() {
         }
         echo "<center>";
         if ($id_catg != "") {
-                echo pathcatg(strip_tags($id_catg));
+                echo pathcatg(mysqli_real_escape_string($db, strip_tags($id_catg)));
                 echo "<br />\n";
                 $resultdesccatg = $db->sql_query("select catg_desc from ".$nukecprefix."_ads_catg where id_catg='".$id_catg."'");
                 list ($catg_desc) = $db->sql_fetchrow($resultdesccatg);
@@ -542,7 +542,7 @@ function ViewCatg() {
 function viewads($days) {
         global $page,$id_catg,$module_name,$nukecprefix,$db,$currentlang,$PerPage,$multilingual;
         include_once("header.php");
-        MenuNukeC30(1);
+        MenuNukeC(1);
         echo "<br />";
            OpenTable();
         if ((!$days) or ($days == "")) {
@@ -672,7 +672,7 @@ function viewads($days) {
 function MostPop() {
         global $PopAds,$HitsPopular,$page,$id_catg,$module_name,$nukecprefix,$dbi,$currentlang,$PerPage,$multilingual,$totalpages;
         include_once("header.php");
-        MenuNukeC30(1);
+        MenuNukeC(1);
         echo "<br />";
            OpenTable();
         if (($PerPage * $page) > $PopAds) {
@@ -781,7 +781,7 @@ function MostPop() {
 function Disclaimer($no) {
         global $nukecprefix,$db;
         include_once("header.php");
-        MenuNukeC30(1);
+        MenuNukeC(1);
         echo "<br />";
     OpenTable();
 

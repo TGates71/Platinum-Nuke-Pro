@@ -5,7 +5,7 @@
 /* Enhanced Downloads Module - V3.0                   */
 /* ================================                   */
 /*                                                    */
-/* Released: January, 8 2013                          */
+/* Released: January, 8 2017                          */
 /* Modified by w2ibc http://www.w2ibc.com             */
 /* w2ibc@w2ibc.com                                    */
 /*                                                    */

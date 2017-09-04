@@ -28,19 +28,19 @@ global $prefix, $db, $admin_file;
 $aid = substr("$aid", 0,25);
 $row = $db->sql_fetchrow($db->sql_query("SELECT radminsuper FROM " . $prefix . "_authors WHERE aid='$aid'"));
 if ($row['radminsuper'] == 1) {
-$NukeC30AddonName = "NukeC30";
+$NukeCAddonName = "NukeC30";
 
-include_once("modules/".$NukeC30AddonName."/functions.php");
-include_once("modules/".$NukeC30AddonName."/language/lang-".$currentlang.".php");
+include_once("modules/".$NukeCAddonName."/functions.php");
+include_once("modules/".$NukeCAddonName."/language/lang-".$currentlang.".php");
 
 
-function NukeC30AdminCatg(){ /* Start Function NukeC30AdminCatg */
-	global $NukeC30AddonName,$nukecprefix,$db,$multilingual,$currentlang,$NukeC30AddonName, $adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
+function NukeCAdminCatg(){ /* Start Function NukeCAdminCatg */
+	global $NukeCAddonName,$nukecprefix,$db,$multilingual,$currentlang,$NukeCAddonName, $adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	include_once("header.php");
 	//GraphicAdmin();
 	
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	$admintitle = _NUKECADMINTITLE." - "._NUKECADMINCATG;
 	echo "<br />";
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"$adsbgcolor3\">";
@@ -54,7 +54,7 @@ function NukeC30AdminCatg(){ /* Start Function NukeC30AdminCatg */
 	echo "<script>\n"
 		."<!--\n"
 		."  function ValidateAddCatg() {\n"
-		."	var title = document.NukeC30CatgForm.title.value;\n"
+		."	var title = document.NukeCCatgForm.title.value;\n"
 		."  if (title == \"\") {\n"
 		." 		alert('Error :\\n"._NUKECADDCATGALERTTITLE."');\n"
 		."		return false;"
@@ -66,7 +66,7 @@ function NukeC30AdminCatg(){ /* Start Function NukeC30AdminCatg */
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"$adsbgcolor3\">";
 	echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\">";
 	echo "<tr><td colspan=\"2\" bgcolor=\"".$adsbgcolor5."\"><strong>"._NUKECADDNEWCATG."</strong></td></tr>"
-	  	."<form method=\"post\" action=\"admin.php\" name=\"NukeC30CatgForm\" onsubmit=\"return ValidateAddCatg();\" enctype=\"multipart/form-data\">\n"
+	  	."<form method=\"post\" action=\"admin.php\" name=\"NukeCCatgForm\" onsubmit=\"return ValidateAddCatg();\" enctype=\"multipart/form-data\">\n"
 		."<tr><td width=\"30%\"  bgcolor=\"".$adsbgcolor4."\">\n"
 		.""._NUKECCATGNAME." </td><td  bgcolor=\"".$adsbgcolor2."\">\n"
 		."<input type=\"text\" name=\"title\" size=\"30\" maxlength=\"100\" /> (<i>"._NUKECREQUIRED."</i>)</td></tr>\n"
@@ -76,8 +76,8 @@ function NukeC30AdminCatg(){ /* Start Function NukeC30AdminCatg */
 		."<tr><td valign=\"top\"  bgcolor=\"".$adsbgcolor4."\">"._NUKECUPLOADIMAGECATG."</td>\n"
 		."<td valign=\"top\"  bgcolor=\"".$adsbgcolor2."\">";
 	echo "<table><tr><td valign=\"top\">";
-	echo "<select name=\"catgimage\" onchange=\"showNukeC30Catgimage();\">";
-		$direktori = "modules/".$NukeC30AddonName."/imagecatg";
+	echo "<select name=\"catgimage\" onchange=\"showNukeCCatgimage();\">";
+		$direktori = "modules/".$NukeCAddonName."/imagecatg";
 		$handle=opendir($direktori);
     	while ($file = readdir($handle)) {
 			$filelist[] = $file;
@@ -96,7 +96,7 @@ function NukeC30AdminCatg(){ /* Start Function NukeC30AdminCatg */
 				echo ">$file</option>";
 			}
     	}
-		echo "</select></td><td><img src=\"modules/".$NukeC30AddonName."/imagecatg/noimage.gif\" name=\"imagecatg\" alt=\"\" />";
+		echo "</select></td><td><img src=\"modules/".$NukeCAddonName."/imagecatg/noimage.gif\" name=\"imagecatg\" alt=\"\" />";
 	echo "</td></tr></table>";
 	echo "</td></tr>\n";
 	 if ($multilingual == 1) {
@@ -146,7 +146,7 @@ function NukeC30AdminCatg(){ /* Start Function NukeC30AdminCatg */
 		echo "<script>\n"
 			."<!--\n"
 			."  function ValidateAddCatg2() {\n"
-			."	var title = document.NukeC30CatgForm2.title.value;\n"
+			."	var title = document.NukeCCatgForm2.title.value;\n"
 			."  if (title == \"\") {\n"
 			." 		alert('Error : \\n"._NUKECADDCATGALERTTITLE."');\n"
 			."		return false;\n"
@@ -158,7 +158,7 @@ function NukeC30AdminCatg(){ /* Start Function NukeC30AdminCatg */
 		echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><TR><TD bgcolor=\"$adsbgcolor3\">";
 		echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\">";
 		echo "<tr><td colspan=\"2\" bgcolor=\"".$adsbgcolor5."\"><strong>"._NUKECADDNEWSUBCATG."</strong></td></tr>"
-		   ."<form method=\"post\" action=\"admin.php\" name=\"NukeC30CatgForm2\" onsubmit=\"return ValidateAddCatg2();\" enctype=\"multipart/form-data\">"
+		   ."<form method=\"post\" action=\"admin.php\" name=\"NukeCCatgForm2\" onsubmit=\"return ValidateAddCatg2();\" enctype=\"multipart/form-data\">"
 
 		    ."<tr><td width=\"30%\" bgcolor=\"".$adsbgcolor4."\">"._NUKECCATGNAME."</td><td bgcolor=\"".$adsbgcolor2."\"><input type=\"text\" name=\"title\" size=\"30\" maxlength=\"100\" /> (<i>"._NUKECREQUIRED."</i>)&nbsp;"._NUKECIN."&nbsp;";
 		$sql2 = "select id_catg, catg, parentid from ".$nukecprefix."_ads_catg ";
@@ -180,7 +180,9 @@ function NukeC30AdminCatg(){ /* Start Function NukeC30AdminCatg */
 			."<td bgcolor=\"".$adsbgcolor2."\">";
 			
 		echo "<table><tr><td valign=\"top\">";
-		echo "<select name=\"catgimage\" onchange=\"showNukeC30Catgimage2();\">";
+		echo "<select name=\"catgimage\" onchange=\"showNukeCCatgimage2();\">";
+		$direktori = "modules/".$NukeCAddonName."/imagecatg";
+		$handle=opendir($direktori);
 		while ($file = readdir($handle)) {
 			$filelist[] = $file;
     	}
@@ -197,7 +199,7 @@ function NukeC30AdminCatg(){ /* Start Function NukeC30AdminCatg */
 				echo ">$file</option>";
 			}
     	}
-		echo "</select></td><td><img src=\"modules/".$NukeC30AddonName."/imagecatg/noimage.gif\" name=\"imagecatg2\" alt=\"\" />";
+		echo "</select></td><td><img src=\"modules/".$NukeCAddonName."/imagecatg/noimage.gif\" name=\"imagecatg2\" alt=\"\" />";
 		echo "</td></tr></table>";
 
 		echo "</td></tr>\n"
@@ -273,11 +275,11 @@ function NukeC30AdminCatg(){ /* Start Function NukeC30AdminCatg */
 	echo "</td></tr></table>";
 	CloseTable();
 	include_once("footer.php");
-}/*	 END Function NukeC30AdminCatg */
+}/*	 END Function NukeCAdminCatg */
 
 
-function DoNukeC30UploadCatgImg($imagename,$imageupload,$imageupload_name,$imageupload_type,$imageupload_size) {
-	global $CatgPathRev, $CatgPath,$nukecprefix,$db,$NukeC30AddonName,$MaxImgSize, $MaxImgHeight, $MaxImgWidth;
+function DoNukeCUploadCatgImg($imagename,$imageupload,$imageupload_name,$imageupload_type,$imageupload_size) {
+	global $CatgPathRev, $CatgPath,$nukecprefix,$db,$NukeCAddonName,$MaxImgSize, $MaxImgHeight, $MaxImgWidth;
 	global $adsbgcolor1,$adsbgcolor2,$adsbgcolor3,$adsbgcolor4,$adsbgcolor5;
 	$UploadImageType = getImgType();
 	if ($imagename == "") {
@@ -304,7 +306,7 @@ function DoNukeC30UploadCatgImg($imagename,$imageupload,$imageupload_name,$image
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><TR><TD bgcolor=\"$adsbgcolor3\">";
 	echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\"><tr><td align=\"center\" bgcolor=\"".$adsbgcolor2."\">";
@@ -363,9 +365,9 @@ function DoNukeC30UploadCatgImg($imagename,$imageupload,$imageupload_name,$image
 }
 
 
-/* Start NukeC30SubmitCatg */
-function NukeC30SubmitCatg($title,$cdescription,$toId,$catgimage,$catglanguage){
-	global $NukeC30AddonName,$multilingual;
+/* Start NukeCSubmitCatg */
+function NukeCSubmitCatg($title,$cdescription,$toId,$catgimage,$catglanguage){
+	global $NukeCAddonName,$multilingual;
 	global $nukecprefix,$db;
 	$sql = "select * from ".$nukecprefix."_ads_catg where catg='$title' and parentid='$toId'";
 	if ($multilingual) {
@@ -379,7 +381,7 @@ function NukeC30SubmitCatg($title,$cdescription,$toId,$catgimage,$catglanguage){
 	if ($errorexist) {
 		include_once("header.php");
 		//GraphicAdmin();
-		NukeC30AdminMenu();
+		NukeCAdminMenu();
 		echo "<br />";
 		OpenTable();
 		$admintitle = _NUKECADMINTITLE." - "._NUKECERRORADDCATG;
@@ -406,16 +408,17 @@ function NukeC30SubmitCatg($title,$cdescription,$toId,$catgimage,$catglanguage){
 		}
 		$sqlinsert  = "insert into ".$nukecprefix."_ads_catg values('$nextidads','$title','$cdescription','$toId','$catgimage','$catglanguage','0')";
 		$db->sql_query($sqlinsert);
-		header("Location:admin.php?op=NukeC30AdminDone&msgid=NewCatgDone");
+		//header("Location:admin.php?op=NukeC30AdminDone&msgid=NewCatgDone");
+		header("Location:admin.php?op=NukeC30AdminCatg&msgid=NewCatgDone");
 	}
-} /* End NukeC30SubmitCatg  */
+} /* End NukeCSubmitCatg  */
 
-function NukeC30ModCatg($CatgId){ /* Start Function NukeC30ModCatg */
-	global $nukecprefix,$db,$multilingual,$currentlang,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5,$NukeC30AddonName;
+function NukeCModCatg($CatgId){ /* Start Function NukeCModCatg */
+	global $nukecprefix,$db,$multilingual,$currentlang,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5,$NukeCAddonName;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 	$admintitle = _NUKECADMINTITLE." - "._NUKECEDITCATG;
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><TR><TD bgcolor=\"$adsbgcolor3\">";
@@ -428,7 +431,7 @@ function NukeC30ModCatg($CatgId){ /* Start Function NukeC30ModCatg */
 	$res = $db->sql_query("select catg,catg_desc,image,language from ".$nukecprefix."_ads_catg where id_catg='$CatgId'");
 	list($xcatg, $xcatg_desc, $ximage,$xlanguage) = $db->sql_fetchrow($res);
 	if ($ximage == "") { $ximage = "noimage.gif";}
-	echo "<form name=\"NukeC30CatgForm\" action=\"admin.php?op=NukeC30SaveModCatg\" method=\"post\" enctype=\"multipart/form-data\">"
+	echo "<form name=\"NukeCCatgForm\" action=\"admin.php?op=NukeC30SaveModCatg\" method=\"post\" enctype=\"multipart/form-data\">"
 		."<input type=\"hidden\" name=\"CatgId\" value=\"$CatgId\" />"
 		."<input type=\"hidden\" name=\"OldCatg\" value=\"$xcatg\" />"
 		."<tr><td width=\"30%\" bgcolor=\"".$adsbgcolor4."\">"._NUKECCATGNAME."</td><td  bgcolor=\"".$adsbgcolor2."\"><input type=\"text\" name=\"chng_title\" value=\"$xcatg\" size=\"30\" /></td></tr>"
@@ -436,8 +439,8 @@ function NukeC30ModCatg($CatgId){ /* Start Function NukeC30ModCatg */
 		."<tr><td valign=\"top\"  bgcolor=\"".$adsbgcolor4."\"> "._NUKECIMGCATG." <br />";
 	echo "</td><td bgcolor=\"".$adsbgcolor2."\">";
 	echo "<table><tr><td valign=\"top\" >";
-	echo "<select name=\"catgimage\" onChange=\"showNukeC30Catgimage();\">";
-		$direktori = "modules/".$NukeC30AddonName."/imagecatg";
+	echo "<select name=\"catgimage\" onChange=\"showNukeCCatgimage();\">";
+		$direktori = "modules/".$NukeCAddonName."/imagecatg";
 		$handle=opendir($direktori);
     	while ($file = readdir($handle)) {
 			$filelist[] = $file;
@@ -457,7 +460,7 @@ function NukeC30ModCatg($CatgId){ /* Start Function NukeC30ModCatg */
 				echo ">$file</option>";
 			}
     	}
-		echo "</select></td><td><img src=\"modules/".$NukeC30AddonName."/imagecatg/$ximage\" name=\"imagecatg\" alt=\"\" />";
+		echo "</select></td><td><img src=\"modules/".$NukeCAddonName."/imagecatg/$ximage\" name=\"imagecatg\" alt=\"\" />";
 	echo "</td></tr></table>";
 	echo "</td></tr>";
  	if ($multilingual == 1) {
@@ -491,12 +494,12 @@ function NukeC30ModCatg($CatgId){ /* Start Function NukeC30ModCatg */
 	echo "</td></tr></table>";
 	CloseTable();
 	include_once("footer.php");
-}/* End Function NukeC30ModCatg */
+}/* End Function NukeCModCatg */
 
-function NukeC30SaveModCatg($CatgId,$chng_title, $chng_cdescription,$catgimage_change, $chng_catglanguage,$OldCatg) {
-	global $NukeC30AddonName;
+function NukeCSaveModCatg($CatgId,$chng_title, $chng_cdescription,$catgimage_change, $chng_catglanguage,$OldCatg) {
+	global $NukeCAddonName;
 	global $nukecprefix,$db,$UploadImageSize,$UploadImagewidth,$UploadImageHeight,$UploadImageType,$multilingual;
-	include_once("modules/".$NukeC30AddonName."/config.php");
+	include_once("modules/".$NukeCAddonName."/config.php");
 	if ($chng_title == "") {
 		$errorTitle = 1;
 	}
@@ -514,7 +517,7 @@ function NukeC30SaveModCatg($CatgId,$chng_title, $chng_cdescription,$catgimage_c
 	if ($errorTitle || $errorexist) {
 		include_once("header.php");
 		//GraphicAdmin();
-		NukeC30AdminMenu();
+		NukeCAdminMenu();
 		echo "<br />";
 		OpenTable();
 		$admintitle = _NUKECADMINTITLE." - "._NUKECERRORADDCATG;
@@ -547,7 +550,7 @@ function NukeC30SaveModCatg($CatgId,$chng_title, $chng_cdescription,$catgimage_c
 	}
 }
 
-function NukeC30DeleteCatg($CatgId,$ok=0){ /* Start Function NukeC30DeleteCatg */
+function NukeCDeleteCatg($CatgId,$ok=0){ /* Start Function NukeCDeleteCatg */
 	global $nukecprefix,$db;
 	$result = $db->sql_query("select * from ".$nukecprefix."_ads_catg where parentid=$CatgId");
 	$nbsubcat = $db->sql_numrows($result);
@@ -573,7 +576,7 @@ function NukeC30DeleteCatg($CatgId,$ok=0){ /* Start Function NukeC30DeleteCatg *
     } else {
 		include_once("header.php");
 		//GraphicAdmin();
-		NukeC30AdminMenu();
+		NukeCAdminMenu();
 		echo "<br />";
 		OpenTable();
 		$admintitle = _NUKECADMINTITLE." - "._NUKECDELETECATGCONFIRM;
@@ -587,16 +590,16 @@ function NukeC30DeleteCatg($CatgId,$ok=0){ /* Start Function NukeC30DeleteCatg *
 		CloseTable();
 		include_once("footer.php");
 	}
-}/* End Function NukeC30DeleteCatg */
+}/* End Function NukeCDeleteCatg */
 
 
 switch($op) {
-	case "NukeC30AdminCatg": NukeC30AdminCatg();break;
-	case "NukeC30SubmitCatg": NukeC30SubmitCatg($title,$cdescription,$toId,$catgimage,$catglanguage);break;
-	case "NukeC30ModCatg":NukeC30ModCatg($CatgId);break;
-	case "NukeC30SaveModCatg":NukeC30SaveModCatg($CatgId,$chng_title, $chng_cdescription,$catgimage, $chng_catglanguage,$OldCatg);break;
-	case "NukeC30DeleteCatg":NukeC30DeleteCatg($CatgId,$ok);break;
-	case "NukeC30UploadCatgImg":DoNukeC30UploadCatgImg($imagename,$imageupload,$imageupload_name,$imageupload_type,$imageupload_size);break;
+	case "NukeC30AdminCatg": NukeCAdminCatg();break;
+	case "NukeC30SubmitCatg": NukeCSubmitCatg($title,$cdescription,$toId,$catgimage,$catglanguage);break;
+	case "NukeC30ModCatg":NukeCModCatg($CatgId);break;
+	case "NukeC30SaveModCatg":NukeCSaveModCatg($CatgId,$chng_title, $chng_cdescription,$catgimage, $chng_catglanguage,$OldCatg);break;
+	case "NukeC30DeleteCatg":NukeCDeleteCatg($CatgId,$ok);break;
+	case "NukeC30UploadCatgImg":DoNukeCUploadCatgImg($imagename,$imageupload,$imageupload_name,$imageupload_type,$imageupload_size);break;
 }
 
 } else {

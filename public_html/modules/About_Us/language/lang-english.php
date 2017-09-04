@@ -8,7 +8,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -29,7 +29,7 @@
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
 /*******************************************************************************/
 /* About Us v1.0 by sgtmudd (sgtmudd@mach-hosting.com)                         */
-/* Copyright (c) 2013 sgtmudd http://platinumnukepro.com                       */
+/* Copyright (c) 2017 sgtmudd http://platinumnukepro.com                       */
 /*******************************************************************************/
 
 define("_AU_ABOUTUS","About Us");

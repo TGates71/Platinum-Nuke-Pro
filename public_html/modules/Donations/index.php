@@ -26,7 +26,8 @@ if (!preg_match("#modules.php#i", $_SERVER['PHP_SELF'])) {
     die ("You can't access this file directly...");
 }
 
-require_once("mainfile.php");
+include_once("mainfile.php");
+
 $module_name = basename(dirname(__FILE__));
 $pagetitle = "- $module_name";
 
@@ -39,8 +40,9 @@ if ($username == "") {
 	$username = "Anonymous";
 }
 
-include_once("modules/Donations/config.inc.php");
+include_once("modules/Donations/config.php");
 
+$PP_URL = $paypalUrl;
 $swingd = $tr_config['swing_day'];
 $PP_RECEIVER_EMAIL = $tr_config['receiver_email'];
 $PP_ITEMNAME = $tr_config['pp_itemname'];
@@ -55,8 +57,8 @@ if( date('d') >= $swingd)
 	$query_Recordset1 = 'SELECT custom AS name, option_selection1 as showname, ';
 	$query_Recordset1 .= 'DATE_FORMAT( payment_date, \'%b-%e\' ) AS date, ';
 	$query_Recordset1 .= 'CONCAT(\'$\',SUM(mc_gross)) AS amt ';
-	$query_Recordset1 .= ' FROM transactions'
-		. ' WHERE ( transactions.payment_date >= DATE_FORMAT( NOW( ) , \'%Y-%m-' . $swingd . '\' ) ) '
+	$query_Recordset1 .= ' FROM '.$prefix.'_don_transactions'
+		. ' WHERE ( '.$prefix.'_don_transactions.payment_date >= DATE_FORMAT( NOW( ) , \'%Y-%m-' . $swingd . '\' ) ) '
 		. ' GROUP BY txn_id ORDER BY payment_date DESC';
 				  
 } else
@@ -71,15 +73,15 @@ if( date('d') >= $swingd)
 //		else
 //			$query_Recordset1 .= '\'\' AS amt ';
 	
-		$query_Recordset1 .= ' FROM transactions'
-			. ' WHERE ( transactions.payment_date < DATE_FORMAT( NOW( ) , \'%Y-%m-' . $swingd . '\' ) ) AND transactions.payment_date > DATE_FORMAT( SUBDATE( NOW( ) , INTERVAL ' . $swingd . ' '
+		$query_Recordset1 .= ' FROM '.$prefix.'_don_transactions'
+			. ' WHERE ( '.$prefix.'_don_transactions.payment_date < DATE_FORMAT( NOW( ) , \'%Y-%m-' . $swingd . '\' ) ) AND '.$prefix.'_don_transactions.payment_date > DATE_FORMAT( SUBDATE( NOW( ) , INTERVAL ' . $swingd . ' '
 			. ' DAY ) , \'%Y-%m-' . $swingd . '\' ) '
 			. ' GROUP BY txn_id ORDER BY payment_date DESC';
 
 }
 
-$Recordset1 = mysql_query($query_Recordset1, $ipnppd) or die(mysql_error());
-$totalRows_Recordset1 = mysql_num_rows($Recordset1);
+$Recordset1 = $db->sql_query($query_Recordset1, $ipnppd) or die(mysql_error());
+$totalRows_Recordset1 = $db->sql_numrows($Recordset1);
 
 // Insert the appropriate column headers
 if( $tr_config[don_show_amt] )
@@ -94,7 +96,7 @@ else
 	
 $ROWS_DONATORS = "";
 // Fill out the donators table tag
-while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)) 
+while ($row_Recordset1 = $db->sql_fetchrow($Recordset1)) 
 {
 	if( $row_Recordset1['amt'] > "$0" )
 	{
@@ -134,16 +136,16 @@ if( is_numeric($tr_config[don_sub_img_width]) )
 if( is_numeric($tr_config[don_sub_img_height]) )
 	$DON_SUB_IMG_DIMS .= "height=\"$tr_config[don_sub_img_height]\" ";
 
-$sql = $sql = "SELECT * FROM config WHERE name = 'don_text'";
-$Recordset = mysql_query($sql, $ipnppd) or die(mysql_error());
-$row = mysql_fetch_assoc($Recordset);
+$sql = $sql = "SELECT * FROM ".$prefix."_don_config WHERE name = 'don_text'";
+$Recordset = $db->sql_query($sql, $ipnppd) or die(mysql_error());
+$row = $db->sql_fetchrow($Recordset);
 $DON_TEXT = $row[text];
 
-$sql = "SELECT * from config WHERE name='don_amount' ORDER BY subtype";
-$Recordset1 = mysql_query($sql, $ipnppd) or die(mysql_error());
+$sql = "SELECT * from ".$prefix."_don_config WHERE name='don_amount' ORDER BY subtype";
+$Recordset1 = $db->sql_query($sql, $ipnppd) or die(mysql_error());
 
 $DONATION_AMOUNTS = "";
-while ($row_Recordset1 = mysql_fetch_assoc($Recordset1)) 
+while ($row_Recordset1 = $db->sql_fetchrow($Recordset1)) 
 {
 	if( is_numeric($row_Recordset1[value]) && $row_Recordset1[value] > 0 )
 	{

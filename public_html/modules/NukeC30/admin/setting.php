@@ -47,19 +47,19 @@ $row = $db->sql_fetchrow($db->sql_query("SELECT radminsuper FROM " . $prefix . "
 
 if ($row['radminsuper'] == 1) {
 
-$NukeC30AddonName = "NukeC30";
-include_once("modules/".$NukeC30AddonName."/functions.php");
-include_once("modules/".$NukeC30AddonName."/language/lang-".$currentlang.".php");
+$NukeCAddonName = "NukeC30";
+include_once("modules/".$NukeCAddonName."/functions.php");
+include_once("modules/".$NukeCAddonName."/language/lang-".$currentlang.".php");
 
-function NukeC30Setting(){ /* Start Function NukeC30Setting */
+function NukeCSetting(){ /* Start Function NukeCSetting */
 	global $nukecprefix,$db;
-	global $NukeC30AddonName, $ModuleTitle, $AdsTitleLength, $AdsContentLength, $Waiting, $PerPage, $UseImgCatg, $PostInMainCatg, $MemberRequired, $AdsComment, $PopAds, $UploadImg, $MaxImgSize, $MaxImgHeight, $MaxImgWidth, $ThumbToHeight, $ThumbToWidth, $ThumbHeight, $ThumbWidth, $UploadPath, $UploadPathRev, $CatgPath, $CatgPathRev, $MaxAllowedAds, $adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
+	global $NukeCAddonName, $ModuleTitle, $AdsTitleLength, $AdsContentLength, $Waiting, $PerPage, $UseImgCatg, $PostInMainCatg, $MemberRequired, $AdsComment, $PopAds, $UploadImg, $MaxImgSize, $MaxImgHeight, $MaxImgWidth, $ThumbToHeight, $ThumbToWidth, $ThumbHeight, $ThumbWidth, $UploadPath, $UploadPathRev, $CatgPath, $CatgPathRev, $MaxAllowedAds, $adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	$admintitle = _NUKECADMINTITLE." - "._NUKECSETTING;
 	include_once("header.php");
 	
-	//GraphicAdmin();
+	GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"$adsbgcolor3\">";
 	echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\">";
@@ -72,7 +72,7 @@ function NukeC30Setting(){ /* Start Function NukeC30Setting */
 	
 	echo "<tr>\n"
 		."<td width=\"35%\" bgcolor=\"".$adsbgcolor4."\">NukeC30 Module Folder Name</td>\n"
-		."<td bgcolor=\"".$adsbgcolor2."\"><input type=\"text\" name=\"xfolder_name\" size=\"25\" value=\"".$NukeC30AddonName."\" maxlength=\"25\" /></td>\n"
+		."<td bgcolor=\"".$adsbgcolor2."\"><input type=\"text\" name=\"xfolder_name\" size=\"25\" value=\"".$NukeCAddonName."\" maxlength=\"25\" /></td>\n"
 		."</tr>";
 	
 	echo "<tr>\n"
@@ -217,11 +217,11 @@ function NukeC30Setting(){ /* Start Function NukeC30Setting */
 	echo "</td></tr></table>";
 	CloseTable();
 	include_once("footer.php");
-}/* END Function NukeC30Setting */
+}/* END Function NukeCSetting */
 
 
-/* Start Function NukeC30SaveSetting */
-function NukeC30SaveSetting($xnukecprefix, $xfolder_name, $xModuleTitle, $xAdsTitleLength, $xAdsContentLength, $xWaiting, $xPerPage, $xUseImgCatg, $xPostInMainCatg, $xMemberRequired, $xAdsComment, $xPopAds, $xUploadImg, $xMaxImgSize, $xMaxImgHeight, $xMaxImgWidth, $xThumbTo, $xThumbHeight, $xThumbWidth, $xUploadPath, $xUploadPathRev, $xCatgPath, $xCatgPathRev, $xMaxAllowedAds){
+/* Start Function NukeCSaveSetting */
+function NukeCSaveSetting($xnukecprefix, $xfolder_name, $xModuleTitle, $xAdsTitleLength, $xAdsContentLength, $xWaiting, $xPerPage, $xUseImgCatg, $xPostInMainCatg, $xMemberRequired, $xAdsComment, $xPopAds, $xUploadImg, $xMaxImgSize, $xMaxImgHeight, $xMaxImgWidth, $xThumbTo, $xThumbHeight, $xThumbWidth, $xUploadPath, $xUploadPathRev, $xCatgPath, $xCatgPathRev, $xMaxAllowedAds){
 	global $nukecprefix,$db;
 	$xnukecprefix = FixQuotes($xnukecprefix);  
 	$xfolder_name = FixQuotes($xfolder_name);
@@ -284,12 +284,12 @@ function NukeC30SaveSetting($xnukecprefix, $xfolder_name, $xModuleTitle, $xAdsTi
 	}
 	
 	Header("Location: admin.php?op=NukeC30AdminDone&msgid=PreferencesSaved");
-}/* End Function NukeC30SaveSetting */
+}/* End Function NukeCSaveSetting */
 
 
 switch($op) {
-	case "NukeC30Setting": NukeC30Setting();break;
-	case "NukeC30SaveSetting": NukeC30SaveSetting($xnukecprefix, $xfolder_name, $xModuleTitle, $xAdsTitleLength, $xAdsContentLength, $xWaiting, $xPerPage, $xUseImgCatg, $xPostInMainCatg, $xMemberRequired, $xAdsComment, $xPopAds, $xUploadImg, $xMaxImgSize, $xMaxImgHeight, $xMaxImgWidth, $xThumbTo, $xThumbHeight, $xThumbWidth, $xUploadPath, $xUploadPathRev, $xCatgPath, $xCatgPathRev, $xMaxAllowedAds);break;
+	case "NukeC30Setting": NukeCSetting();break;
+	case "NukeC30SaveSetting": NukeCSaveSetting($xnukecprefix, $xfolder_name, $xModuleTitle, $xAdsTitleLength, $xAdsContentLength, $xWaiting, $xPerPage, $xUseImgCatg, $xPostInMainCatg, $xMemberRequired, $xAdsComment, $xPopAds, $xUploadImg, $xMaxImgSize, $xMaxImgHeight, $xMaxImgWidth, $xThumbTo, $xThumbHeight, $xThumbWidth, $xUploadPath, $xUploadPathRev, $xCatgPath, $xCatgPathRev, $xMaxAllowedAds);break;
 }
 
 } else {

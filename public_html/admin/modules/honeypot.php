@@ -3,7 +3,7 @@
 /* Nuke HoneyPot - Antibot Script                                       */
 /* ==============================                                       */
 /*                                                                      */
-/* Copyright (c) 2013 coRpSE			                                */
+/* Copyright (c) 2017 coRpSE			                                */
 /* http://www.headshotdomain.net                                        */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -13,10 +13,10 @@
 
 
 // START CONFIG
-	$per_page = 	      "30";    		 // number of members per page.
-	$page_numberpos =    "both";          // page number position top, bottom or both.
-	$head_color =  	    "#ffffff";	  	// head colour.
-	$row_color1 =  	    "#ffffff";	  	// row colour 1.
+	$per_page = 	     "25";  		 // number of members per page.
+	$page_numberpos =    "both";	  	// page number position top, bottom or both.
+	$head_color =  	     "#ffffff";	  	// head colour.
+	$row_color1 =  	     "#ffffff";	  	// row colour 1.
 	$row_color2 =        "#ffffff";	  	// row colour 2.	
 	$page_bgcolor =      "#f0f0f0";	  	// page number background colour.
 	$page_bordercolor =  "#000000";	  	// page number border colour.
@@ -35,7 +35,7 @@ if ($row['radminsuper'] == 1) {
         $db->sql_query('DELETE FROM `'.$prefix.'_honeypot`');
 		$db->sql_query('ALTER TABLE `'.$prefix.'_honeypot` AUTO_INCREMENT = 1');
         $db->sql_query('OPTIMIZE TABLE `'.$prefix.'_honeypot`');
-		Header("Location: admin.php?op=honeypot");
+		Header("Location: ".$admin_file.".php?op=honeypot");
         } else {
 	global $prefix, $db, $bgcolor2, $admin_file;
 	include_once('header.php');
@@ -46,16 +46,16 @@ if ($row['radminsuper'] == 1) {
 	CloseTable();
 	
 	OpenTable();
-echo "<div class=\"pagination\" style=\"text-align:right;\">\n<a href=\"./admin.php?op=honeypot&amp;del=all\">Delete All</a></div>\n";
+echo "<div class=\"pagination\" style=\"text-align:right;\">\n<a href=\"./".$admin_file.".php?op=honeypot&amp;del=all\">Delete All</a></div>\n";
 echo "<br /><br />";
 
 	// Number of results per page
 	// $per_page = 15; moved to the top config section
 	if(isset($_GET['page'])) {
 	if (!file_exists("includes/functions_honeypot.php")) {
-	$currentPage = htmlspecialchars($_GET['page']);
-	//}else{
-	//$currentPage = $db->sql_escape_string($_GET['page']);
+	$currentPage = $_GET['page'];
+	}else{
+	$currentPage = $db->sql_escape_string($_GET['page']);
 	}
 	}else{
 	$currentPage = 1;
@@ -71,7 +71,7 @@ echo "<br /><br />";
 	
 	//limit
 	$limitQ = 'LIMIT ' .($currentPage - 1) * $per_page .',' .$per_page;
-	$page_url = "admin.php?op=honeypot"; 
+	$page_url = "".$admin_file.".php?op=honeypot"; 
 	
 	if (($page_numberpos=='top') OR ($page_numberpos=='both') ) { 
 	

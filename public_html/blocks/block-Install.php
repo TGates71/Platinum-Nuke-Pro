@@ -8,7 +8,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -34,7 +34,7 @@ if ( !defined('BLOCK_FILE') ) {
 global $admin_file; 
 
 $content  .= "<div align=\"center\"><img src=images/pnpro_mirror_box450w.png></img><br /><br />";
-$content  .= "<div align=\"center\"><h3><strong>Congratulations, you have successfully installed Platinum Nuke Pro v1.0!</strong></h3></div><br /><br />";
+$content  .= "<div align=\"center\"><h3><strong>Congratulations, you have successfully installed Platinum Nuke Pro v2.0!</strong></h3></div><br /><br />";
 $content  .= "<div align=\"left\"><strong>If you did a manual install, please do the next three steps also:</strong><br />If you used the auto installer, please start at step three:<br /><br />";
 $content  .= "<strong>Required <font color=\"purple\">1: </font><font color=green>Set the file & folder permissions by clicking <a href=\"setpermissions.php\" target=\"_blank\"><font color=\"red\"><u>HERE</u></font></font></a></strong>.<br /><br />";
 $content  .= "<strong>Required <font color=\"purple\">2: </font><font color=green>Create an admininstrator account by clicking <a href=\"".$admin_file.".php\"><font color=\"red\"><u>HERE</u></font></font></a></strong>.<br /><br />";

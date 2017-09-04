@@ -27,14 +27,15 @@ $DBhostname = mosGetParam( $_POST, 'DBhostname', '' );
 $DBuserName = mosGetParam( $_POST, 'DBuserName', '' );
 $DBpassword = mosGetParam( $_POST, 'DBpassword', '' );
 $DBname  	= mosGetParam( $_POST, 'DBname', '' );
+$DBprefix  	= mosGetParam( $_POST, 'DBprefix', '' );
 $sitename  	= mosGetParam( $_POST, 'sitename', '' );
-$name = mosGetParam( $_POST, 'name', '');
+$name		= mosGetParam( $_POST, 'name', '');
 $adminEmail = mosGetParam( $_POST, 'adminEmail', '');
 $siteUrl  	= mosGetParam( $_POST, 'siteUrl', '' );
 $absolutePath = mosGetParam( $_POST, 'absolutePath', '' );
-$adminName = mosGetParam( $_POST, 'adminName', '');
+$adminName	= mosGetParam( $_POST, 'adminName', '');
 $adminPassword = mosGetParam( $_POST, 'adminPassword', '');
-$user_new = mosGetParam( $_POST, 'user_new', '' );
+$user_new	= mosGetParam( $_POST, 'user_new', '' );
 
 if ((trim($adminEmail== "")) || (preg_match("/[\w\.\-]+@\w+[\w\.\-]*?\.\w{1,4}/", $adminEmail )==false)) {
 	echo "<form name=\"stepBack\" method=\"post\" action=\"install3.php\">
@@ -43,6 +44,7 @@ if ((trim($adminEmail== "")) || (preg_match("/[\w\.\-]+@\w+[\w\.\-]*?\.\w{1,4}/"
 		<input type=\"hidden\" name=\"DBuserName\" value=\"$DBuserName\" />
 		<input type=\"hidden\" name=\"DBpassword\" value=\"$DBpassword\" />
 		<input type=\"hidden\" name=\"DBname\" value=\"$DBname\" />
+		<input type=\"hidden\" name=\"DBprefix\" value=\"$DBprefix\">
 		<input type=\"hidden\" name=\"DBcreated\" value=\"1\" />
 		<input type=\"hidden\" name=\"sitename\" value=\"$sitename\" />
 		<input type=\"hidden\" name=\"name\" value=\"$name\" />
@@ -54,11 +56,12 @@ if ((trim($adminEmail== "")) || (preg_match("/[\w\.\-]+@\w+[\w\.\-]*?\.\w{1,4}/"
 	return;
 }
 
-if($DBhostname && $DBuserName && $DBname) {
+if($DBhostname && $DBuserName && $DBname && $DBprefix) {
 	$configArray['DBhostname']	= $DBhostname;
 	$configArray['DBuserName']	= $DBuserName;
 	$configArray['DBpassword']	= $DBpassword;
 	$configArray['DBname']	 	= $DBname;
+	$configArray['DBprefix'] 	= $DBprefix;
 } else {
 	echo "<form name=\"stepBack\" method=\"post\" action=\"install3.php\">
 		<input type=\"hidden\" name=\"tz_select\" value=\"$tz_select\">
@@ -66,6 +69,7 @@ if($DBhostname && $DBuserName && $DBname) {
 		<input type=\"hidden\" name=\"DBuserName\" value=\"$DBuserName\" />
 		<input type=\"hidden\" name=\"DBpassword\" value=\"$DBpassword\" />
 		<input type=\"hidden\" name=\"DBname\" value=\"$DBname\" />
+		<input type=\"hidden\" name=\"DBprefix\" value=\"$DBprefix\">
 		<input type=\"hidden\" name=\"DBcreated\" value=\"1\" />
 		<input type=\"hidden\" name=\"sitename\" value=\"$sitename\" />
 		<input type=\"hidden\" name=\"name\" value=\"$name\" />
@@ -91,6 +95,7 @@ if ($sitename) {
 		<input type=\"hidden\" name=\"DBuserName\" value=\"$DBuserName\" />
 		<input type=\"hidden\" name=\"DBpassword\" value=\"$DBpassword\" />
 		<input type=\"hidden\" name=\"DBname\" value=\"$DBname\" />
+		<input type=\"hidden\" name=\"DBprefix\" value=\"$DBprefix\">
 		<input type=\"hidden\" name=\"DBcreated\" value=\"1\" />
 		<input type=\"hidden\" name=\"sitename\" value=\"$sitename\" />
 		<input type=\"hidden\" name=\"name\" value=\"$name\" />
@@ -110,9 +115,9 @@ if (file_exists( '../config.php' )) {
 }
 
 if ($siteUrl) {
-	$configArray['siteUrl']=$siteUrl;
+	$configArray['siteUrl'] = $siteUrl;
 	// Fix for Windows
-	$absolutePath= str_replace("\\\\","/", $absolutePath);
+	$absolutePath = str_replace("\\\\","/", $absolutePath);
 	$configArray['absolutePath']=$absolutePath;
 
 $config = "<?php\n";
@@ -180,8 +185,8 @@ $config .= "\$dbhost = \"{$configArray['DBhostname']}\";\n";
 $config .= "\$dbuname = \"{$configArray['DBuserName']}\";\n";
 $config .= "\$dbpass = \"{$configArray['DBpassword']}\";\n";
 $config .= "\$dbname = \"{$configArray['DBname']}\";\n";
-$config .= "\$prefix = \"nuke\";\n";
-$config .= "\$user_prefix = \"nuke\";\n";
+$config .= "\$prefix = \"{$configArray['DBprefix']}\";\n";
+$config .= "\$user_prefix = \"{$configArray['DBprefix']}\";\n";
 $config .= "\$dbtype = \"MySQLi\";\n";
 $skey = mosMakePassword(40);
 $config .= "\$sitekey = \"$skey\";\n";
@@ -246,12 +251,23 @@ $config .= "?>";
 	$database = new database( $DBhostname, $DBuserName, $DBpassword, $DBname );
 	$nullDate = $database->getNullDate();
 // save timezone - sgtmudd
-	$query = "UPDATE `nuke_bbconfig` SET `config_value` = '$tz_select' WHERE `nuke_bbconfig`.`config_name` = 'board_timezone';";
+	$query = "UPDATE `".$configArray['DBprefix']."_bbconfig` SET `config_value` = '$tz_select' WHERE `".$configArray['DBprefix']."_bbconfig`.`config_name` = 'board_timezone';";
+	$database->setQuery( $query );
+	$database->query();
+// save general info in forum config also - convert to an array? - sgtmudd
+	$query = "UPDATE `".$configArray['DBprefix']."_bbconfig` SET `config_value` = '$sitename' WHERE `".$configArray['DBprefix']."_bbconfig`.`config_name` = 'sitename';";
+	$database->setQuery( $query );
+	$database->query();
+	$query = "UPDATE `".$configArray['DBprefix']."_bbconfig` SET `config_value` = '$adminEmail' WHERE `".$configArray['DBprefix']."_bbconfig`.`config_name` = 'board_email';";
+	$database->setQuery( $query );
+	$database->query();
+	$url = preg_replace("(^https?://)", "", $siteUrl );
+	$query = "UPDATE `".$configArray['DBprefix']."_bbconfig` SET `config_value` = '$url' WHERE `".$configArray['DBprefix']."_bbconfig`.`config_name` = 'server_name';";
 	$database->setQuery( $query );
 	$database->query();
 // create the admin user - sgtmudd
 	$cryptpass = md5( $adminPassword );
-	$query = "INSERT INTO nuke_authors (aid, name, url, email, pwd, counter, radminsuper, admlanguage, radminblocker) VALUES ('$adminName', 'God', 'http://', '$adminEmail', '$cryptpass', '0', '1', '', '')";
+	$query = "INSERT INTO ".$configArray['DBprefix']."_authors (aid, name, url, email, pwd, counter, radminsuper, admlanguage, radminblocker) VALUES ('$adminName', 'God', 'http://', '$adminEmail', '$cryptpass', '0', '1', '', '')";
 	$database->setQuery( $query );
 	$database->query();	
 // start - add first user account - sgtmudd
@@ -260,14 +276,14 @@ $config .= "?>";
 		    $user_avatar = "gallery/blank.gif";
 		    $commentlimit = 4096;
 		    if (@$url == "http://") { $url = ""; }
-	    @$query = "INSERT INTO nuke_users (user_id, name, username, user_email, user_website, user_avatar, user_regdate, user_password, theme, commentmax, user_level, user_lang, user_dateformat) VALUES (NULL, '$name','$adminName','$adminEmail','http://','$user_avatar','$user_regdate','$cryptpass','$Default_Theme','$commentlimit', '2', 'english','D M d, Y g:i a')";
+	    @$query = "INSERT INTO ".$configArray['DBprefix']."_users (user_id, name, username, user_email, user_website, user_avatar, user_regdate, user_password, theme, commentmax, user_level, user_timezone, user_lang, user_dateformat) VALUES (NULL, '$name','$adminName','$adminEmail','http://','$user_avatar','$user_regdate','$cryptpass','DEFAULT','$commentlimit', '2', '$tz_select', 'english','D M d, Y g:i a')";
 	$database->setQuery( $query );
 	$database->query();				
 		}
 // end - add first user account		
 	// touch config table
 	$date = date("F Y");
-	$query = "UPDATE nuke_config SET sitename='$sitename', nukeurl='$siteUrl', startdate='$date', adminmail='$adminEmail', backend_title='$sitename', notify_email='$adminEmail'";
+	$query = "UPDATE ".$configArray['DBprefix']."_config SET sitename='$sitename', nukeurl='$siteUrl', startdate='$date', adminmail='$adminEmail', backend_title='$sitename', notify_email='$adminEmail'";
 	$database->setQuery( $query );
 	$database->query();
 } else {
@@ -632,21 +648,21 @@ textarea {
 			<div class="install-form">
 				<div class="form-block">
 					<table width="100%">
-						<tr><td class="error" align="center">PLEASE REMEMBER TO VERIFY THAT<br /> THE INSTALL DIRECTORY<br/>WAS COMPLETELY REMOVED!!</td></tr>
+						<tr><td class="error" align="center">PLEASE REMEMBER TO VERIFY THAT<br /> THE /install/ DIRECTORY<br/>WAS COMPLETELY REMOVED!!</td></tr>
 						<tr><td align="center"><h3>Administration Login Details</h3></td></tr>
 						<tr><td align="center" class="notice"><strong>Username : <?php echo $adminName; ?></strong></td></tr>
 						<tr><td align="center" class="notice"><strong>Password : <?php echo $adminPassword; ?></strong></td></tr>
 						<tr><td> </td></tr>
 						<tr><td align="right"> </td></tr>
-<?php						if (!$canWrite) { ?>
+<?php					if (!$canWrite) { ?>
 						<tr>
 							<td class="small">
 							<font color="FF0000"><strong>WARNING:</strong></font> Your configuration file or directory is not writeable,
-								or there was a problem creating the configuration file. You'll have to
+								or there was a problem creating the configuration file. You will have to
 								upload the following code by hand. Click in the textarea to highlight
-								all of the code. Create a new file called <strong>config.php</strong> and upload
-								it to your server root folder (overwrite the old config.php file present
-								on your server.
+								all of the code. Create a new file called <strong>config.php</strong>,
+                                paste the code into it and upload it to your server root folder,
+                                overwriting the old config.php file if present on your server.
 							</td>
 						</tr>
 						<tr>

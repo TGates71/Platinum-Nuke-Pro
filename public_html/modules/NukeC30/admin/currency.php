@@ -37,15 +37,15 @@ $row = $db->sql_fetchrow($db->sql_query("SELECT radminsuper FROM " . $prefix . "
 
 if ($row['radminsuper'] == 1) {
 
-$NukeC30AddonName = "NukeC30";
-include_once("modules/".$NukeC30AddonName."/functions.php");
-include_once("modules/".$NukeC30AddonName."/language/lang-".$currentlang.".php");
+$NukeCAddonName = "NukeC30";
+include_once("modules/".$NukeCAddonName."/functions.php");
+include_once("modules/".$NukeCAddonName."/language/lang-".$currentlang.".php");
 
 $devider = 10;
 
 
 
-function NukeC30adminCurrency($msgid,$NumEdit,$add) {
+function NukeCadminCurrency($msgid,$NumEdit,$add) {
 	global $nukecprefix,$db, $adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	include_once("header.php");
 	echo "<script language=\"JavaScript\">\n"
@@ -61,7 +61,7 @@ function NukeC30adminCurrency($msgid,$NumEdit,$add) {
 	//GraphicAdmin();
 	OpenTable();
 	echo "<br />";
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	
 	$admintitle = "NukeC30 Ads Currency";
 	echo "<br />";
@@ -145,7 +145,7 @@ function NukeC30adminCurrency($msgid,$NumEdit,$add) {
 	include_once("footer.php");
 }
 
-function NukeC30DeleteCurr($no){
+function NukeCDeleteCurr($no){
 	global $nukecprefix,$db;
 	$sql = "delete from ".$nukecprefix."_ads_currency where no='$no'";
 	$re = $db->sql_query($sql);
@@ -155,13 +155,13 @@ function NukeC30DeleteCurr($no){
 	header("Location:admin.php?op=NukeC30currency&msgid=CurrDeleted");
 }
 
-function NukeC30UpdateCurr($NoCurr,$kmu,$negara) {
+function NukeCUpdateCurr($NoCurr,$kmu,$negara) {
 	global $nukecprefix,$db;
 	$db->sql_query("update ".$nukecprefix."_ads_currency set curr='$kmu', country='$negara' where no='$NoCurr'");
 	header("Location:admin.php?op=NukeC30currency&msgid=CurrUpdated");
 }
 
-function NukeC30AddCurr($kmu,$negara) {
+function NukeCAddCurr($kmu,$negara) {
 	global $nukecprefix,$db;
 	$db->sql_query("insert into ".$nukecprefix."_ads_currency values('','$kmu','$negara')");
 	header("Location:admin.php?op=NukeC30currency&msgid=CurrAdded");
@@ -169,11 +169,11 @@ function NukeC30AddCurr($kmu,$negara) {
 
 global $msgid,$NumEdit,$add;
 switch($op) {
-	case "NukeC30UpdateCurr":NukeC30UpdateCurr($NoCurr,$kmu,$negara);break;
-	case "NukeC30AddCurr":NukeC30AddCurr($kmu,$negara);break;
-	case "NukeC30DeleteCurr": NukeC30DeleteCurr($no);break;
-	case "NukeC30EditCurr"; NukeC30EditCurr();break;
-	case "NukeC30currency" : NukeC30adminCurrency($msgid,$NumEdit,$add);break;
+	case "NukeC30UpdateCurr":NukeCUpdateCurr($NoCurr,$kmu,$negara);break;
+	case "NukeC30AddCurr":NukeCAddCurr($kmu,$negara);break;
+	case "NukeC30DeleteCurr": NukeCDeleteCurr($no);break;
+	case "NukeC30EditCurr"; NukeCEditCurr();break;
+	case "NukeC30currency" : NukeCadminCurrency($msgid,$NumEdit,$add);break;
 	}
 
 } else {

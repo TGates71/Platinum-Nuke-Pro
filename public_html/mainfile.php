@@ -8,7 +8,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -28,17 +28,23 @@
 /* along with this program; if not, write to the Free Software                 */
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
 /*******************************************************************************/
-if(!defined('END_TRANSACTION')) {
-	define('END_TRANSACTION', 2);
+if(!defined('END_TRANSACTION'))
+{
+define('END_TRANSACTION', 2);
 }
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 /**
  * Get PHP Version
 */
 $phpver = phpversion();
+
 /**
  * convert superglobals - Modified by Raven 5/12/2006 - from http://www.php.net/manual/en/language.variables.predefined.php
 */
-if (!isset($_SERVER)) {
+if (!isset($_SERVER))
+{
 	$_GET = &$HTTP_GET_VARS;
 	$_POST = &$HTTP_POST_VARS;
 	$_ENV = &$HTTP_ENV_VARS;
@@ -49,9 +55,11 @@ if (!isset($_SERVER)) {
 $PHP_SELF = $_SERVER['PHP_SELF'];
 
 // Stupid handle to create REQUEST_URI for IIS 5 servers
-if (preg_match('/IIS/', $_SERVER['SERVER_SOFTWARE']) && isset($_SERVER['SCRIPT_NAME'])) {
+if (preg_match('/IIS/', $_SERVER['SERVER_SOFTWARE']) && isset($_SERVER['SCRIPT_NAME']))
+{
     $requesturi = $_SERVER['SCRIPT_NAME'];
-    if (isset($_SERVER['QUERY_STRING'])) {
+    if (isset($_SERVER['QUERY_STRING']))
+	{
         $requesturi .= '?'.$_SERVER['QUERY_STRING'];
     }
     $_SERVER['REQUEST_URI'] = $requesturi;
@@ -59,96 +67,68 @@ if (preg_match('/IIS/', $_SERVER['SERVER_SOFTWARE']) && isset($_SERVER['SCRIPT_N
 /**
  * After doing those superglobals we can now use one and check if this file isnt being accessed directly
 */
-if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
+if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME']))
+{
 	header('Location: index.php');
 	exit('Access Denied');
 }
 
-if ($phpver < '4.1.0') {
-   $_GET = $HTTP_GET_VARS;
-   $_POST = $HTTP_POST_VARS;
-   $_SERVER = $HTTP_SERVER_VARS;
-   $_FILES = $HTTP_POST_FILES;
-   $_ENV = $HTTP_ENV_VARS;
-   if(isset($_POST)) {
-      $_REQUEST = $_POST;
-   } elseif(isset($_GET)) {
-      $_REQUEST = $_GET;
-   }
-   if(isset($HTTP_COOKIE_VARS)) {
-      $_COOKIE = $HTTP_COOKIE_VARS;
-   }
-   if(isset($HTTP_SESSION_VARS)) {
-      $_SESSION = $HTTP_SESSION_VARS;
-   }
-}
-/*****************************************************/
-/* Tweak - Header Error Fix v.1.0.0            START */
-/*****************************************************/
-if($phpver >= '4.1.0') {
-  $HTTP_GET_VARS = $_GET;
-  $HTTP_POST_VARS = $_POST;
-  $HTTP_SERVER_VARS = $_SERVER;
-  $HTTP_POST_FILES = $_FILES;
-  $HTTP_ENV_VARS = $_ENV;
-  $PHP_SELF = $_SERVER['PHP_SELF'];
-  if(isset($_SESSION)) {
-    $HTTP_SESSION_VARS = $_SESSION;
-  }
-  if(isset($_COOKIE)) {
-    $HTTP_COOKIE_VARS = $_COOKIE;
-  }
-}
-if ($phpver >= '4.0.4pl1') {
-   ob_start('ob_gzhandler');
-/*****************************************************/
-/* Tweak - Header Error Fix v.1.0.0              END */
-/*****************************************************/
-} else if ($phpver > '4.0') {
-    if (strstr($HTTP_SERVER_VARS['HTTP_ACCEPT_ENCODING'], 'gzip')) {
-	if (extension_loaded('zlib')) {
-	    $do_gzip_compress = TRUE;
-	    ob_end_clean();
-	    ob_start();
-	    ob_implicit_flush(0);
-	}
-    }
-}
-if (!@ini_get('register_globals')) {
-	@import_request_variables('GPC', '');
+if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false && @extension_loaded('zlib') && !headers_sent())
+{
+	ob_start('ob_gzhandler');
+	ob_implicit_flush(0);
 }
 
+if (@ini_get('date.timezone') == '')
+{
+	date_default_timezone_set("America/New_York");
+}
+
+if (!@ini_get('register_globals'))
+{
+	extract($_GET, EXTR_OVERWRITE);
+	extract($_POST, EXTR_OVERWRITE);
+	extract($_COOKIE, EXTR_OVERWRITE);
+}
+
+
 // This block of code makes sure $admin and $user are COOKIES
-if((isset($admin) && $admin != $_COOKIE['admin']) OR (isset($user) && $user != $_COOKIE['user'])) {
+if((isset($admin) && $admin != $_COOKIE['admin']) OR (isset($user) && $user != $_COOKIE['user']))
+{
   die("Illegal Operation");
 }
-// We want to use the function stripos,
-// but thats only available since PHP5.
-// So we cloned the function...
-if(!function_exists('stripos')) {
-function stripos_clone($haystack, $needle, $offset=0) {
-$return = strpos(strtoupper($haystack), strtoupper($needle), $offset);
-if ($return === false) {
-return false;
-} else {
-return true;
-}
-}
-} else {
-// But when this is PHP5, we use the original function
-function stripos_clone($haystack, $needle, $offset=0) {
-$return = stripos($haystack, $needle, $offset=0);
-if ($return === false) {
-return false;
-} else {
-return true;
-}
-}
+	// We want to use the function stripos,
+	// but thats only available since PHP5.
+	// So we cloned the function...
+	if(!function_exists('stripos'))
+	{
+		function stripos_clone($haystack, $needle, $offset=0)
+		{
+			$return = strpos(strtoupper($haystack), strtoupper($needle), $offset);
+				if ($return === false)
+				{
+					return false;
+				} else {
+					return true;
+				}
+		}
+	} else {
+	// But when this is PHP5, we use the original function
+	function stripos_clone($haystack, $needle, $offset=0)
+	{
+		$return = stripos($haystack, $needle, $offset=0);
+		if ($return === false) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
 /*****[BEGIN]****[EVO-XTREME THEME COMPATABILITY]*******
  [ Base:    Visible Blocks Code                 v1.0.0 ]
  ******************************************************/
-function blocks_visible($side) {
+function blocks_visible($side)
+{
     global $showblocks;
 
     $showblocks = ($showblocks == null) ? 3 : $showblocks;
@@ -159,7 +139,8 @@ function blocks_visible($side) {
     if (!$showblocks && !defined('ADMIN_FILE')) return false;
 
     //If in the admin show l blocks
-    if (defined('ADMIN_FILE')) {
+    if (defined('ADMIN_FILE'))
+	{
         return true;
     }
 
@@ -170,12 +151,14 @@ function blocks_visible($side) {
     $blocks = blocks($side, true);
 
     //If there are no blocks
-    if (!$blocks) {
+    if (!$blocks)
+	{
         return false;
     }
 
     //Check for blocks to show
-    if (($showblocks == 1 && $side == 'l') || ($showblocks == 2 && $side == 'r')) {
+    if (($showblocks == 1 && $side == 'l') || ($showblocks == 2 && $side == 'r'))
+	{
         return true;
     }
 
@@ -188,7 +171,8 @@ function blocks_visible($side) {
  [ Base:    GFX Code                           v1.0.0 ]
  ******************************************************/
 define('GDSUPPORT', extension_loaded('gd'));
-if(function_exists('imagecreatetruecolor') && function_exists('imageftbbox')) {
+if(function_exists('imagecreatetruecolor') && function_exists('imageftbbox'))
+{
     define('VISUAL_CAPTCHA',true);
 }
 /*****[END]********************************************
@@ -211,26 +195,28 @@ $htmltags = "<center><img src=\"images/logo.gif\"><br /><br /><strong>";
 $htmltags .= "The html tags you attempted to use are not allowed</strong><br /><br />";
 $htmltags .= "[ <a href=\"javascript:history.go(-1)\"><strong>Go Back</strong></a> ]</center>";
 if(defined('FORUM_ADMIN')) {
-  define('INCLUDE_PATH', '../../../');
+	define('INCLUDE_PATH', '../../../');
 } elseif(defined('INSIDE_MOD')) {
-  define('INCLUDE_PATH', '../../');
+	define('INCLUDE_PATH', '../../');
 } else {
-  define('INCLUDE_PATH', './');
+	define('INCLUDE_PATH', './');
 }
 // Added by Raven for RavenNuke76(tm) installation in v2.02.02
 // These settings MUST be set here (right before including config.php) to avoid code injection.
 $bypassInstallationFolderCheck = FALSE;
 $bypassNukeSentinelInvalidIPCheck = FALSE;
 
-require_once(INCLUDE_PATH."config.php");
+@require_once(INCLUDE_PATH."config.php");
 require_once(INCLUDE_PATH."db/db.php");
 require_once(NUKE_CLASSES_DIR.'class.identify.php');
 global $agent;
-$agent = identify::identify_agent();
+$identify = new identify();
+$agent = $identify->identify_agent();
 require_once(INCLUDE_PATH."includes/nukesentinel.php");
 // GT-NExtGEn 0.4/0.5 by Bill Murrin (Audioslaved) http://gt.audioslaved.com (c) 2004
 //Modified by montego from http://montegoscripts.com for TegoNuke(tm) ShortLinks
-if (isset($tnsl_bUseShortLinks) && $tnsl_bUseShortLinks && file_exists(INCLUDE_PATH.'includes/tegonuke/shortlinks/shortlinks.php')) {
+if (isset($tnsl_bUseShortLinks) && $tnsl_bUseShortLinks && file_exists(INCLUDE_PATH.'includes/tegonuke/shortlinks/shortlinks.php'))
+{
     define('TNSL_USE_SHORTLINKS', TRUE);
     @include_once(INCLUDE_PATH.'includes/tegonuke/shortlinks/shortlinks.php');
 }
@@ -240,8 +226,8 @@ if (isset($tnsl_bUseShortLinks) && $tnsl_bUseShortLinks && file_exists(INCLUDE_P
 /* PLEASE START USING THE NEW SQL ABSTRACTION LAYER. SEE MODULES DOC FOR DETAILS */
 /*@require_once(INCLUDE_PATH."includes/sql_layer.php");
 $dbi = sql_connect($dbhost, $dbuname, $dbpass, $dbname);
-$result = $db->sql_query("SELECT * FROM `" . $prefix . "_config` LIMIT 0,1");*/
-$result = $db->sql_query("SELECT * FROM ".$prefix."_config");
+$result = $db->sql_query("SELECT * FROM ".$prefix."_config");*/
+$result = $db->sql_query("SELECT * FROM `" . $prefix . "_config` LIMIT 0,1");
 $row = $db->sql_fetchrow($result);
 @require_once(INCLUDE_PATH."includes/ipban.php");
 if (file_exists(INCLUDE_PATH."includes/custom_files/custom_mainfile.php")) {
@@ -255,12 +241,11 @@ if (!defined('FORUM_ADMIN')) {
   }
 }
 // Error reporting, to be set in config.php
+error_reporting(E_ALL^E_NOTICE);
 if($display_errors) {
   @ini_set('display_errors', 1);
-  error_reporting(E_ALL & ~E_NOTICE);
 } else {
   @ini_set('display_errors', 0);
-  error_reporting(E_ERROR | E_WARNING | E_PARSE);
 }
 $sitename = $row['sitename'];
 $nukeurl = $row['nukeurl'];
@@ -286,7 +271,6 @@ $user_news = intval($row['user_news']);
 $oldnum = intval($row['oldnum']);
 $ultramode = intval($row['ultramode']);
 $banners = intval($row['banners']);
-$adb_chk = $row['adb_chk'];
 $backend_title = $row['backend_title'];
 $backend_language = $row['backend_language'];
 $language = $row['language'];
@@ -306,6 +290,7 @@ $CensorMode = intval($row['CensorMode']);
 $CensorReplace = $row['CensorReplace'];
 $copyright = $row['copyright'];
 $Version_Num = htmlentities(strip_tags($row['Version_Num']));
+$login_bar = intval($row['login_bar']);
 $domain = str_replace("http://", "", $nukeurl);
 $mtime = microtime();
 $mtime = explode(" ",$mtime);
@@ -773,16 +758,16 @@ function message_box() {
     }
 }
 function online() {
-  global $nsnst_const, $user, $cookie, $prefix, $db, $userinfo, $name;
+  global $nsnst_const, $user, $cookie, $prefix, $db, $userinfo, $name, $identify;
   	if(!file_exists('includes/nukesentinel.php')) {
-		$ip = identify::get_ip();
+	$ip = $identify->get_ip();
 		} else {
     	$ip = $nsnst_const['remote_ip'];
   		}
     $url = $_SERVER['REQUEST_URI']; 
 	$uname = $ip;
     $guest = 1;
-    $user_agent = identify::identify_agent();
+	$user_agent = $identify->identify_agent();	
     if (is_user($user)) {
         $uname = $userinfo['username'];
         $guest = 0;

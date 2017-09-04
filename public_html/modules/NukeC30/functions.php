@@ -27,7 +27,7 @@ if (preg_match("#functions.php#",$_SERVER['SCRIPT_NAME'])) {
 $module_name = basename(dirname(__FILE__));
 
 include_once("modules/".$module_name."/config.php");
-function MenuNukeC30($home=0) { /*1 = print link to home ; 0=  dont print homelink*/
+function MenuNukeC($home=0) { /*1 = print link to home ; 0=  dont print homelink*/
 	global $days,$user,$nukecprefix,$db,$module_name,$sitename,$bgcolor2,$bgcolor3,$bgcolor4,$MemberorNot;
 
 	global $id_catg,$multilingual,$currentlang;
@@ -788,12 +788,12 @@ function buildduration($sel = "") {
 	$db->sql_freeresult($resduration);
 }
 
-function NukeC30AdminDone($msgid) {
+function NukeCAdminDone($msgid) {
 	global $adsbgcolor1,$adsbgcolor2,$adsbgcolor3;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"".$adsbgcolor3."\">";
 	echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\"><tr><td align=\"center\" bgcolor=\"".$adsbgcolor2."\">";
@@ -816,10 +816,10 @@ function NukeC30AdminDone($msgid) {
 }
 
 
-function NukeC30AdminMenu(){
+function NukeCAdminMenu(){
 	global  $adsbgcolor1, $adsbgcolor2, $adsbgcolor3,$adsbgcolor5;
 
-	$a = "<strong><big><strong>?</strong></big></strong>";
+	$a = "<strong><big><strong>&#8226;</strong></big></strong>";
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"".$adsbgcolor3."\">";
 	echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\"><tr><td colspan=\"3\" bgcolor=\"".$adsbgcolor5."\" align=\"center\" >";
 	echo "<font class=\"title\"><a href=\"admin.php?op=NukeC30\"><strong>"._NUKECADMINTITLE."</strong></a></font><br />\n";
@@ -1061,13 +1061,13 @@ function AdsPostedByUser($curr_uid,$countactiveads,$countexpiredads,$countpendin
 
 }
 
-function OpenTableNukeC30() {
+function OpenTableNukeC() {
 	global $adsbgcolor3,$adsbgcolor1;
 	echo "<table  width=\"100%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$bgcolor3."\">\n"
 				."<tr><td bgcolor=\"".$bgcolor1."\">";
 }
 
-function CloseTableNukeC30() {
+function CloseTableNukeC() {
 	echo "</td></tr></table>";
 }
 

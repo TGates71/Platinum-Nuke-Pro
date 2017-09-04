@@ -40,7 +40,7 @@ function Index($id_catg="") {
 	global $AdsTitleLength, $AdsContentLength, $MemberRequired, $PostInMainCatg, $cookie,$user, $UploadImg, $MaxAllowedAds;
 	
 	include_once("header.php");
-	MenuNukeC30(1);
+	MenuNukeC(1);
 	echo "<br />";
     OpenTable();
 	
@@ -249,7 +249,7 @@ $ErrorUkuranImage = 1;
 
 		if ($ErrorUkuranImage || $errorTitle || $errorCdesc || $errorPrice || $erroremailanony || $errorEmail1 || $errorEmail || $errorImageSize || $errorImageDimension || $errorImageType) {
 			include_once("header.php");
-			MenuNukeC30(1);
+			MenuNukeC(1);
 			echo "<br />";
 			OpenTable();
 			echo "<center><font class=\"title\">"._NUKECSUBMITERROR."</font></center><br />";
@@ -416,7 +416,7 @@ $ErrorUkuranImage = 1;
 		}
 	} else {
 		include_once("header.php");
-		MenuNukeC30(1);
+		MenuNukeC(1);
 		echo "<br />";
 	    OpenTable();
 		echo "<center><font class=\"title\">"._NUKECPOSTNEWADS."</font></center><br />\n";
@@ -435,7 +435,7 @@ other stuff change "_NUKECADSWAITINGMSG" to
 function Done($id_catg) {
 	global $Waiting,$module_name,$nukecprefix,$db;
 	include_once("header.php");
-	MenuNukeC30(1);
+	MenuNukeC(1);
 	echo "<br />";
 	OpenTable();
 	echo "<center><font class=\"title\">";
