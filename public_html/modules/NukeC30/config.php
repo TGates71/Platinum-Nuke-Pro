@@ -57,7 +57,7 @@ $ListImgLocation = "RIGHT"; /* UP or DOWN or LEFT or RIGHT */
 $DetailsImglocation = "DOWN"; /* UP or "DOWN" */
 
 
-$NukeC30EmailFrom = "GCC Ads<info@trickedoutnews.com>";
+$NukeCEmailFrom = "GCC Ads<info@trickedoutnews.com>";
 /* End Temporary Setting*/
 
 

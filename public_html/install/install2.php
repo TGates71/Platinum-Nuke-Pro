@@ -18,7 +18,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -52,6 +52,7 @@ $DBhostname = mosGetParam( $_POST, 'DBhostname', '' );
 $DBuserName = mosGetParam( $_POST, 'DBuserName', '' );
 $DBpassword = mosGetParam( $_POST, 'DBpassword', '' );
 $DBname  	= mosGetParam( $_POST, 'DBname', '' );
+$DBprefix  	= mosGetParam( $_POST, 'DBprefix', '' );
 $DBcreated	= intval( mosGetParam( $_POST, 'DBcreated', 0 ) );
 $BUPrefix = 'old_';
 $configArray['sitename'] = trim( mosGetParam( $_POST, 'sitename', '' ) );
@@ -75,11 +76,11 @@ if (!$DBcreated){
 		db_err ('stepBack','The database name provided is empty.');
 	}
 
-	// Does this code actually do anything???
-	$configArray['DBhostname'] = $DBhostname;
-	$configArray['DBuserName'] = $DBuserName;
-	$configArray['DBpassword'] = $DBpassword;
-	$configArray['DBname']	 = $DBname;
+	$configArray['DBhostname']	= $DBhostname;
+	$configArray['DBuserName']	= $DBuserName;
+	$configArray['DBpassword']	= $DBpassword;
+	$configArray['DBname']		= $DBname;
+	$configArray['DBprefix']	= $DBprefix;
 
 	$sql = "CREATE DATABASE `$DBname`";
 	$database->setQuery( $sql );
@@ -110,18 +111,18 @@ if (!$DBcreated){
 
 	populate_db( $database, $version_number.'.sql' );
 	$DBcreated = 1;
-	$sqlfile = $version_number.'.sq;';
+	$sqlfile = $version_number.'.sql';
 }
 
 function db_err($step, $alert) {
-	global $DBhostname,$DBuserName,$DBpassword,$DBname;
+	global $DBhostname,$DBuserName,$DBpassword,$DBname,$DBprefix;
 	echo "<form name=\"$step\" method=\"post\" action=\"install1.php\">
 	<input type=\"hidden\" name=\"DBhostname\" value=\"$DBhostname\">
 	<input type=\"hidden\" name=\"DBuserName\" value=\"$DBuserName\">
 	<input type=\"hidden\" name=\"DBpassword\" value=\"$DBpassword\">
 	<input type=\"hidden\" name=\"DBname\" value=\"$DBname\">
+	<input type=\"hidden\" name=\"DBprefix\" value=\"$DBprefix\">
 	</form>\n";
-	//echo "<script>alert(\"$alert\"); window.history.go(-1);</script>";
 	echo "<script>alert(\"$alert\"); document.location.href='install1.php';</script>";  
 	exit();
 }
@@ -154,9 +155,15 @@ function populate_db( &$database, $sqlfile) {
  * @param string
  */
 function split_sql($sql) {
+	
+	global $DBprefix;
+	
 	$sql = trim($sql);
 	$sql = preg_replace("/\n#[^\n]*\n/", "\n", $sql);
 
+	// set DB prefix
+	$sql = preg_replace("/{prefix}/", $DBprefix, $sql);
+	
 	$buffer = array();
 	$ret = array();
 	$in_string = false;
@@ -226,6 +233,7 @@ function check() {
 	<input type="hidden" name="DBuserName" value="<?php echo "$DBuserName"; ?>" />
 	<input type="hidden" name="DBpassword" value="<?php echo "$DBpassword"; ?>" />
 	<input type="hidden" name="DBname" value="<?php echo "$DBname"; ?>" />
+    <input type="hidden" name="DBprefix" value="<?php echo "$DBprefix"; ?>" />
 	<input type="hidden" name="DBcreated" value="<?php echo "$DBcreated"; ?>" />
 	<div class="install">
 		<div id="stepbar">

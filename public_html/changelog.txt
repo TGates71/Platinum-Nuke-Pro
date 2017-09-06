@@ -1,6 +1,6 @@
 Platinum Nuke Pro - Change Log
 
-Platinum Nuke Pro - v1.0.1 (Not Yet Released) [ View Issues ]
+Platinum Nuke Pro - v1.0.1 (Released) [ View Issues ]
 =============================================
 - 0000286: [[ MODULES ]] Remove Emporium (Shoping Cart) module (sgtmudd) - closed.
 - 0000288: [[ MODs/HACKs ] - CORE] Add ability to check if browser adblocking enabled (sgtmudd) - closed.

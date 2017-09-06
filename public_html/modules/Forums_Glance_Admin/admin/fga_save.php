@@ -8,7 +8,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -30,7 +30,7 @@
 /*******************************************************************************/
 /* Forums Glance Admin v1.1 by sgtmudd (sgtmudd@mach-hosting.com)              */
 /* Forums Glance Admin updated(01022014) DocHavoc*/
-/* Copyright (c) 2013 sgtmudd http://platinumnukepro.com                       */
+/* Copyright (c) 2017 sgtmudd http://platinumnukepro.com                       */
 /*******************************************************************************/
 if ( !defined('MODULE_FILE') )
 {

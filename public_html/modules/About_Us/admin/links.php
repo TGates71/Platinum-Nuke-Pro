@@ -29,7 +29,7 @@
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
 /*******************************************************************************/
 /* About Us v1.0 by sgtmudd (sgtmudd@mach-hosting.com)                         */
-/* Copyright (c) 2013 sgtmudd http://platinumnukepro.com                       */
+/* Copyright (c) 2017 sgtmudd http://platinumnukepro.com                       */
 /*******************************************************************************/
 
 if ( !defined('ADMIN_FILE') )

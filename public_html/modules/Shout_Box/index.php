@@ -8,7 +8,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -28,8 +28,6 @@
 /* along with this program; if not, write to the Free Software                 */
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
 /*******************************************************************************/
-/* resized avatars - sgtmudd */
-
 if ( !defined('MODULE_FILE') )
 {
     die("You can't access this file directly...");
@@ -917,27 +915,27 @@ function shoutEdit($page, $shoutID, $ShoutError) {
 
 			$ShoutComment = $row['comment'];
 
-			$ShoutComment = preg_replace("/&#91;<a rel=\"nofollow\" target=\"_blank\" href=\"/", "",$ShoutComment);
+			$ShoutComment = preg_replace("~&#91;<a rel=\"nofollow\" target=\"_blank\" href=\"~", "",$ShoutComment);
 
-			$ShoutComment = preg_replace("/&#91;<a rel=\"nofollow\" href=\"/", "",$ShoutComment);
+			$ShoutComment = preg_replace("~&#91;<a rel=\"nofollow\" href=\"~", "",$ShoutComment);
 
-			$ShoutComment = preg_replace("/&#91;<a target=\"_blank\" href=\"/", "",$ShoutComment);
+			$ShoutComment = preg_replace("~&#91;<a target=\"_blank\" href=\"~", "",$ShoutComment);
 
-			$ShoutComment = preg_replace("/&#91;<a href=\"/", "",$ShoutComment);
+			$ShoutComment = preg_replace("~&#91;<a href=\"~", "",$ShoutComment);
 
-			$ShoutComment = preg_replace("/\">URL</a>&#93;/", "",$ShoutComment);
+			$ShoutComment = preg_replace("~\">URL</a>&#93;~", "",$ShoutComment);
 
-			$ShoutComment = preg_replace("/\">FTP</a>&#93;/", "",$ShoutComment);
+			$ShoutComment = preg_replace("~\">FTP</a>&#93;~", "",$ShoutComment);
 
-			$ShoutComment = preg_replace("/\">IRC</a>&#93;/", "",$ShoutComment);
+			$ShoutComment = preg_replace("~\">IRC</a>&#93;~", "",$ShoutComment);
 
-			$ShoutComment = preg_replace("/\">TeamSpeak</a>&#93;/", "",$ShoutComment);
+			$ShoutComment = preg_replace("~\">TeamSpeak</a>&#93;~", "",$ShoutComment);
 
-			$ShoutComment = preg_replace("/\">AIM</a>&#93;/", "",$ShoutComment);
+			$ShoutComment = preg_replace("~\">AIM</a>&#93;~", "",$ShoutComment);
 
-			$ShoutComment = preg_replace("/\">Gopher</a>&#93;/", "",$ShoutComment);
+			$ShoutComment = preg_replace("~\">Gopher</a>&#93;~", "",$ShoutComment);
 
-			$ShoutComment = preg_replace("/\">E-Mail</a>&#93;/", "",$ShoutComment);
+			$ShoutComment = preg_replace("~\">E-Mail</a>&#93;~", "",$ShoutComment);
 
 
 
@@ -1145,7 +1143,7 @@ function shoutSave($page, $shoutID, $ShoutComment) {
 
 					$ShoutNew[$i] = "&#91;<a rel=\"nofollow\" target=\"_blank\" href=\"$ShoutPart\">FTP</a>&#93;";
 
-				} elseif (oreg_match("/irc:\/\//", $ShoutPart)) {
+				} elseif (preg_match("/irc:\/\//", $ShoutPart)) {
 
 					if ($conf['urlonoff'] == "no") { $ShoutError = ""._URLNOTALLOWED.""; break; }
 
@@ -1431,7 +1429,7 @@ function findAvatar($row_avatar) {
 
 		// offsite avatars
 
-		$AvatarFound = "<img src=\"$row_avatar\" alt=\"\" height=\"24px\" width=\"24px\" /></td>";
+		$AvatarFound = "<img src=\"$row_avatar\" alt=\"\" /></td>";
 
 	} else {
 
@@ -1441,15 +1439,15 @@ function findAvatar($row_avatar) {
 
 		if (file_exists($agp) == TRUE) {
 
-			$AvatarFound = "<img src=\"$avatar_gallery_path[config_value]/$row_avatar\" alt=\"\" width=\"24px\" /></td>";
+			$AvatarFound = "<img src=\"$avatar_gallery_path[config_value]/$row_avatar\" alt=\"\" /></td>";
 
 		} elseif (file_exists($ap) == TRUE) {
 
-			$AvatarFound = "<img src=\"$avatar_path[config_value]/$row_avatar\" alt=\"\" width=\"24px\" /></td>";
+			$AvatarFound = "<img src=\"$avatar_path[config_value]/$row_avatar\" alt=\"\" /></td>";
 
 		} else {
 
-			$AvatarFound = "<img src=\"$avatar_path[config_value]/blank.gif\" alt=\"\" width=\"24px\" /></td>";
+			$AvatarFound = "<img src=\"$avatar_path[config_value]/blank.gif\" alt=\"\" /></td>";
 
 		}
 
@@ -2150,3 +2148,4 @@ switch($Action) {
 
 
 ?>
+

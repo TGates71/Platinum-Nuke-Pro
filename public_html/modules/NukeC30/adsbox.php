@@ -38,7 +38,7 @@ if (is_user($user)) {
 		global $adsbgcolor1,$adsbgcolor2,$adsbgcolor3,$adsbgcolor4,$adsbgcolor5;
 		global $Date_Format_code, $EditPostedAds, $DeletePostedAds;
 		include_once("header.php");
-		MenuNukeC30(1);
+		MenuNukeC(1);
 		echo "<br />";
 	    OpenTable();
 		$curr_uid = $cookie[0];
@@ -55,7 +55,7 @@ if (is_user($user)) {
 		$resposted = $db->sql_query($sqlposted);
 
 		if ($db->sql_numrows($resposted) > 0) {
-			 OpenTableNukeC30();
+			 OpenTableNukeC();
 
 			echo "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";
 			echo "<tr bgcolor=\"$adsbgcolor5\">\n"
@@ -94,7 +94,7 @@ if (is_user($user)) {
 				}
 			}
 			echo "</table>";
-			CloseTableNukeC30();
+			CloseTableNukeC();
 			echo "<br /><br />";
 		} else {
 			echo "<center>"._NUKECUHVNOADSPOSTED."</center>";
@@ -107,7 +107,7 @@ if (is_user($user)) {
 		$resexp = $db->sql_query($sqlexp);
 		echo "<center><strong>.:: "._NUKECYOUREXPADS." ::.</strong></center><br />";
 		if ($db->sql_numrows($resexp) > 0) {
-			 OpenTableNukeC30();
+			 OpenTableNukeC();
 			echo "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\" >";
 			echo "<tr  bgcolor=\"$adsbgcolor5\">\n"
 				."<td width=\"50%\"><strong>"._NUKECADSTITLE."</strong></td>\n"
@@ -132,7 +132,7 @@ if (is_user($user)) {
 					."</tr>";
 			}
 			echo "</table>";
-			CloseTableNukeC30();
+			CloseTableNukeC();
 			echo "<br /><br />";
 
 		} else {
@@ -146,7 +146,7 @@ if (is_user($user)) {
 		$ressaved = $db->sql_query($sqlsaved);
 		echo "<center><strong>.:: "._NUKECHOTADSBOX." ::.</strong></center><br />";
 		if ($db->sql_numrows($ressaved) > 0) {
-			OpenTableNukeC30();
+			OpenTableNukeC();
 
 			echo "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";
 			echo "<tr bgcolor=\"$adsbgcolor5\">\n"
@@ -172,7 +172,7 @@ if (is_user($user)) {
 					."</tr>";
 			}
 			echo "</table>";
-			CloseTableNukeC30();
+			CloseTableNukeC();
 			echo "<br /><br />";
 		} else {
 			echo "<center>"._NUKECUHVNOADSINBOX."</center>";
@@ -185,7 +185,7 @@ if (is_user($user)) {
 		$resexp = $db->sql_query($sqlexp);
 		echo "<br /><center><strong>"._NUKECPADS."</strong></center><br />";
 		if ($db->sql_numrows($resexp) > 0) {
-			 OpenTableNukeC30();
+			 OpenTableNukeC();
 			echo "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\" >";
 			echo "<tr  bgcolor=\"$adsbgcolor5\">\n"
 				."<td width=\"50%\"><strong>"._NUKECADSTITLE."</strong></td>\n"
@@ -224,7 +224,7 @@ if (is_user($user)) {
 					."</tr>";
 			}
 			echo "</table>";
-			CloseTableNukeC30();
+			CloseTableNukeC();
 			echo "<br /><br />";
 		} else {
 			echo "<center>"._NUKECNOPADS."</center>";
@@ -245,7 +245,7 @@ if (is_user($user)) {
 			$sqls = "select id_ads from ".$nukecprefix."_ads_box where id_ads='$id_ads'";
 			$resbox = $db->sql_query($sqls);
 			if ($db->sql_numrows($resbox) > 0) {
-				MenuNukeC30(1);
+				MenuNukeC(1);
 				echo "<br />";
 				OpenTable();
 				echo "<center><font class=\"title\">"._NUKECADSALREADYSAVED."</font>\n"
@@ -265,7 +265,7 @@ if (is_user($user)) {
 
 			}
 		} else {
-			MenuNukeC30(1);
+			MenuNukeC(1);
 			echo "<br />";
 			OpenTable();
 			echo "<center><font class=\"title\">"._NUKECERRORSAVEADS."</font>\n"
@@ -308,7 +308,7 @@ if (is_user($user)) {
 
 		if ($errorTitle || $errorCdesc || $errorPrice || $erroremailanony || $errorEmail || $errorImageSize || $errorImageDimension || $errorImageType) {
 			include_once("header.php");
-			MenuNukeC30(1);
+			MenuNukeC(1);
 			echo "<br />";
 			OpenTable();
 			echo "<center><font class=\"title\">"._NUKECUPDATEERROR."</font></center><br />";
@@ -395,7 +395,7 @@ if (is_user($user)) {
 		global $admin, $module_name,$nukecprefix,$db,$multilingual,$currentlang,$MemberorNot,$bgcolor1,$bgcolor2,$bgcolor3;
 		global $cookie,$user,$UploadImage,$anonymous,$DescLength,$DurationAds,$PriceField,$UploadImage,$TitleLength, $RepostExpiredAds;
 		include_once("header.php");
-		MenuNukeC30(1);
+		MenuNukeC(1);
 		echo "<br />";
 		OpenTable();
 		echo "<center><font class=\"title\">"._NUKECREPOSTPOSTED."</font></center><br />";
@@ -435,7 +435,7 @@ if (is_user($user)) {
 	function viewadsbox($id_save) {
 		global $cookie,$nukecprefix,$db,$module_name,$AnonyComment,$user,$anonymous,$admin;
 		include_once("header.php");
-		MenuNukeC30(1);
+		MenuNukeC(1);
 		echo "<br />";
 		OpenTable();
 		$db->sql_query("update ".$nukecprefix."_ads_ads set hits=hits+1 where id_ads='$id_ads'");
@@ -461,7 +461,7 @@ if (is_user($user)) {
 		global $nukecprefix,$db,$module_name,$multilingual,$currentlang,$MemberorNot,$perpage,$user_prefix;
 		include_once("header.php");
 		$nowdate = date("Y-m-d");
-		MenuNukeC30(0);
+		MenuNukeC(0);
 		echo "<br />";
    		OpenTable();
    		$sqlFriendAds = "select title from ".$nukecprefix."_ads_box where id_save='$xid_ads'";
@@ -514,7 +514,7 @@ if (is_user($user)) {
 	function Done($msgid) {
 		global $nukecprefix,$db,$module_name,$id,$fname,$to;
 		include_once("header.php");
-		MenuNukeC30(1);
+		MenuNukeC(1);
 		echo "<br />";
 		OpenTable();
 		echo "<br /><center><font class=\"content\"><strong>";
@@ -543,7 +543,7 @@ if (is_user($user)) {
 	function deleteadsbox($id_save) {
 		global $module_name,$nukecprefix,$db,$cookie;
 		include_once("header.php");
-		MenuNukeC30(1);
+		MenuNukeC(1);
 		echo "<br />";
 		OpenTable();
 		echo "<center><font class=\"title\">"._NUKECDELETEADSBOXCONFIRM."</font>\n"
@@ -565,7 +565,7 @@ if (is_user($user)) {
 		global $cookie,$user,$UploadImage,$anonymous,$DescLength,$DurationAds,$PriceField,$UploadImage,$TitleLength, $DeletePostedAds;
 		if ($DeletePostedAds) {
 			include_once("header.php");
-			MenuNukeC30(1);
+			MenuNukeC(1);
 			echo "<br />";
 			OpenTable();
 		echo "<center><font class=\"title\">"._NUKECDELETECONFIRM."</font>\n"
@@ -593,7 +593,7 @@ if (is_user($user)) {
 		global $nukecprefix,$db,$module_name,$multilingual,$currentlang,$MemberorNot,$perpage,$user_prefix;
 		include_once("header.php");
 		$nowdate = date("Y-m-d");
-		MenuNukeC30(0);
+		MenuNukeC(0);
 		echo "<br />";
    		OpenTable();
 		$res = $db->sql_query("select title,email from ".$nukecprefix."_ads_box where id_save='$xid_save'");
@@ -644,7 +644,7 @@ if (is_user($user)) {
 		$CountExpAds = AdsPostedByUser($curr_uid,$countactiveads=0,$countexpiredads=1,$countpendingads=0);
 		$CountPendingAds = AdsPostedByUser($curr_uid,$countactiveads=0,$countexpiredads=0,$countpendingads=1);
 		$JmlTotalAds = $CountActiveAds + $CountExpAds + $CountPendingAds;
-		OpenTableNukeC30();
+		OpenTableNukeC();
 		echo "<table width=\"100%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\">";
 		echo "<tr bgcolor=\"$adsbgcolor5\"><td align=\"center\"><strong>"._NUKECADBOXSUM."</strong></td></tr>\n";
 		echo "<tr bgcolor=\"$adsbgcolor2\"><td>"._NUKECTADS." : <strong>".$JmlTotalAds."</strong></td></tr>\n";
@@ -653,7 +653,7 @@ if (is_user($user)) {
 		echo "<tr bgcolor=\"$adsbgcolor4\"><td>"._NUKECPENADS." : <strong>".$CountPendingAds."</strong></td></tr>\n";
 		echo "<tr bgcolor=\"$adsbgcolor2\"><td>"._NUKECURUSING." <strong>".$JmlTotalAds."</strong> "._NUKECOUTOF." <strong>".$MaxAllowedAds."</strong> "._NUKECUTOTAL."</td></tr>\n";
 		echo "</table>";
-		CloseTableNukeC30();
+		CloseTableNukeC();
 
 		echo "</td>"
 			."</tr></table>";
@@ -680,7 +680,7 @@ global $id_ads;
 
 } else {
 	include_once("header.php");
-	MenuNukeC30(1);
+	MenuNukeC(1);
 	echo "<br />";
 	OpenTable();
 	echo "<center><font class=\"title\">"._NUKECYOURADSBOX."</font></center><br />\n";

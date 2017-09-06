@@ -7,7 +7,7 @@
 /**  Theme Version : v1.0 (100% Width)															*/
 /** Copyright     : A public theme for use with Platinum Nuke Pro http://www.platinumnuke.com	*/
 /**																								*/
-/**	  Copyright (c) 2011,2013 D. Miller AkA. DocHaVoC | All Rights Reserved						*/
+/**	  Copyright (c) 2011,2017 D. Miller AkA. DocHaVoC | All Rights Reserved						*/
 /************************************************************************************************/
 if($themeconsole['marqstyle'] == '1'){
 /*

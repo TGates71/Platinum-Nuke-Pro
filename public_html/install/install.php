@@ -18,7 +18,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -79,7 +79,7 @@ function writableCell( $folder ) {
 	<div id="right">
 		<div id="step">license</div>
 		<div class="far-right">
-		<input class="button" type="submit" name="next" value="Next &gt;&gt;"/>
+		<input class="button" type="submit" name="next" value="I Agree &gt;&gt;"/>
 		</div>
 		<div class="clr"></div>
 		<h1>GNU/GPL License:</h1>

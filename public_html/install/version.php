@@ -18,7 +18,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -39,9 +39,9 @@
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
 /*******************************************************************************/
 
-$version_number = "7.6.PNPv1.0.1";
+$version_number = "7.6.PNPv2.0.0";
 $filedate = filemtime("version.php");
 $filedate = date("F d, Y", $filedate);
-$version = "Platinum Nuke Pro $version_number (Release Date: $filedate)";
+$version = "Platinum Nuke Pro $version_number";
 
 ?>

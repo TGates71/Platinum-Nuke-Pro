@@ -47,18 +47,18 @@ $aid = substr("$aid", 0,25);
 $row = $db->sql_fetchrow($db->sql_query("SELECT radminsuper FROM " . $prefix . "_authors WHERE aid='$aid'"));
 
 if ($row['radminsuper'] == 1) {
-$NukeC30AddonName = "NukeC30";
+$NukeCAddonName = "NukeC30";
 
 
-include_once("modules/".$NukeC30AddonName."/functions.php");
-include_once("modules/".$NukeC30AddonName."/language/lang-".$currentlang.".php");
+include_once("modules/".$NukeCAddonName."/functions.php");
+include_once("modules/".$NukeCAddonName."/language/lang-".$currentlang.".php");
 
-function NukeC30Disclaimer($nod,$msgid) {
+function NukeCDisclaimer($nod,$msgid) {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"$adsbgcolor3\">";
 	echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\"><tr><td align=\"center\" bgcolor=\"$adsbgcolor2\">";
@@ -95,12 +95,12 @@ function NukeC30Disclaimer($nod,$msgid) {
 	include_once("footer.php");
 }
 
-function NukeC30AddDisclaimer() {
+function NukeCAddDisclaimer() {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5,$multilingual;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"$adsbgcolor3\">";
 	echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\"><tr><td align=\"center\" bgcolor=\"$adsbgcolor2\">";
@@ -171,7 +171,7 @@ function NukeC30AddDisclaimer() {
 	include_once("footer.php");
 }
 
-function NukeC30SaveDisclaimer($title,$content,$disclanguage) {
+function NukeCSaveDisclaimer($title,$content,$disclanguage) {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	if (($title == "") or ($content == "")) {
 		$errormsg = _NUKECDISCERROR3;
@@ -182,7 +182,7 @@ function NukeC30SaveDisclaimer($title,$content,$disclanguage) {
 		include_once("header.php");
 		//GraphicAdmin();
 		OpenTable();
-		NukeC30AdminMenu();
+		NukeCAdminMenu();
 		echo "<br /><table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"$adsbgcolor3\">";
 		echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\" ><tr><td bgcolor=\"$adsbgcolor2\">\n";
 	
@@ -208,12 +208,12 @@ function NukeC30SaveDisclaimer($title,$content,$disclanguage) {
 	}
 }
 
-function NukeC30EditDisclaimer($nod) {
+function NukeCEditDisclaimer($nod) {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5,$multilingual;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	
 	echo "<br />";
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"$adsbgcolor3\">";
@@ -288,7 +288,7 @@ function NukeC30EditDisclaimer($nod) {
 	include_once("footer.php");
 }
 
-function NukeC30UpdateDisclaimer($no,$title,$content,$disclanguage) {
+function NukeCUpdateDisclaimer($no,$title,$content,$disclanguage) {
 		global $nukecprefix,$db;
 	if (($title == "") or ($content == "")) {
 		$errormsg = _NUKECDISCERROR3;
@@ -298,7 +298,7 @@ function NukeC30UpdateDisclaimer($no,$title,$content,$disclanguage) {
 		global $nukecprefix,$db,$bgcolor1,$bgcolor2;
 		include_once("header.php");
 		//GraphicAdmin();
-		NukeC30AdminMenu();
+		NukeCAdminMenu();
 		echo "<br />";
 		OpenTable();
 		if ($disclanguage == "") {
@@ -320,7 +320,7 @@ function NukeC30UpdateDisclaimer($no,$title,$content,$disclanguage) {
 	}
 }
 
-function NukeC30DeleteDisclaimer($nod) {
+function NukeCDeleteDisclaimer($nod) {
 	global $nukecprefix,$db;
 	$db->sql_query("delete from $nukecprefix"."_ads_disclaimer where no='$nod'");
 	header("Location:admin.php?op=NukeC30Disclaimer&msgid=DiscDeleted");
@@ -356,12 +356,12 @@ function listingdisc() {
 }
 global $nod,$msgid;
 switch($op) {
-	case "NukeC30Disclaimer" : NukeC30Disclaimer($nod,$msgid);break;
-	case "NukeC30AddDisclaimer":NukeC30AddDisclaimer();break;
-	case "NukeC30SaveDisclaimer":NukeC30SaveDisclaimer($title,$content,$disclanguage);break;
-	case "NukeC30EditDisclaimer":NukeC30EditDisclaimer($nod);break;
-	case "NukeC30UpdateDisclaimer":NukeC30UpdateDisclaimer($no,$title,$content,$disclanguage);break;
-	case "NukeC30DeleteDisclaimer":NukeC30DeleteDisclaimer($nod) ;break;
+	case "NukeC30Disclaimer" : NukeCDisclaimer($nod,$msgid);break;
+	case "NukeC30AddDisclaimer":NukeCAddDisclaimer();break;
+	case "NukeC30SaveDisclaimer":NukeCSaveDisclaimer($title,$content,$disclanguage);break;
+	case "NukeC30EditDisclaimer":NukeCEditDisclaimer($nod);break;
+	case "NukeC30UpdateDisclaimer":NukeCUpdateDisclaimer($no,$title,$content,$disclanguage);break;
+	case "NukeC30DeleteDisclaimer":NukeCDeleteDisclaimer($nod) ;break;
 	}
 
 } else {

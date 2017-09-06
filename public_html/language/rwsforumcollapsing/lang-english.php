@@ -9,7 +9,7 @@
 /*              Collapsing Forums Block                  */
 /*********************************************************/
 define('bfcTOPICLOCKED','Topic Locked');
-define('bfcBACKENDTITLE','Syndicate Platinum Nuke Pro v100');
+define('bfcBACKENDTITLE','Syndicate Platinum Nuke Pro v200');
 define('bfcTOPPOSTERS','Top Posters:');
 define('bfcMYSQLSAID','MySQL said: ');
 define('bfcJUMPFORUM','Jump To Forum');

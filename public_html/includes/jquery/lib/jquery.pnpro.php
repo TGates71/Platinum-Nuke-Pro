@@ -14,7 +14,7 @@
 /************************************************************************/
 /* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/

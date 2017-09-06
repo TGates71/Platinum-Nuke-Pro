@@ -207,7 +207,7 @@ class sql_db extends mysqli {
 				$num = is_object($this->query_result) ? $this->sql_numrows() : 0;
 				$this->backtrace_log($query, $num);
 			} else {
-				$this->query_result = parent::query($query);
+				@$this->query_result = parent::query($query);
 			}
 		}
 		if ($this->loglevel == 2 || $this->loglevel == 4) {

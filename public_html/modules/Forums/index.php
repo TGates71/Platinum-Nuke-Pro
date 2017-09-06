@@ -8,7 +8,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -32,6 +32,9 @@ if ( !defined('MODULE_FILE') )
 {
    die("You can't access this file directly...");
 }
+
+$index = 1;
+
 if ($popup != "1")
     {
         $module_name = basename(dirname(__FILE__));

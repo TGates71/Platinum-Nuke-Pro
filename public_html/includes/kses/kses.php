@@ -46,7 +46,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -109,17 +109,29 @@ function kses_split($string, $allowed_html, $allowed_protocols)
 # This function searches for HTML tags, no matter how malformed. It also
 # matches stray ">" characters.
 ###############################################################################
+//{
+//  return preg_replace('%(<'.   # EITHER: <
+//                      '[^>]*'. # things that aren't >
+//                      '(>|$)'. # > or end of string
+//                      '|>)%e', # OR: just a >
+//                      "kses_split2('\\1', \$allowed_html, ".
+//                      '$allowed_protocols)',
+//                      $string);
+//}
+
 {
-  return preg_replace('%(<'.   # EITHER: <
-                      '[^>]*'. # things that aren't >
-                      '(>|$)'. # > or end of string
-                      '|>)%e', # OR: just a >
-                      "kses_split2('\\1', \$allowed_html, ".
-                      '$allowed_protocols)',
-                      $string);
-} # function kses_split
+	return preg_replace_callback('#(<'.   # EITHER: <
+		'[^>]*'. # things that aren't >
+		'(>|$)'. # > or end of string
+		'|>)#isu', # OR: just a >
+		function($matches) {
+			return /*$this->*/kses_split2($matches[1], $matches[2], $allowed_protocols);
+    	},
+    	$string
+	);
+}
 
-
+# function kses_split
 function kses_split2($string, $allowed_html, $allowed_protocols)
 ###############################################################################
 # This function does a lot of work. It rejects some very malformed things
@@ -556,8 +568,13 @@ function kses_normalize_entities($string)
 
   $string = preg_replace('/&amp;([A-Za-z][A-Za-z0-9]{0,19});/',
                          '&\\1;', $string);
-  $string = preg_replace('/&amp;#0*([0-9]{1,5});/e',
-                         'kses_normalize_entities2("\\1")', $string);
+//  $string = preg_replace('/&amp;#0*([0-9]{1,5});/e',
+//                         'kses_normalize_entities2("\\1")', $string);
+  $string = preg_replace_callback('/&amp;#0*([0-9]{1,5});/isu',
+		function($matches) {return $this->kses_normalize_entities2($matches[1], $matches[2]);},
+    	$string
+	);
+
   $string = preg_replace('/&amp;#([Xx])0*(([0-9A-Fa-f]{2}){1,2});/',
                          '&#\\1\\2;', $string);
 

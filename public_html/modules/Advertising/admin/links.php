@@ -28,8 +28,8 @@ if (!defined('ADMIN_FILE')) {
 }
 
 global $admin_file;
-if ($radminsuper==1) {
-    adminmenu("".$admin_file.".php?op=BannersAdmin", "Advertising", "ads.png");
+if ($radminsuper == 1) {
+    adminmenu($admin_file.'.php?op=BannersAdmin', _ADVERTISING, 'ads.png');
 }
 
 ?>

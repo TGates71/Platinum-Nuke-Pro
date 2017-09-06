@@ -48,16 +48,16 @@ $row = $db->sql_fetchrow($db->sql_query("SELECT radminsuper FROM " . $prefix . "
 
 if ($row['radminsuper'] == 1) {
 
-$NukeC30AddonName = "NukeC30";
-include_once("modules/".$NukeC30AddonName."/functions.php");
-include_once("modules/".$NukeC30AddonName."/language/lang-".$currentlang.".php");
+$NukeCAddonName = "NukeC30";
+include_once("modules/".$NukeCAddonName."/functions.php");
+include_once("modules/".$NukeCAddonName."/language/lang-".$currentlang.".php");
 
-function NukeC30AdsDuration($nod,$msgid) {
+function NukeCAdsDuration($nod,$msgid) {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"$adsbgcolor3\">";
 	echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\"><tr><td align=\"center\" bgcolor=\"".$adsbgcolor2."\">";
@@ -79,12 +79,12 @@ function NukeC30AdsDuration($nod,$msgid) {
 	include_once("footer.php");
 }
 
-function  NukeC30AdsDurationAdd() {
+function  NukeCAdsDurationAdd() {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5,$multilingual;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 	echo "<script>\n"
 		."<!--\n"
@@ -122,7 +122,7 @@ function  NukeC30AdsDurationAdd() {
 	include_once("footer.php");
 }
 
-function NukeC30AdsDurationSave($d_value,$d_alias) {
+function NukeCAdsDurationSave($d_value,$d_alias) {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	$res = $db->sql_query("insert into ".$nukecprefix."_ads_duration values ('','$d_value','$d_alias')");
 	if (!$res) {
@@ -131,12 +131,12 @@ function NukeC30AdsDurationSave($d_value,$d_alias) {
 	header("Location:admin.php?op=NukeC30AdsDuration&msgid=DurAdded");
 }
 
-function NukeC30AdsDurationEdit($nod) {
+function NukeCAdsDurationEdit($nod) {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5,$multilingual;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />\n";
 	echo "<script>\n"
 		."<!--\n"
@@ -179,14 +179,14 @@ function NukeC30AdsDurationEdit($nod) {
 	include_once("footer.php");
 }
 
-function NukeC30AdsDurationUpdate($xno,$xd_value,$xd_alias) {
+function NukeCAdsDurationUpdate($xno,$xd_value,$xd_alias) {
 	global $nukecprefix,$db;
 	$sqlupdate = "update ".$nukecprefix."_ads_duration set duration_value='$xd_value', duration_alias='$xd_alias' where id_duration='$xno'";
 	$db->sql_query($sqlupdate);
 	header("Location:admin.php?op=NukeC30AdsDuration&msgid=DurUpdated");
 }
 
-function NukeC30AdsDurationDelete($nod) {
+function NukeCAdsDurationDelete($nod) {
 	global $nukecprefix,$db;
 	$db->sql_query("delete from ".$nukecprefix."_ads_duration where id_duration='".$nod."'");
 	header("Location:admin.php?op=NukeC30AdsDuration&msgid=DurDeleted");
@@ -216,12 +216,12 @@ function listingduration() {
 }
 
 switch($op) {
-	case "NukeC30AdsDuration" : NukeC30AdsDuration($nod,$msgid);break;
-	case "NukeC30AdsDurationAdd":NukeC30AdsDurationAdd();break;
-	case "NukeC30AdsDurationSave":  NukeC30AdsDurationSave($d_value,$d_alias);break;
-	case "NukeC30AdsDurationEdit" : NukeC30AdsDurationEdit($nod);break;
-	case "NukeC30AdsDurationUpdate":NukeC30AdsDurationUpdate($xno,$xd_value,$xd_alias);break;
-	case "NukeC30AdsDurationDelete" : NukeC30AdsDurationDelete($nod,$msgid);break;
+	case "NukeC30AdsDuration" : NukeCAdsDuration($nod,$msgid);break;
+	case "NukeC30AdsDurationAdd":NukeCAdsDurationAdd();break;
+	case "NukeC30AdsDurationSave":  NukeCAdsDurationSave($d_value,$d_alias);break;
+	case "NukeC30AdsDurationEdit" : NukeCAdsDurationEdit($nod);break;
+	case "NukeC30AdsDurationUpdate":NukeCAdsDurationUpdate($xno,$xd_value,$xd_alias);break;
+	case "NukeC30AdsDurationDelete" : NukeCAdsDurationDelete($nod,$msgid);break;
 	}
 } else {
     echo "Access Denied";

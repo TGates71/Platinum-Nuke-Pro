@@ -48,16 +48,16 @@ $row = $db->sql_fetchrow($db->sql_query("SELECT radminsuper FROM " . $prefix . "
 
 if ($row['radminsuper'] == 1) {
 
-$NukeC30AddonName = "NukeC30";
-include_once("modules/".$NukeC30AddonName."/functions.php");
-include_once("modules/".$NukeC30AddonName."/language/lang-".$currentlang.".php");
+$NukeCAddonName = "NukeC30";
+include_once("modules/".$NukeCAddonName."/functions.php");
+include_once("modules/".$NukeCAddonName."/language/lang-".$currentlang.".php");
 
-function NukeC30AdsWordFilter($nod,$msgid) {
+function NukeCAdsWordFilter($nod,$msgid) {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 	echo "<table  width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"$adsbgcolor3\">";
 	echo "<table cellpadding=\"2\" cellspacing=\"1\" align=\"center\" width=\"100%\"><tr><td align=\"center\" bgcolor=\"$adsbgcolor2\">";
@@ -79,12 +79,12 @@ function NukeC30AdsWordFilter($nod,$msgid) {
 	include_once("footer.php");
 }
 
-function  NukeC30AdsWordFilterAdd() {
+function  NukeCAdsWordFilterAdd() {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5,$multilingual;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 	echo "<script>\n"
 		."<!--\n"
@@ -122,7 +122,7 @@ function  NukeC30AdsWordFilterAdd() {
 	include_once("footer.php");
 }
 
-function NukeC30AdsWordFilterSave($bad_word,$rep_word) {
+function NukeCAdsWordFilterSave($bad_word,$rep_word) {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	$res = $db->sql_query("insert into ".$nukecprefix."_ads_filter values ('','$bad_word','$rep_word')");
 	if (!$res) {
@@ -131,12 +131,12 @@ function NukeC30AdsWordFilterSave($bad_word,$rep_word) {
 	header("Location:admin.php?op=NukeC30AdsWordFilter&msgid=BadAdded");
 }
 
-function NukeC30AdsWordFilterEdit($nod) {
+function NukeCAdsWordFilterEdit($nod) {
 	global $nukecprefix,$db,$adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5,$multilingual;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />\n";
 	echo "<script>\n"
 		."<!--\n"
@@ -179,14 +179,14 @@ function NukeC30AdsWordFilterEdit($nod) {
 	include_once("footer.php");
 }
 
-function NukeC30AdsWordFilterUpdate($xno,$xbad_word,$xrep_word) {
+function NukeCAdsWordFilterUpdate($xno,$xbad_word,$xrep_word) {
 	global $nukecprefix,$db;
 	$sqlupdate = "update ".$nukecprefix."_ads_filter set bad_word='$xbad_word', rep_word='$xrep_word' where word_id='$xno'";
 	$db->sql_query($sqlupdate);
 	header("Location:admin.php?op=NukeC30AdsWordFilter&msgid=BadUpdated");
 }
 
-function NukeC30AdsWordFilterDelete($nod) {
+function NukeCAdsWordFilterDelete($nod) {
 	global $nukecprefix,$db;
 	$db->sql_query("delete from ".$nukecprefix."_ads_filter where word_id ='".$nod."'");
 	header("Location:admin.php?op=NukeC30AdsWordFilter&msgid=BadDeleted");
@@ -216,12 +216,12 @@ function listingfilter() {
 }
 global $nod,$msgid;
 switch($op) {
-	case "NukeC30AdsWordFilter" : NukeC30AdsWordFilter($nod,$msgid);break;
-	case "NukeC30AdsWordFilterAdd": NukeC30AdsWordFilterAdd();break;
-	case "NukeC30AdsWordFilterSave":  NukeC30AdsWordFilterSave($bad_word,$rep_word);break;
-	case "NukeC30AdsWordFilterEdit" : NukeC30AdsWordFilterEdit($nod);break;
-	case "NukeC30AdsWordFilterUpdate":NukeC30AdsWordFilterUpdate($xno,$xbad_word,$xrep_word);break;
-	case "NukeC30AdsWordFilterDelete" : NukeC30AdsWordFilterDelete($nod);break;
+	case "NukeC30AdsWordFilter" : NukeCAdsWordFilter($nod,$msgid);break;
+	case "NukeC30AdsWordFilterAdd": NukeCAdsWordFilterAdd();break;
+	case "NukeC30AdsWordFilterSave":  NukeCAdsWordFilterSave($bad_word,$rep_word);break;
+	case "NukeC30AdsWordFilterEdit" : NukeCAdsWordFilterEdit($nod);break;
+	case "NukeC30AdsWordFilterUpdate":NukeCAdsWordFilterUpdate($xno,$xbad_word,$xrep_word);break;
+	case "NukeC30AdsWordFilterDelete" : NukeCAdsWordFilterDelete($nod);break;
 	}
 } else {
     echo "Access Denied";

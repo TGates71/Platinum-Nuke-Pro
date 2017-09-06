@@ -29,7 +29,7 @@ $module_name = basename(dirname(__FILE__));
 get_lang($module_name);
 include_once("modules/".$module_name."/config.php");
 include_once("modules/".$module_name."/functions.php");
-$pagetitle = "- ". $PageTitleNukeC30;
+$pagetitle = "- ". $PageTitleNukeC;
 //$index = $IndexOnSearchPage;
 define('INDEX_FILE', true);  # To enable right block remove comment. Anh Tran
 
@@ -37,7 +37,7 @@ function Index($qtext) {
 	global $nukecprefix,$db,$module_name,$cookie,$user,$PerPage,$page;
 	global $nukecprefix,$db,$module_name,$multilingual,$currentlang,$MemberorNot,$PerPage,$user_prefix;
 	include_once("header.php");
-	MenuNukeC30(0);
+	MenuNukeC(0);
 	echo "<br />";
     OpenTable();
 	if ($qtext == "") {
@@ -115,7 +115,7 @@ function Index($qtext) {
 function adv_search() {
 	global $nukecprefix,$db, $multilingual,$module_name,$currentlang;
 	include_once("header.php");
-	MenuNukeC30(0);
+	MenuNukeC(0);
 	echo "<br />";
 	OpenTable();
 	echo "<script>\n"
@@ -417,7 +417,7 @@ function adv_search_do($s_title, $s_desc, $s_catg, $s_curr, $s_price_start, $s_p
 	
 	$limit = " limit ".$start.",".$PerPage;
 	include_once("header.php");
-	MenuNukeC30(0);
+	MenuNukeC(0);
 	echo "<BR>";
     OpenTable();
 	$sqlsearch2querytotal = $sql1.$from.$where.$order;

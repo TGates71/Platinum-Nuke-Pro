@@ -18,7 +18,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -47,6 +47,7 @@ $DBhostname = mosGetParam( $_POST, 'DBhostname', '' );
 $DBuserName = mosGetParam( $_POST, 'DBuserName', '' );
 $DBpassword = mosGetParam( $_POST, 'DBpassword', '' );
 $DBname  	= mosGetParam( $_POST, 'DBname', '' );
+$DBprefix  	= mosGetParam( $_POST, 'DBprefix', '' );
 
 echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?".">";
 ?>
@@ -74,6 +75,10 @@ function check() {
 	} else if ( f.DBname.value == '' ) {
 		alert('Please enter a Name for your new Database');
 		f.DBname.focus();
+		formValid=false;
+	} else if ( f.DBprefix.value == '' ) {
+		alert('Please enter a prefix for your new Database');
+		f.DBprefix.focus();
 		formValid=false;
 	} else if ( confirm('Are you sure these settings are correct? \n\nPlatinum Nuke Pro will now attempt to populate a Database with the settings you have supplied\nIf the database name already exists, it will be deleted with all its content!')) {
 		formValid=true;
@@ -140,7 +145,7 @@ function check() {
   					</tr>
   		  			<tr>
   						<td colspan="2">
-  							Host Name
+  							MySQL Server Host Name
   							<br/>
   							<input class="inputbox" type="text" name="DBhostname" value="<?php echo "$DBhostname"; ?>" />
   						</td>
@@ -176,6 +181,20 @@ function check() {
   						</td>
 			  			<td>
 			  				<em>Set the database name for your new Platinum Nuke Pro powered site.</em>
+			  			</td>
+  					</tr>
+  		  			<tr>
+  						<td colspan="2">
+  							MySQL Database Prefix
+  							<br/>
+                            <?php if (!isset($DBprefix)) { ?>
+  							<input class="inputbox" type="text" name="DBprefix" value="<?php echo "$DBprefix"; ?>" />
+                            <?php } else { ?>
+                            <input class="inputbox" type="text" name="DBprefix" value="nuke" />
+                            <?php } ?>
+  						</td>
+			  			<td>
+			  				<em>Set a unique database prefix for the database tables (Usefull for installing more than one PNP site in the same database).</em>
 			  			</td>
   					</tr>
 		  		 	</table>

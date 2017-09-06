@@ -1,9 +1,2 @@
 General purpose self-explanatory file with news headlines
 %%
-Welcome to Platinum Nuke Pro v1!
-/modules.php?name=News&file=article&sid=1
-2011-01-07 19:28:08
-sgtmudd
-Announcements
-2
-announcements.jpg

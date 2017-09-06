@@ -18,7 +18,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -45,6 +45,7 @@ $DBhostname = mosGetParam( $_POST, 'DBhostname', '' );
 $DBuserName = mosGetParam( $_POST, 'DBuserName', '' );
 $DBpassword = mosGetParam( $_POST, 'DBpassword', '' );
 $DBname  	= mosGetParam( $_POST, 'DBname', '' );
+$DBprefix  	= mosGetParam( $_POST, 'DBprefix', '' );
 $sitename  	= mosGetParam( $_POST, 'sitename', '' );
 $adminEmail = mosGetParam( $_POST, 'adminEmail', '');
 $configArray['siteUrl'] = trim( mosGetParam( $_POST, 'siteUrl', '' ) );
@@ -61,6 +62,7 @@ if ($sitename == '') {
 			<input type=\"hidden\" name=\"DBuserName\" value=\"$DBuserName\">
 			<input type=\"hidden\" name=\"DBpassword\" value=\"$DBpassword\">
 			<input type=\"hidden\" name=\"DBname\" value=\"$DBname\">
+			<input type=\"hidden\" name=\"DBprefix\" value=\"$DBprefix\">
 			<input type=\"hidden\" name=\"DBcreated\" value=1>
 		</form>";
 
@@ -125,6 +127,7 @@ function check() {
 	<input type="hidden" name="DBuserName" value="<?php echo "$DBuserName"; ?>" />
 	<input type="hidden" name="DBpassword" value="<?php echo "$DBpassword"; ?>" />
 	<input type="hidden" name="DBname" value="<?php echo "$DBname"; ?>" />
+    <input type="hidden" name="DBprefix" value="<?php echo "$DBprefix"; ?>" />
 	<input type="hidden" name="sitename" value="<?php echo "$sitename"; ?>" />
     <input type="hidden" name="user_new" value="<?php echo "$user_new"; ?>" />
 	<div class="install">

@@ -1,4 +1,4 @@
-Manual FRESH installation of Platinum Nuke Pro v1
+Manual FRESH installation of Platinum Nuke Pro v2
 
 *****************
 **** WARNING ****

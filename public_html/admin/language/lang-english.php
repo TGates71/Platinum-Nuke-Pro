@@ -15,7 +15,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -50,7 +50,6 @@ define("_ClosedBlocks","Closed block");
 define("_Edit","&nbsp;&nbsp; Edit &nbsp;&nbsp;");
 define("_Delete","&nbsp;&nbsp; Delete &nbsp;&nbsp;");
 define("_Order","&nbsp;&nbsp; Save Changes &nbsp;&nbsp;");
-// Site Credits add-on
 define("_PDOWNLOAD","Private Downloads");
 define("_FOR_ADM_LNK","Forums");
 define("_ADMLINK","Main Administration Area");
@@ -76,12 +75,11 @@ define("_ERRORNOURL","<strong>You might want to enter the authors url</strong>")
 define("_UPDATECREDIT","Update");
 define("_YES","Yes");
 define("_NO","No");
-// Site Credits add-on
-
 define("_ASNSNSUP2","Supporters 2");
 define("_FUSIONUSER","Fusion Admin");
 define("_PNP_ADM_ERR","Display Error Reporting?");
 define("_PNP_ADM_OPT","Platinum Options");
+define("_PNP_LOGIN_BAR","Display Registration Login Bar?");
 define("_DATABASE","Database Administration");
 define("_DOWNLOAD","Downloads");
 define("_ENCYCLOPEDIA","Encyclopedia");

@@ -29,7 +29,7 @@ $module_name = basename(dirname(__FILE__));
 get_lang($module_name);
 include_once("modules/".$module_name."/config.php");
 include_once("modules/".$module_name."/functions.php");
-$pagetitle = "- ". $PageTitleNukeC30;
+$pagetitle = "- ". $PageTitleNukeC;
 #$index = 0;
 define('INDEX_FILE', true);
 
@@ -37,7 +37,7 @@ function Index($xid_ads) {
         global $nukecprefix,$db,$module_name,$cookie,$user,$multilingual,$currentlang,$MemberorNot,$perpage,$user_prefix;
         include_once("header.php");
         $nowdate = date("Y-m-d");
-        MenuNukeC30(0);
+        MenuNukeC(0);
         echo "<br />";
     OpenTable();
         $adsinfo = AdsInfo($xid_ads);
@@ -57,14 +57,14 @@ function Index($xid_ads) {
                 ."<strong>"._NUKECSUBJECT." : </strong> <br /><input type=\"text\" name=\"subjek\" size=\"55\" /><br /><br />\n"
                 ."<strong>"._NUKECYOURMSG." : </strong> <br />"
                 ."<textarea name=\"pesan\" cols=\"65\" rows=\"7\"></textarea><br /><br />"
-                ."<input type=\"hidden\" name=\"op\" value=\"NukeC30SendContact\" />\n"
+                ."<input type=\"hidden\" name=\"op\" value=\"NukeCSendContact\" />\n"
                 ."<input type=\"submit\" value="._NUKECSEND." />\n"
                 ."</form>\n";
         CloseTable();
         include_once("footer.php");
 }
 
-function NukeC30SendContact($tomail,$yname, $ymail, $pesan,$subjek) {
+function NukeCSendContact($tomail,$yname, $ymail, $pesan,$subjek) {
     global $sitename, $nukeurl, $nukecprefix, $db, $module_name,$slogan;
         $msg = $sitename." - ".$slogan." \n ".$nukeurl." \n\n";
         $msg .= ""._NUKECSENDERNAME.": ".$yname."\n";
@@ -94,7 +94,7 @@ function MailSent($to) {
 
 switch($op) {
         default : Index($id_ads); break;
-        case "NukeC30SendContact":NukeC30SendContact($tomail,$yname, $ymail, $pesan,$subjek);break;
+        case "NukeCSendContact":NukeCSendContact($tomail,$yname, $ymail, $pesan,$subjek);break;
         case "MailSent": MailSent($to);break;
 }
 

@@ -2,7 +2,7 @@
 /************************************************************************/
 /* Tricked Out News 2.4a                                                */ 
 /* PHP-Platinum Nuke Pro: Expect to be impressed              COPYRIGHT */
-/* Copyright (c) 2011 - 2013 by http://www.havocst.net                  */
+/* Copyright (c) 2011 - 2017 by http://www.havocst.net                  */
 /* DocHaVoC   (dochavoc(at)havocst(dot)net)                             */ 
 /* This is a heavily modified version of the original Platinum Nuke     */ 
 /* news module, to act and look more like a blog.                       */ 

@@ -40,16 +40,16 @@ $row = $db->sql_fetchrow($db->sql_query("SELECT radminsuper FROM " . $prefix . "
 
 if ($row['radminsuper'] == 1) {
 
-$NukeC30AddonName = "NukeC30";
-include_once("modules/".$NukeC30AddonName."/functions.php");
-include_once("modules/".$NukeC30AddonName."/language/lang-".$currentlang.".php");
+$NukeCAddonName = "NukeC30";
+include_once("modules/".$NukeCAddonName."/functions.php");
+include_once("modules/".$NukeCAddonName."/language/lang-".$currentlang.".php");
 
-function NukeC30CustomContent($msg_id) {
+function NukeCCustomContent($msg_id) {
 	global $nukecprefix,$db, $adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	CustomContentheaderAdmin();
 	listingcontent();
 	CloseTable();
@@ -57,7 +57,7 @@ function NukeC30CustomContent($msg_id) {
 }
 
 function listingcontent() {
-	global $nukecprefix,$db,$NukeC30AddonName,$adsbgcolor1,$adsbgcolor2,$adsbgcolor3,$adsbgcolor4,$adsbgcolor5;
+	global $nukecprefix,$db,$NukeCAddonName,$adsbgcolor1,$adsbgcolor2,$adsbgcolor3,$adsbgcolor4,$adsbgcolor5;
 	$re = $db->sql_query("select custom_id, custom_title, weight, active, language  from ".$nukecprefix."_ads_custom order by weight");
 	if ($db->sql_numrows($re) > 0) {
 		echo "<br /><table width=\"95%\" cellpadding=\"0\" cellspacing=\"1\" align=\"center\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"$adsbgcolor3\">";
@@ -68,9 +68,9 @@ function listingcontent() {
 		
 		while (list ($custom_id, $custom_title, $weight, $active, $language) = $db->sql_fetchrow($re)) {
 			if ($active == 1) {
-				$imgstatus = "<img border=\"0\" src=\"modules/".$NukeC30AddonName."/images/on.gif\" alt=\"Deactivate\" />";
+				$imgstatus = "<img border=\"0\" src=\"modules/".$NukeCAddonName."/images/on.gif\" alt=\"Deactivate\" />";
 			} else {
-				$imgstatus = "<img border=\"0\" src=\"modules/".$NukeC30AddonName."/images/off.gif\" alt=\"Activate\" />";
+				$imgstatus = "<img border=\"0\" src=\"modules/".$NukeCAddonName."/images/off.gif\" alt=\"Activate\" />";
 			}
 			$linkstatus = "<a href=\"admin.php?op=NukeC30CustomContentChangeStatus&content_id=$custom_id\">$imgstatus</a>"; 
 			echo "<tr bgcolor=\"".$adsbgcolor2."\"><TD>$custom_title</td><td width=\"10\">$weight</td>";
@@ -98,8 +98,8 @@ function listingcontent() {
 			echo "</td>\n"
 				."<td align=\"center\">$linkstatus</td><td>".$cplanguage."</td>"
 				."<td align=\"center\">\n"
-				."<a href=\"admin.php?op=NukeC30CustomContentEdit&nod=$custom_id\"><img src=\"modules/".$NukeC30AddonName."/images/edit.gif\" border=\"0\" width=\"21\" height=\"21\" alt=\""._NUKECEDIT."\" /></a> \n"
-				."<a href=\"admin.php?op=NukeC30CustomContentDelete&nod=$custom_id\" onclick=\"return confirm('"._NUKECONFIRMDELDISC."')\"><img src=\"modules/".$NukeC30AddonName."/images/del.gif\" border=\"0\" width=\"21\" height=\"21\" alt=\""._NUKECDELETE."\" /></a></td>\n"
+				."<a href=\"admin.php?op=NukeC30CustomContentEdit&nod=$custom_id\"><img src=\"modules/".$NukeCAddonName."/images/edit.gif\" border=\"0\" width=\"21\" height=\"21\" alt=\""._NUKECEDIT."\" /></a> \n"
+				."<a href=\"admin.php?op=NukeC30CustomContentDelete&nod=$custom_id\" onclick=\"return confirm('"._NUKECONFIRMDELDISC."')\"><img src=\"modules/".$NukeCAddonName."/images/del.gif\" border=\"0\" width=\"21\" height=\"21\" alt=\""._NUKECDELETE."\" /></a></td>\n"
 				." </tr>\n";
 		}
 		echo "</table>";
@@ -109,13 +109,13 @@ function listingcontent() {
 	}
 }
 
-function NukeC30CustomContentAdd() {
+function NukeCCustomContentAdd() {
 	global $nukecprefix,$db,$currentlang;
 	global $adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 	include_once('header.php');
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	CustomContentheaderAdmin();
 	echo '<br />';
 	echo '<table width="95%" cellpadding="1" cellspacing="1" align="center" bgcolor="'.$adsbgcolor1.'"><tr><td bgcolor="$adsbgcolor3">';
@@ -155,14 +155,14 @@ function NukeC30CustomContentAdd() {
 	include_once('footer.php');
 }
 
-function NukeC30CustomContentSubmit($cptitle,$cpcontent,$cpstatus,$cplanguage) {
+function NukeCCustomContentSubmit($cptitle,$cpcontent,$cpstatus,$cplanguage) {
 	global $nukecprefix,$db;
 	if (($cptitle == "") or ($cpcontent == "")) {
 		global $adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5;
 		include_once('header.php');
 		//GraphicAdmin();
 		OpenTable();
-		NukeC30AdminMenu();
+		NukeCAdminMenu();
 		CustomContentheaderAdmin();
 		echo '<br />';
 		echo '<table align="center" width="95%" cellspacing="1" cellpadding="2" border="0" bgcolor="'.$adsbgcolor1.'"><tr><td bgcolor="'.$adsbgcolor5.'" align="center">';
@@ -194,7 +194,7 @@ function NukeC30CustomContentSubmit($cptitle,$cpcontent,$cpstatus,$cplanguage) {
 		header('location: admin.php?op=NukeC30CustomContent&msg_id=$msg');
 	}
 }
-function NukeC30CustomContentOrder($weight,$bidori,$weightrep,$bidrep) {
+function NukeCCustomContentOrder($weight,$bidori,$weightrep,$bidrep) {
     global $nukecprefix, $db;
     $result = $db->sql_query("update nukec30_ads_custom set weight='$weight' where custom_id='$bidrep'");
     $result2 = $db->sql_query("update nukec30_ads_custom set weight='$weightrep' where custom_id='$bidori'");
@@ -207,13 +207,13 @@ function NukeC30CustomContentDelete($nod) {
     Header("location: admin.php?op=NukeC30CustomContent&msg_id=CDeleted");
 }
 
-function NukeC30CustomContentEdit($nod) {
+function NukeCCustomContentEdit($nod) {
 	global $nukecprefix,$db;
 	global $adsbgcolor1, $adsbgcolor2, $adsbgcolor3, $adsbgcolor4, $adsbgcolor5, $languageslist;
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	CustomContentheaderAdmin();
 	echo "<br />";
 	$resultcontent = $db->sql_query("select custom_title, content, active ,language from ".$nukecprefix."_ads_custom where custom_id='$nod'");
@@ -276,7 +276,7 @@ function NukeC30CustomContentUpdate($xcpid, $xcptitle, $xcpcontent, $xcpstatus, 
 		include_once("header.php");
 		//GraphicAdmin();
 		OpenTable();
-		NukeC30AdminMenu();
+		NukeCAdminMenu();
 		CustomContentheaderAdmin();
 		echo "<br />";
 		echo "<table align=\"center\" width=\"95%\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\" bgcolor=\"".$adsbgcolor1."\"><tr><td bgcolor=\"".$adsbgcolor5."\" align=\"center\">";
@@ -309,7 +309,7 @@ function NukeC30CustomContentUpdate($xcpid, $xcptitle, $xcpcontent, $xcpstatus, 
 }
 
 
-function NukeC30CustomContentChangeStatus($content_id) {
+function NukeCCustomContentChangeStatus($content_id) {
 	global $nukecprefix,$db;
 	$resultstatus = $db->sql_query("select active from ".$nukecprefix."_ads_custcpidom where custom_id='$content_id'");
 	if (!$resultstatus) {
@@ -353,14 +353,14 @@ function CustomContentheaderAdmin() {
 }
 global $msg_id;
 switch($op) {
-	case "NukeC30CustomContent" : NukeC30CustomContent($msg_id);break;
-	case "NukeC30CustomContentOrder": NukeC30CustomContentOrder($weight,$bidori,$weightrep,$bidrep);break;
-	case "NukeC30CustomContentAdd" : NukeC30CustomContentAdd();break;
-	case "NukeC30CustomContentEdit" : NukeC30CustomContentEdit($nod);break;
-	case "NukeC30CustomContentChangeStatus" : NukeC30CustomContentChangeStatus($content_id);break;
+	case "NukeC30CustomContent" : NukeCCustomContent($msg_id);break;
+	case "NukeC30CustomContentOrder": NukeCCustomContentOrder($weight,$bidori,$weightrep,$bidrep);break;
+	case "NukeC30CustomContentAdd" : NukeCCustomContentAdd();break;
+	case "NukeC30CustomContentEdit" : NukeCCustomContentEdit($nod);break;
+	case "NukeC30CustomContentChangeStatus" : NukeCCustomContentChangeStatus($content_id);break;
 	case "NukeC30CustomContentUpdate" : NukeC30CustomContentUpdate($xcpid, $xcptitle, $xcpcontent, $xcpstatus, $xcplanguage);break;
 	case "NukeC30CustomContentDelete" : NukeC30CustomContentDelete($nod);
-	case "NukeC30CustomContentSubmit": NukeC30CustomContentSubmit($cptitle,$cpcontent,$cpstatus,$cplanguage);break;
+	case "NukeC30CustomContentSubmit": NukeCCustomContentSubmit($cptitle,$cpcontent,$cpstatus,$cplanguage);break;
 	}
 
 } else {

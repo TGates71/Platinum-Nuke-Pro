@@ -17,7 +17,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -115,33 +115,41 @@ echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?".">";
             <div class="form-block">
               <table class="content">
                 <tr>	
-                  <td class="item">	PHP version >= 5.0.0 	</td>	
+                  <td class="item">PHP version >= 5.3</td>	
                   <td align="left">	
-                    <?php echo phpversion() < '5.0' ? '<strong><font color="red">No</font></strong>' : '<strong><font color="green">Yes</font></strong>';?>	</td>
+                    <?php echo phpversion() < '5.3' ? '<strong><font color="red">No</font></strong>' : '<strong><font color="green">Yes</font></strong>';?></td>
                 </tr>
-                <tr>	<td>	  - zlib compression support 	</td>	
+                <tr>
+                  <td>zlib compression support</td>	
                   <td align="left">	
-                    <?php echo extension_loaded('zlib') ? '<strong><font color="green">Available</font></strong>' : '<strong><font color="red">Unavailable</font></strong>';?>	</td>
+                    <?php echo extension_loaded('zlib') ? '<strong><font color="green">Available</font></strong>' : '<strong><font color="red">Unavailable</font></strong>';?></td>
                 </tr>
-                <tr>	<td>	  - GD graphics support 	</td>	
+                <tr>
+                  <td>GD graphics support</td>	
                   <td align="left">	
-                    <?php echo extension_loaded('gd') ? '<strong><font color="green">Available</font></strong>' : '<strong><font color="red">Unavailable</font></strong>';?>	</td>
+                    <?php echo extension_loaded('gd') ? '<strong><font color="green">Available</font></strong>' : '<strong><font color="red">Unavailable</font></strong>';?></td>
                 </tr>
-                <tr>	<td>	  - MySQL support 	</td>	
+                <tr>
+                  <td>MySQL support</td>	
                   <td align="left">	
-                    <?php echo function_exists( 'mysql_connect' ) ? '<strong><font color="green">Available</font></strong>' : '<strong><font color="red">Unavailable</font></strong>';?>	</td>
+                    <?php echo function_exists( 'mysql_connect' ) ? '<strong><font color="green">Available</font></strong>' : '<strong><font color="red">Unavailable</font></strong>';?></td>
                 </tr>
                 <tr>	
-                  <td valign="top" class="item">	config.php 	</td>	
+                  <td valign="top" class="item">config.php</td>	
                   <td align="left">	
 <?php
-	if (@file_exists('../config.php') &&  @is_writable( '../config.php' )){
-		echo '<strong><font color="green">Writeable</font></strong>';
-	} else if (is_writable( '..' )) {
-		echo '<strong><font color="green">Writeable</font></strong>';
+	if (!file_exists('../config.php'))
+	{
+		echo '<strong><font color="green">Not found</font></strong>';
+		if (is_writable( '..' ))
+		{
+			echo ' - <strong><font color="green">Will be created by this Installer</font></strong>';
 	} else {
-		echo '<strong><font color="red">Unwriteable</font></strong><br /><span class="small">You can still continue the install as the configuration will be displayed at the end, just copy & paste this and upload.</span>';
-                    	} ?>	</td>
+			echo ' - <strong><font color="red">Must be created manually or change folder permissions.</font></strong>';
+		}
+	} else {
+		echo '<strong><font color="red">Unwriteable</font></strong><br /><span class="small">You can still continue the install as the configuration will be displayed at the end, just copy & paste this into a file named \'config.php\' and upload to your site\'s root folder.</span>';
+                    	} ?></td>
                 </tr>
               </table>
             </div>
@@ -156,9 +164,9 @@ echo "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?".">";
             <div class="form-block">
               <table class="content">
                 <tr>	
-                  <td class="toggle">	Directive 	</td>	
-                  <td class="toggle">	Recommended 	</td>	
-                  <td class="toggle">	Actual 	</td>
+                  <td class="toggle">Directive</td>	
+                  <td class="toggle">Recommended</td>	
+                  <td class="toggle">Actual</td>
                 </tr>
 <?php
 $php_recommended_settings = array(array ('Safe Mode','safe_mode','OFF'),
@@ -177,7 +185,8 @@ foreach ($php_recommended_settings as $phprec) {
                   <td class="item">
                     <?php echo $phprec[0]; ?>:</td>	
                   <td class="toggle">
-                    <?php echo $phprec[2]; ?>:</td>	<td>	
+                    <?php echo $phprec[2]; ?>:</td>
+                  <td>	
 <?php
 	if ( get_php_setting($phprec[1]) == $phprec[2] ) {
                     	?>		
@@ -210,7 +219,7 @@ foreach ($php_recommended_settings as $phprec) {
             <div class="form-block">
               <table class="content">
 <?php
-writableCell( 'config.php' );
+//writableCell( 'config.php' );
 writableCell( 'ultramode.txt' );
 writableCell( 'files' );
 writableCell( 'userfiles' );

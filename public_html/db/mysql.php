@@ -27,7 +27,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -251,8 +251,7 @@ class sql_db
 		{
 			unset($this->rowset[$query_id]);
 			unset($this->row[$query_id]);
-			//while($this->rowset[$query_id] = @mysql_fetch_array($query_id))
-			while($this->rowset[(int)$query_id]  =  @mysql_fetch_array($query_id)) // strict standards test
+			while($this->rowset[$query_id] = @mysql_fetch_array($query_id))
 			{
 				$result[] = $this->rowset[$query_id];
 			}

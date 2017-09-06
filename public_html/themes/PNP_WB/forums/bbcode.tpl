@@ -2,13 +2,13 @@
 </span>
 <table border="0" align="center" width="90%" cellpadding="3" cellspacing="1">
 <tr>
-<td><center><img src="modules/Forums/bbcode_box/images/unlock.gif"></center></td>
-</tr>
-<tr>
-<td class="quote">
-{HTEXTE}
-</td>
-</tr>
+          <td><center><img src="modules/Forums/bbcode_box/images/unlock.gif"></center></td>
+        </tr>
+        <tr>
+          <td class="quote">
+                {HTEXTE}
+                </td>
+        </tr>
 </table>
 <span class="postbody">
 <!-- END show -->
@@ -17,13 +17,13 @@
 </span>
 <table border="0" align="center" width="90%" cellpadding="3" cellspacing="1">
 <tr>
-<td> <span class="genmed"><b><font color="red">Protected Message:</font></b></span> </td>
-</tr>
-<tr>
-<td>
-<center><img src="modules/Forums/bbcode_box/images/lock.gif"></center>
-</td>
-</tr>
+          <td> <span class="genmed"><strong><font color="red">Protected Message:</font></strong></span> </td>
+        </tr>
+        <tr>
+          <td>
+              <center><img src="modules/Forums/bbcode_box/images/lock.gif"></center>
+          </td>
+        </tr>
 </table>
 <span class="postbody">
 <!-- END hide -->
@@ -38,95 +38,95 @@
 <!-- BEGIN quote_username_open -->
 <table class="bodyline" width="90%" cellspacing="1" cellpadding="3" border="0" align="center">
 <tr>
-<td class="helpline"><span class="genmed"><b>{USERNAME} {L_WROTE}:</b></span>
+		<td class="helpline"><span class="genmed"><strong>{USERNAME} {L_WROTE}:</strong>
 <script type="text/javascript" src="{U_SXBB_JSLIB}"></script>
 <script type="text/javascript">
 <!--
-var id = 'SXBB' + (1000 + Math.floor(Math.random() * 5000));
-SXBB[id] = new _SXBB(id);
-SXBB[id].T['select'] = '{L_SELECT}';
-SXBB[id].T['expand'] = '{L_EXPAND}';
-SXBB[id].T['contract'] = '{L_CONTRACT}';
-SXBB[id].writeCmd();
+	var id = 'SXBB' + (1000 + Math.floor(Math.random() * 5000));
+	SXBB[id] = new _SXBB(id);
+	SXBB[id].T['select'] = '{L_SELECT}';
+	SXBB[id].T['expand'] = '{L_EXPAND}';
+	SXBB[id].T['contract'] = '{L_CONTRACT}';
+	SXBB[id].writeCmd();
 //-->
 </script>
-</td>
-</tr>
-<tr>
-<td class="quote">
+		</span></td>
+	</tr>
+	<tr>
+	  <td class="quote">
 <script type="text/javascript">
 <!--
-SXBB[id].writeDiv();
+	SXBB[id].writeDiv();
 //-->
 </script><!-- END quote_username_open -->
 
 <!-- BEGIN quote_open -->
 <table class="bodyline" width="90%" cellspacing="1" cellpadding="3" border="0" align="center">
 <tr>
-<td class="helpline"><span class="genmed"><b>{L_QUOTE}:</b></span>
+		<td class="helpline"><span class="genmed"><strong>{L_QUOTE}:</strong>
 <script type="text/javascript" src="{U_SXBB_JSLIB}"></script>
 <script type="text/javascript">
 <!--
-var id = 'SXBB' + (1000 + Math.floor(Math.random() * 5000));
-SXBB[id] = new _SXBB(id);
-SXBB[id].T['select'] = '{L_SELECT}';
-SXBB[id].T['expand'] = '{L_EXPAND}';
-SXBB[id].T['contract'] = '{L_CONTRACT}';
-SXBB[id].writeCmd();
+	var id = 'SXBB' + (1000 + Math.floor(Math.random() * 5000));
+	SXBB[id] = new _SXBB(id);
+	SXBB[id].T['select'] = '{L_SELECT}';
+	SXBB[id].T['expand'] = '{L_EXPAND}';
+	SXBB[id].T['contract'] = '{L_CONTRACT}';
+	SXBB[id].writeCmd();
 //-->
 </script>
-</td>
-</tr>
-<tr>
-<td class="quote">
+		</span></td>
+	</tr>
+	<tr>
+	  <td class="quote">
 <script type="text/javascript">
 <!--
-SXBB[id].writeDiv();
+	SXBB[id].writeDiv();
 //-->
 </script><!-- END quote_open -->
 <!-- BEGIN quote_close -->
 <script type="text/javascript">
 <!--
-document.write('</div>');
+	document.write('</div>');
 //-->
 </script>
-</td>
-</tr>
+		</td>
+	</tr>
 </table>
 <span class="postbody"><!-- END quote_close -->
 
 <!-- BEGIN code_open --></span>
 <table class="bodyline" width="90%" cellspacing="1" cellpadding="3" border="0" align="center">
 <tr>
-<td class="helpline"><span class="genmed"><b>{L_CODE}:</b></span>
+		<td class="helpline"><span class="genmed"><strong>{L_CODE}:</strong>
 <script type="text/javascript" src="{U_SXBB_JSLIB}"></script>
 <script type="text/javascript">
 <!--
-var id = 'SXBB' + (1000 + Math.floor(Math.random() * 5000));
-SXBB[id] = new _SXBB(id);
-SXBB[id].T['select'] = '{L_SELECT}';
-SXBB[id].T['expand'] = '{L_EXPAND}';
-SXBB[id].T['contract'] = '{L_CONTRACT}';
-SXBB[id].writeCmd();
+	var id = 'SXBB' + (1000 + Math.floor(Math.random() * 5000));
+	SXBB[id] = new _SXBB(id);
+	SXBB[id].T['select'] = '{L_SELECT}';
+	SXBB[id].T['expand'] = '{L_EXPAND}';
+	SXBB[id].T['contract'] = '{L_CONTRACT}';
+	SXBB[id].writeCmd();
 //-->
 </script>
-</td>
-</tr>
-<tr>
-<td class="code">
+		</span></td>
+	</tr>
+	<tr>
+	  <td class="code">
 <script type="text/javascript">
 <!--
-SXBB[id].writeDiv();
+	SXBB[id].writeDiv();
 //-->
 </script><!-- END code_open -->
 <!-- BEGIN code_close -->
 <script type="text/javascript">
 <!--
-document.write('</div>');
+	document.write('</div>');
 //-->
 </script>
-</td>
-</tr>
+		</td>
+	</tr>
 </table>
 <span class="postbody"><!-- END code_close -->
 
@@ -146,7 +146,7 @@ document.write('</div>');
 <!-- BEGIN size_open --><span style="font-size: {SIZE}px; line-height: normal"><!-- END size_open -->
 <!-- BEGIN size_close --></span><!-- END size_close -->
 
-<!-- BEGIN img --><img src="{URL}" class="colorboxrs" border="0"/><!-- END img -->
+<!-- BEGIN img --><img src="{URL}" border="0"/><!-- END img -->
 
 <!-- BEGIN url --><a href="{URL}" target="_blank" class="postlink">{DESCRIPTION}</a><!-- END url -->
 
@@ -166,12 +166,12 @@ document.write('</div>');
 <!-- BEGIN cell_close --></td><!-- END cell_close -->
 
 <!-- BEGIN spoil_open -->
-<div align="center">
-<div class="spoiltitle"><b>{L_BBCODEBOX_HIDDEN}:</b>&nbsp;
-<input class="spoilbtn" type="button" value="{L_BBCODEBOX_VIEW}" onClick="javascript:if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerText = ''; this.value = '{L_BBCODEBOX_HIDE}'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = '{L_BBCODEBOX_VIEW}'; }" onfocus="this.blur();">
-</div>
-<div class="spoildiv">
-<div style="display: none;">
+	<div align="center">
+	<div class="spoiltitle"><strong>{L_BBCODEBOX_HIDDEN}:</strong>&nbsp;
+		<input class="spoilbtn" type="button" value="{L_BBCODEBOX_VIEW}" onClick="javascript:if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerText = ''; this.value = '{L_BBCODEBOX_HIDE}'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerText = ''; this.value = '{L_BBCODEBOX_VIEW}'; }" onfocus="this.blur();">
+	</div>
+	<div class="spoildiv">
+	<div style="display: none;">
 <!-- END spoil_open -->
 <!-- BEGIN spoil_close --></div></div></div><span class="postbody"><!-- END spoil_close -->
 <!-- BEGIN email --><a href="mailto:{EMAIL}">{EMAIL}</A><!-- END email -->
@@ -197,17 +197,17 @@ document.write('</div>');
 <!-- --> 
 <OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH={WIDTH} HEIGHT={HEIGHT}> 
 <PARAM NAME=movie VALUE="{URL}"><PARAM NAME=quality VALUE=high> <PARAM NAME=scale VALUE=noborder> <PARAM NAME=wmode VALUE=transparent> <PARAM NAME=bgcolor VALUE=#000000> 
-<EMBED src="{URL}" quality=high scale=noborder wmode=transparent bgcolor=#000000 WIDTH={WIDTH} HEIGHT={HEIGHT} TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">
+  <EMBED src="{URL}" quality=high scale=noborder wmode=transparent bgcolor=#000000 WIDTH={WIDTH} HEIGHT={HEIGHT} TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">
 </EMBED></OBJECT><!-- END flash --> 
 
 <!-- BEGIN GVideo -->
 <object width="425" height="350">
-<param name="movie" value="http://video.google.com/googleplayer.swf?docId={GVIDEOID}"></param>
+        <param name="movie" value="http://video.google.com/googleplayer.swf?docId={GVIDEOID}"></param>
 <embed style="width:400px; height:326px;" id="VideoPlayback"
-align="middle" type="application/x-shockwave-flash"
-src="http://video.google.com/googleplayer.swf?docId={GVIDEOID}"
-allowScriptAccess="sameDomain" quality="best" bgcolor="#ffffff"
-scale="noScale" salign="TL"  FlashVars="playerMode=embedded">
+        align="middle" type="application/x-shockwave-flash"
+        src="http://video.google.com/googleplayer.swf?docId={GVIDEOID}"
+        allowScriptAccess="sameDomain" quality="best" bgcolor="#ffffff"
+        scale="noScale" salign="TL"  FlashVars="playerMode=embedded">
 </embed>
 </object><br />
 <a href="http://video.google.com/googleplayer.swf?docId={GVIDEOID}" target="_blank">{GVIDEOLINK}</a><br />
@@ -215,8 +215,8 @@ scale="noScale" salign="TL"  FlashVars="playerMode=embedded">
 
 <!-- BEGIN youtube -->
 <object width="425" height="350">
-<param name="movie" value="http://www.youtube.com/v/{YOUTUBEID}"></param>
-<embed src="http://www.youtube.com/v/{YOUTUBEID}" type="application/x-shockwave-flash" width="425" height="350"></embed>
+   <param name="movie" value="http://www.youtube.com/v/{YOUTUBEID}"></param>
+   <embed src="http://www.youtube.com/v/{YOUTUBEID}" type="application/x-shockwave-flash" width="425" height="350"></embed>
 </object><br />
 <a href="http://youtube.com/watch?v={YOUTUBEID}" target="_blank">{YOUTUBELINK}</a><br />
 <!-- END youtube -->

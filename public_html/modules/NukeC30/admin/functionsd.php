@@ -32,11 +32,11 @@ if (preg_match("#functions.php#i",$PHP_SELF)) {
 }
 $nukecprefix = "NukeC30";
 
-function NukeC30AdminDone($msgid) {
+function NukeCAdminDone($msgid) {
 	include_once("header.php");
 	//GraphicAdmin();
 	OpenTable();
-	NukeC30AdminMenu();
+	NukeCAdminMenu();
 	echo "<br />";
 	
 	echo "<center><font class=\"title\">";
@@ -55,7 +55,7 @@ function NukeC30AdminDone($msgid) {
 }
 
 
-function NukeC30AdminMenu(){
+function NukeCAdminMenu(){
 	OpenTable();
 	$a = "<strong><big><strong>&middot;</strong></big></strong>";
 	echo "<center><font class=\"title\"><a href=\"admin.php?op=NukeC30\"><strong>"._NUKECADMINTITLE."</strong></a></font></center><br />\n";

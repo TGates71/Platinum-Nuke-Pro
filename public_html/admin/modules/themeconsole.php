@@ -14,7 +14,7 @@
 /* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
 /*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
 /*                                                                      */
-/* Copyright (c) 2007 - 2013 by http://www.platinumnukepro.com          */
+/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
 /*                                                                      */
 /* Refer to platinumnukepro.com for detailed information on this CMS    */
 /*******************************************************************************/
@@ -69,8 +69,12 @@ global $prefix, $db, $Default_Theme, $admin_file, $module_name;
 	CloseTable();
 	OpenTable();
 	echo "<center><p>" . _TC_RESETTING . ": " .$Default_Theme. "</p></center>\n";
-	
-	$result = $db->sql_query("UPDATE ".$prefix."_users SET theme='$Default_Theme'");
+		if(!$db->db_connect_id) {
+  		die("<br><br><center><img src=images/logo.gif><br><br><strong>There seems to be a problem with the $dbtype server, sorry for the inconvenience.<br><br>We should be back shortly.</center></strong>\n");
+}
+$query=("UPDATE ".$prefix."_users SET theme='$Default_Theme'");
+mysql_query($query) or die ("Could not insert new data :" . mysql_error());
+mysql_close();
 
 	echo "<center><p>" . _TC_UPDATED . "</p></center>\n";
 	CloseTable();

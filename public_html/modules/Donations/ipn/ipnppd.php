@@ -22,7 +22,13 @@
 
 /* NOTE: This file is accessed by PayPal directly, and not through PHP-Nuke */
 
+$ipnCheck = 1;
+
+//include donations config file
 include_once("../config.php");
+
+global $db, $prefix, $dbhost, $dbname, $dbuname, $dbpass;
+
 $ERR = 0;
 $log = "";
 $loglvl = $tr_config[ipn_dbg_lvl];
@@ -42,9 +48,9 @@ if( $dbg )
 	$receiver_email = $tr_config['receiver_email'];
 }
 
-$ipnppd = mysql_pconnect($hostname_ipnppd, $username_ipnppd, $password_ipnppd) or die(mysql_error());
+//$ipnppd = $db->sql_query($dbhost, $dbuname, $dbpass) or die(mysqli_error());
 
-if( $ipnppd )
+if( $db )
 	dprt("Connection to db - OK!", _INF);
 else
 	dprt("Connection to db - **FAILED**", _ERR);
@@ -59,7 +65,8 @@ foreach ($_POST as $key => $value)
 }
 
 // post back to PayPal system to validate
-$header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";
+$header .= "POST /cgi-bin/webscr HTTP/1.1\r\n";
+//$header .= "Host: www.sandbox.paypal.com\r\n";
 $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
 $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
 
@@ -76,11 +83,13 @@ $payer_email = $_POST['payer_email'];
 
 dprt("Opening connection and validating request with PayPal...", _INF);
 
-$fp = fsockopen ('www.paypal.com', 80, $errno, $errstr, 30);
+//$fp = fsockopen ('www.paypal.com', 443, $errno, $errstr, 30);
+$paypalUrl = str_replace("https://", "", $paypalUrl);
+$fp = fsockopen ($paypalUrl, 443, $errno, $errstr, 30);
 
 if (!$fp) {
 	// HTTP ERROR
-	dprt("FAILED to connect to PayPAl", _ERR);
+	dprt("FAILED to connect to PayPal", _ERR);
 	die();
 }
 
@@ -99,8 +108,8 @@ $insertSQL = "";
 // Look for duplicate txn_id's
 if( $txn_id )
 {
-	$sql = "SELECT * FROM transactions WHERE txn_id = '$txn_id'";
-	$Recordset1 = mysql_query($sql, $ipnppd) or die(mysql_error());
+	$sql = "SELECT * FROM ".$prefix."_don_transactions WHERE txn_id = '$txn_id'";
+	$Recordset1 = $db->sql_query($sql) or die(mysqli_error());
 	$row_Recordset1 = mysql_fetch_assoc($Recordset1); 
 	$NumDups = mysql_num_rows($Recordset1);
 }
@@ -108,7 +117,7 @@ if( $txn_id )
 while (!$dbg && !$ERR && !feof($fp)) 
 {
 	$res = fgets ($fp, 1024);
-	if (strcmp ($res, "VERIFIED") == 0)
+	if ((strcmp ($res, "VERIFIED") == 0) || (strcmp ($res, "verified") == 0))
 	{
 		dprt("PayPal Verified", _INF);
 		// Ok, PayPal has told us we have a valid IPN here
@@ -142,12 +151,12 @@ while (!$dbg && !$ERR && !feof($fp))
 			// We flip the sign of these amount so refunds can be handled correctly
 			$mc_gross = -$_POST['mc_gross'];
 			$mc_fee = -$_POST['mc_fee'];
-			$insertSQL = sprintf("INSERT INTO transactions (`txn_id`,`business`,`item_name`, `item_number`, `quantity`, `invoice`, `custom`, `memo`, `tax`, `option_name1`, `option_selection1`, `option_name2`, `option_selection2`, `payment_status`, `payment_date`, `txn_type`, `mc_gross`, `mc_fee`, `mc_currency`, `settle_amount`, `exchange_rate`, `first_name`, `last_name`, `address_street`, `address_city`, `address_state`, `address_zip`, `address_country`, `address_status`, `payer_email`, `payer_status`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", 
+			$insertSQL = sprintf("INSERT INTO ".$prefix."_don_transactions (`txn_id`,`business`,`item_name`, `item_number`, `quantity`, `invoice`, `custom`, `memo`, `tax`, `option_name1`, `option_selection1`, `option_name2`, `option_selection2`, `payment_status`, `payment_date`, `txn_type`, `mc_gross`, `mc_fee`, `mc_currency`, `settle_amount`, `exchange_rate`, `first_name`, `last_name`, `address_street`, `address_city`, `address_state`, `address_zip`, `address_country`, `address_status`, `payer_email`, `payer_status`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", 
 				$_POST['txn_id'],$_POST['business'],$_POST['item_name'],$_POST['item_number'],$_POST['quantity'],$_POST['invoice'],$_POST['custom'],$_POST['memo'],$_POST['tax'],$_POST['option_name1'],$_POST['option_selection1'],$_POST['option_name2'],$_POST['option_selection2'],$_POST['payment_status'],strftime('%Y-%m-%d %H:%M:%S',strtotime($_POST['payment_date'])),$_POST['txn_type'],$mc_gross,$mc_fee,$_POST['mc_currency'],$_POST['settle_amount'],$_POST['exchange_rate'],$_POST['first_name'],$_POST['last_name'],$_POST['address_street'],$_POST['address_city'],$_POST['address_state'],$_POST['address_zip'],$_POST['address_country'],$_POST['address_status'],$_POST['payer_email'],$_POST['payer_status']);
 
 			// We're cleared to add this record
 			dprt($insertSQL, _INF);
-			$Result1 = mysql_query($insertSQL, $ipnppd) or die(mysql_error());
+			$Result1 = $db->sql_query($insertSQL) or die(mysqli_error());
 			dprt("SQL result = " . $Result1, _INF);
 	
 			break;
@@ -168,12 +177,12 @@ while (!$dbg && !$ERR && !feof($fp))
 				break;
 			}
 			
-			$insertSQL = sprintf("INSERT INTO transactions (`txn_id`,`business`,`item_name`, `item_number`, `quantity`, `invoice`, `custom`, `memo`, `tax`, `option_name1`, `option_selection1`, `option_name2`, `option_selection2`, `payment_status`, `payment_date`, `txn_type`, `mc_gross`, `mc_fee`, `mc_currency`, `settle_amount`, `exchange_rate`, `first_name`, `last_name`, `address_street`, `address_city`, `address_state`, `address_zip`, `address_country`, `address_status`, `payer_email`, `payer_status`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", 
+			$insertSQL = sprintf("INSERT INTO ".$prefix."_don_transactions (`txn_id`,`business`,`item_name`, `item_number`, `quantity`, `invoice`, `custom`, `memo`, `tax`, `option_name1`, `option_selection1`, `option_name2`, `option_selection2`, `payment_status`, `payment_date`, `txn_type`, `mc_gross`, `mc_fee`, `mc_currency`, `settle_amount`, `exchange_rate`, `first_name`, `last_name`, `address_street`, `address_city`, `address_state`, `address_zip`, `address_country`, `address_status`, `payer_email`, `payer_status`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", 
 				$_POST['txn_id'],$_POST['business'],$_POST['item_name'],$_POST['item_number'],$_POST['quantity'],$_POST['invoice'],$_POST['custom'],$_POST['memo'],$_POST['tax'],$_POST['option_name1'],$_POST['option_selection1'],$_POST['option_name2'],$_POST['option_selection2'],$_POST['payment_status'],strftime('%Y-%m-%d %H:%M:%S',strtotime($_POST['payment_date'])),$_POST['txn_type'],$_POST['mc_gross'],$_POST['mc_fee'],$_POST['mc_currency'],$_POST['settle_amount'],$_POST['exchange_rate'],$_POST['first_name'],$_POST['last_name'],$_POST['address_street'],$_POST['address_city'],$_POST['address_state'],$_POST['address_zip'],$_POST['address_country'],$_POST['address_status'],$_POST['payer_email'],$_POST['payer_status']);
 
 			// We're cleared to add this record
 			dprt($insertSQL, _INF);
-			$Result1 = mysql_query($insertSQL, $ipnppd) or die(mysql_error());
+			$Result1 = $db->sql_query($insertSQL) or die(mysqli_error());
 			dprt("SQL result = " . $Result1, _INF);
 
 			break;
@@ -187,7 +196,7 @@ while (!$dbg && !$ERR && !feof($fp))
 			break;
 		}
 	}
-	else if (strcmp ($res, "INVALID") == 0) 
+	else if ((strcmp ($res, "INVALID") == 0) || (strcmp ($res, "invalid") == 0))
 	{
 		// log for manual investigation
 		dprt("Invalid IPN transaction, this is an abnormal condition", _ERR);
@@ -201,39 +210,41 @@ while (!$dbg && !$ERR && !feof($fp))
 
 if( $dbg )
 {
-	$sql = "SELECT * FROM transactions LIMIT 10";
-	echo "Selecting database...";
-	$res = mysql_select_db($database_ipnppd, $ipnppd);
-	if($res)
-		echo "OK!<br>"; 
-	 else
-		echo "<strong>FAILED - err: $res</strong><br>";
+	global $db, $prefix;
+	$sql = "SELECT * FROM ".$prefix."_don_transactions LIMIT 10";
+//	echo "Selecting database...";
+//	$res = $db->sql_query($dbname);
+//	if($res)
+//		echo "OK!<br>"; 
+//	 else
+//		echo "<b>FAILED - err: $res</b><br>";
 	echo "Executing test query...";
-	$Result1 = mysql_query($sql, $ipnppd) or die(mysql_error());
+	$Result1 = $db->sql_query($sql) or die(mysqli_error());
 	if($Result1)
 		echo "PASSED!<br>";
 	else
-		echo "<strong>FAILED</strong><br>";
-	echo "PayPal Receiver Email: $tr_config[receiver_email]" ;
+		echo "<b>FAILED</b><br>";
+	echo "PayPal Receiver Email: $tr_config[receiver_email]<br>" ;
 }
 
 if( $log )
 {
+	global $db, $prefix;
 	dprt("Logging events<br>\n", _INF);
 	// Insert the log entry
-	$sql = "INSERT INTO translog VALUES ('','" . strftime('%Y-%m-%d %H:%M:%S',mktime()) . "', '" 
+	$sql = "INSERT INTO ".$prefix."_don_translog VALUES ('','" . strftime('%Y-%m-%d %H:%M:%S', time()) . "', '" 
 		 . strftime('%Y-%m-%d %H:%M:%S',strtotime($_POST['payment_date'])) . "','" . addslashes($log) . "')";
-	$Result1 = mysql_query($sql, $ipnppd) or die(mysql_error());
+	$Result1 = $db->sql_query($sql) or die(mysqli_error());
 
 	// Clear out old log entries
-	$sql = "SELECT id as lowid FROM translog ORDER BY id DESC LIMIT " . $tr_config[ipn_log_entries];
-	$Result1 = mysql_query($sql, $ipnppd) or die(mysql_error());
-	while($recordSet = mysql_fetch_assoc($Result1))
+	$sql = "SELECT id as lowid FROM ".$prefix."_don_translog ORDER BY id DESC LIMIT " . $tr_config[ipn_log_entries];
+	$Result1 = $db->sql_query($sql) or die(mysqli_error());
+	while($recordSet = $db->sql_fetchrow($Result1))
 	{
 		$lowid = $recordSet[lowid];
 	}
-	$sql =  "DELETE FROM translog WHERE id < '" . $lowid . "'";
-	$Result1 = mysql_query($sql, $ipnppd) or die(mysql_error());
+	$sql =  "DELETE FROM ".$prefix."_don_translog WHERE id < '" . $lowid . "'";
+	$Result1 = $db->sql_query($sql) or die(mysqli_error());
 }
 
 fclose ($fp);
@@ -248,7 +259,7 @@ if( $dbg)
 	
 function dprt($str, $clvl)
 {
-	global $dbg, $ipnppd, $lp, $log, $loglvl;
+	global $dbg, $lp, $log, $loglvl;
 
 	if( $lp ) fputs($lp, $str . "\n");
 	if( $dbg ) echo $str . "<br>";

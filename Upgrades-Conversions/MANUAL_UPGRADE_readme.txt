@@ -29,27 +29,27 @@ THE BEST (and safest) WAY TO DO AN UPGRADE:
 -We suggest closing your site if you get a lot of traffic so as not to lose any new posts etc. while you are doing this upgrade.
     (Forums Admin > General Admin > Configuration > Disable board: Yes > Submit)
 
-1-Make a new database (nuke_PNP1 for example) and write down the database name and password.
+1-Make a new database (nuke_PNP2 for example) and write down the database name and password.
 
 2-Make a new sub-folder (http://yoursite.com/test/ for example).
 
-3-Upload all the files in the public_html folder into the NEW folder.
+3-Upload all the files in the public_html folder into the NEW /test/ folder.
 
 4-Delete the 'install' folder BEFORE CONTINUING.
 
-*NOTICE*: IF YOU ARE UPGRADING FROM 7.6.B4, 7.6.B5, OR 7.6.V501 YOU MUST MANUALLY IMPORT THE DATABASE CHANGES FOR EACH VERSION IN ORDER, FROM YOUR CURRENT VERSION UP TO THE CURRENT VERSION.
-
-5-Install a fresh copy of your CURRENT database into the NEW database (nuke_PNP1)
+5-Install a fresh copy of your CURRENT database into the NEW database (nuke_PNP2)
 
 6-Next import the upgrade SQLs through phpMyAdmin.
 
-*NOTICE*: IF YOU ARE UPGRADING FROM ANY PREVIOUS VERSION YOU MUST MANUALLY IMPORT THE DATABASE CHANGES FOR >EACH< VERSION IN ORDER, UNTIL YOU GET TO THE CURRENT VERSION.
+*NOTICE*: IF YOU ARE UPGRADING FROM 7.6.B4, 7.6.B5, 7.6.V501, etc. YOU MUST MANUALLY IMPORT THE DATABASE CHANGES FOR EACH VERSION IN ORDER, FROM YOUR CURRENT VERSION UP TO THE CURRENT RELEASE.
 
-*NOTE*: Your user groups will be reset to default install! All users will also be reset to the default users group 'Guest'. You will need to re-create any groups you may previously have had set up and add your members to the new groups as needed. This is required due to the extensive repair/updating of the initial user groups in PNPro.
+*NOTE*: Your user groups MAY be reset to default install if upgrading from anything lower than 7.6.v100! All users will also be reset to the default users group 'Guest'. You will need to re-create any groups you may previously have had set up and add your members to the new groups as needed. This is required due to the extensive repair/updating of the initial user groups in PNPro.
 
-7-Login as an admin and RUN: 'http://yoursite.com/modules.php?name=Forums&file=UpgradeGroups' ONLY ONE TIME!! Then DELETE '/modules/Forums/UpgradeGroups.php' from the server!
+7a-SKIP IF UPGRADING FROM 7.6.v100: Login as an admin and RUN: 'http://yoursite.com/modules.php?name=Forums&file=UpgradeGroups' ONLY ONE TIME!!
 
-8-If things went well you should see the 'Platinum Nuke Pro v1 Installed' block.
+7b-DELETE '/modules/Forums/UpgradeGroups.php' from the server!
+
+8-If things went well you should see the 'Platinum Nuke Pro v2 Installed' block.
 
 9-Click on: 'Required 1: Set the file & folder permissions', skip #2, If you already have IP-2-Country installed skip #3 also.
 

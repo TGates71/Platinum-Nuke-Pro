@@ -29,7 +29,7 @@ $module_name = basename(dirname(__FILE__));
 get_lang($module_name);
 include_once("modules/".$module_name."/config.php");
 include_once("modules/".$module_name."/functions.php");
-$pagetitle = "- ". $PageTitleNukeC30;
+$pagetitle = "- ". $PageTitleNukeC;
 #$index = 0;
 define('INDEX_FILE', true);
 
@@ -39,7 +39,7 @@ function Index($xid_ads) {
         include_once("header.php");
 
         $nowdate = date("Y-m-d");
-        MenuNukeC30(0);
+        MenuNukeC(0);
         echo "<br />";
     OpenTable();
         $adsinfo = AdsInfo($xid_ads);
@@ -55,7 +55,7 @@ function Index($xid_ads) {
                 ."<strong>"._NUKECFYOUREMAIL." </strong> <input type=\"text\" name=\"ymail\" value=\"".$ye."\"size=\"35\" /><br /><br /><br />\n"
                 ."<strong>"._NUKECFFRIENDNAME." </strong> <input type=\"text\" name=\"fname\" size=\"25\" /><br /><br />\n"
                 ."<strong>"._NUKECFFRIENDEMAIL." </strong> <input type=\"text\" name=\"fmail\" size=\"35\" /><br /><br />\n"
-                ."<input type=\"hidden\" name=\"op\" value=\"NukeC30SendAds\" />\n"
+                ."<input type=\"hidden\" name=\"op\" value=\"NukeCSendAds\" />\n"
                 ."<input type=\"submit\" value="._NUKECSEND." />\n";
         echo "<br /><br />"._NUKECSEND2FRIENDNOTE
                 ."</form>\n";
@@ -64,7 +64,7 @@ function Index($xid_ads) {
 }
 
 
-function NukeC30SendAds($id_ads, $yname, $ymail, $fname, $fmail) {
+function NukeCSendAds($id_ads, $yname, $ymail, $fname, $fmail) {
     global $sitename, $nukeurl, $nukecprefix, $db, $module_name;
         global $Price_Format_code,$Date_Format_code;
         $adsinfo = AdsInfo($id_ads);
@@ -96,7 +96,7 @@ function AdsSent($id_ads, $fname) {
 
 switch($op) {
         default : Index($id_ads); break;
-        case "NukeC30SendAds":NukeC30SendAds($id_ads, $yname, $ymail, $fname, $fmail);break;
+        case "NukeCSendAds":NukeCSendAds($id_ads, $yname, $ymail, $fname, $fmail);break;
         case "AdsSent": AdsSent($id_ads, $fname);break;
 }
 
